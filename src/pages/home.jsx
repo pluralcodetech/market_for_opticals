@@ -6,8 +6,8 @@ import Howitworks from "../components/home/howitworks";
 import Services from "../components/home/services";
 import Waitlistsection from "../components/home/waitlistsection";
 import Layout from "../components/layout";
-import Navbar from "../components/navbar";
-import Slidebar from "../components/slidebar";
+import Navbar from "../components/home/navbar";
+import Slidebar from "../components/home/slidebar";
 
 function Home() {
   const [showSidebar, setShowSidebar] = useState(false);
