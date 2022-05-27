@@ -4,7 +4,7 @@ function LocationHolder() {
   return (
     <div id="location" className="flex items-center">
       <GoLocation size={18} className="mx-2 text-yellow-500" />
-      <h4>ikeja,Lagos.</h4>
+      <h4 className="text-sm">ikeja,Lagos.</h4>
     </div>
   );
 }

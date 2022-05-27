@@ -7,6 +7,7 @@ import { BsFillHeartFill } from "react-icons/bs";
 import Cart from "./cart";
 import Profile from "./profile";
 import LocationHolder from "./locationHolder";
+import Cat from "./cat";
 
 function Navbar({ setShowSidebar, showSidebar }) {
   return (
@@ -77,8 +78,14 @@ function Navbar({ setShowSidebar, showSidebar }) {
         </div>
       </nav>
       <div className="bg-[#FFFAF1] h-[3rem] mt-4 w-full">
-        <div className="flex justify-between items-center w-full md:w-11/12 mx-4 md:mx-auto">
+        <div className="h-full flex justify-between items-center w-full md:w-11/12 mx-4 md:mx-auto">
           <LocationHolder />
+          <div className="flex justify-between items-center">
+            <Cat />
+            <div className="ml-12">
+              <Link to="/seller">Become Seller</Link>
+            </div>
+          </div>
         </div>
       </div>
     </header>
