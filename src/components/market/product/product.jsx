@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { BsFillHeartFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Product({ img_url, title, description, price }) {
   const [qty, setqty] = useState(1);
@@ -14,13 +16,25 @@ function Product({ img_url, title, description, price }) {
   };
 
   return (
-    <div className="bg-white h-96">
-      <div className="h-44 bg-white">
-        <img
-          src="https://via.placeholder.com/150"
-          alt=""
-          className="h-44 w-full"
-        />
+    <Link to="/market/product/1" className="bg-white h-96">
+      <div
+        className="h-44 bg-white"
+        style={{
+          backgroundImage: `url(https://via.placeholder.com/150})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="flex justify-between  h-full">
+          <div className="bg-slate-200 h-6 w-16 text-red-600 text-center flex justify-center items-center rounded  ">
+            <h6 className="text-xs">50% OFF</h6>
+          </div>
+          <button className="h-7 w-fit bg-white border border-yellow-500 flex items-center rounded px-2 text-sm">
+            <BsFillHeartFill size={12} className="mr-2 text-red-500" />
+            Saved
+          </button>
+        </div>
       </div>
       <div className="pt-4">
         <p className="text-gray-500 text-sm">
@@ -121,7 +135,7 @@ function Product({ img_url, title, description, price }) {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
