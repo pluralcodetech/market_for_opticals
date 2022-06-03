@@ -4,6 +4,15 @@ function Sidebar({ selectedSubCat, setselectedSubCat, sub }) {
   const [showstage1, setshowstage1] = useState(false);
   const [showstage2, setshowstage2] = useState(false);
 
+  const addOrRemoveSubCat = (id) => {
+    if (selectedSubCat.includes(id)) {
+      const newSubCat = selectedSubCat.filter((sub) => sub !== id);
+      setselectedSubCat(newSubCat);
+    } else {
+      setselectedSubCat([...selectedSubCat, id]);
+    }
+  };
+
   return (
     <div key={sub.id}>
       <h3
@@ -81,6 +90,7 @@ function Sidebar({ selectedSubCat, setselectedSubCat, sub }) {
                       <input
                         type="checkbox"
                         className="border border-yellow-500 mr-1"
+                        onChange={(e) => addOrRemoveSubCat(child2.id)}
                       />
                       <h4>{child2.name}</h4>
                     </div>

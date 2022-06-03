@@ -21,14 +21,14 @@ function Index() {
     axios
       .get(`${api_url}/get_subcategory/${selectedCat}`)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setsubcart(res.data.children);
         setBrands(res.data.brand);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [selectedCat, selectedSubCat]);
+  }, [selectedCat]);
 
   useEffect(() => {
     axios
@@ -42,6 +42,32 @@ function Index() {
       });
   }, [selectedCat]);
 
+  useEffect(() => {
+    const formData = new FormData();
+    formData.append("id[]", selectedSubCat);
+    if (selectedSubCat.length > 0) {
+      axios
+        .post(`${api_url}/product_search_subcategory`, formData)
+        .then((res) => {
+          console.log(res);
+          setproducts(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .get(`${api_url}/get_products?parent_cat_id=${selectedCat}`)
+        .then((res) => {
+          //console.log(res);
+          setproducts(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [selectedCat, selectedSubCat]);
+
   return (
     <Layout
       title="home for market4opticals"
@@ -49,7 +75,7 @@ function Index() {
     >
       <Navbar selectedCat={selectedCat} setselectedCat={setselectedCat} />
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mt-8 h-fit">
-        <div className="hidden md:block md:w-10/12 w-full md:mx-auto h-full  pt-8 bg-white shadow rounded">
+        <div className="hidden md:block md:w-10/12 w-full md:mx-auto h-fit pb-6  pt-8 bg-white shadow rounded">
           {subcart.length > 0
             ? subcart.map((sub, i) => (
                 <Sidebar

@@ -44,7 +44,7 @@ function Save({ product }) {
   return (
     <>
       <button
-        onClick={(e) => storeProduct()}
+        onClick={storeProduct}
         className="h-7 w-fit bg-white border border-yellow-500 flex items-center rounded px-2 text-sm"
       >
         <BsFillHeartFill size={12} className="mr-2 text-red-500" />

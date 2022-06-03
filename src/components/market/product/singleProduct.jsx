@@ -23,7 +23,7 @@ function SingleProduct() {
       .get(`${api_url}/get_product_details/${id}`)
       .then((res) => {
         setproduct(res.data);
-        console.log(res);
+        //console.log(res);
       })
       .catch((err) => {});
   }, [id]);

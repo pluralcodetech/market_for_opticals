@@ -16,7 +16,7 @@ function product({ product, index }) {
         <p> &#x20A6; {product.product_price}</p>
       </div>
       <div className="pr-2">
-        <h4>{product.stock}</h4>
+        <h4 className="mb-3">{product.stock}</h4>
         <Remove index={index} product={product} />
       </div>
     </div>

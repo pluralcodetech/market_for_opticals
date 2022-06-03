@@ -18,19 +18,17 @@ function Product({ product }) {
 
   return (
     <div className="bg-white h-96 shadow rounded" key={product.id}>
-      <a href={`/market/product/${product.id}`}>
-        <div
-          className="h-44 bg-white border-b"
-          style={{
-            backgroundImage: `url(${image_url})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <Save product={product} />
-        </div>
-      </a>
+      <div
+        className="h-44 bg-white border-b"
+        style={{
+          backgroundImage: `url(${image_url})`,
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <Save product={product} />
+      </div>
       <div className="pt-4 px-2">
         <Link to={`/market/product/${product.id}`}>
           <p className="text-gray-500 text-sm hover:border-b">{product_name}</p>
