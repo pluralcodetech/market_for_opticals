@@ -9,7 +9,11 @@ function Layout({ title, description, children }) {
   useEffect(() => {
     setTimeout(() => setloading(false), 2500);
   }, []);
-  return !loading ? <div>{children}</div> : <Spinner />;
+  return !loading ? (
+    <div className="bg-gray-100 h-screen pb-8 overflow-x-auto">{children}</div>
+  ) : (
+    <Spinner />
+  );
 }
 
 export default Layout;

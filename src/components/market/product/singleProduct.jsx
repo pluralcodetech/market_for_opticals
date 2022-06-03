@@ -31,7 +31,6 @@ function SingleProduct() {
   const change_major_image = (url) => {
     const img = document.getElementById("majorimageview");
     img.src = url;
-    alert(`${url} updated`);
   };
 
   return (
@@ -59,7 +58,7 @@ function SingleProduct() {
                 ))}
               </div>
             </div>
-            <div className="w-full md:w-10/12  md:mx-auto">
+            <div className="w-full md:w-10/12  md:mx-auto bg-white p-2">
               <h3 className="text-xl font-bold">{product.product_name}</h3>
               <div className="flex justify-between items-center mt-3">
                 <div className="flex items-center">

@@ -48,8 +48,8 @@ function Index() {
       description="home for market4opticals"
     >
       <Navbar selectedCat={selectedCat} setselectedCat={setselectedCat} />
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mt-8">
-        <div className="hidden md:block md:w-10/12 w-full md:mx-auto h-screen  pt-8">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mt-8 h-fit">
+        <div className="hidden md:block md:w-10/12 w-full md:mx-auto h-full  pt-8 bg-white shadow rounded">
           {subcart.length > 0
             ? subcart.map((sub, i) => (
                 <Sidebar
@@ -67,9 +67,9 @@ function Index() {
             ? brands.map((brand, i) => <Brand brand={brand} />)
             : ""}
         </div>
-        <div className="col-span-5  h-screen pr-1 md:pr-4">
-          <div className="flex">
-            <select className="bg-white border mx-2 border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-gray-500">
+        <div className="col-span-5  h-full pr-1 md:pr-4">
+          <div className="flex shadow rounded w-fit bg-white p-2">
+            <select className="bg-white border mx-2 border-gray-300 rounded py-2 px-4 focus:outline-none focus:border-gray-500">
               <option>Sort by</option>
               <option>Lenses</option>
               <option>Frames</option>
@@ -77,7 +77,7 @@ function Index() {
               <option>Lab Equipment</option>
               <option>Optical Materials</option>
             </select>
-            <select className="bg-white border mx-2 border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-gray-500">
+            <select className="bg-white border mx-2 border-gray-300 rounded py-2 px-4 focus:outline-none focus:border-gray-500">
               <option>Delivery options</option>
               <option>Lenses</option>
               <option>Frames</option>
@@ -86,7 +86,7 @@ function Index() {
               <option>Optical Materials</option>
             </select>
           </div>
-          <div className="mx-auto">
+          <div className="mx-auto mb-6">
             {products.length > 0 ? (
               <div className=" grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
                 {products.map((product) => (

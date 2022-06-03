@@ -9,9 +9,9 @@ import Profile from "./profile";
 import LocationHolder from "./locationHolder";
 import Cat from "./cat";
 
-function Navbar({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
+function Navbar2({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
   return (
-    <header className="h-fit pb-2 md:pb-1 md:h-[8rem] w-full bg-white shadow	">
+    <header className="h-fit pb-2 md:pb-1 pb-2 w-full bg-white shadow	">
       <nav className="flex justify-between items-center w-full md:w-11/12 mx-4 md:mx-auto pt-5">
         <div className="flex justify-between items-center w-full">
           <h1>
@@ -80,19 +80,8 @@ function Navbar({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
           </div>
         </div>
       </nav>
-      <div className="bg-[#FFFAF1] h-[3rem] mt-4 w-full hidden md:block">
-        <div className="h-full flex justify-between items-center w-full md:w-11/12 mx-4 md:mx-auto">
-          <LocationHolder />
-          <div className="flex justify-between items-center">
-            <Cat selectedCat={selectedCat} setselectedCat={setselectedCat} />
-            <div className="ml-12">
-              <Link to="/seller">Become Seller</Link>
-            </div>
-          </div>
-        </div>
-      </div>
     </header>
   );
 }
 
-export default Navbar;
+export default Navbar2;

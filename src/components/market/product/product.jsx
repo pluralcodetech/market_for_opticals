@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Save from "./save";
+import Save from "../saved/save";
 
 function Product({ product }) {
   const { image_url, product_name, product_price } = product;
@@ -17,19 +17,21 @@ function Product({ product }) {
   };
 
   return (
-    <div className="bg-white h-96" key={product.id}>
-      <div
-        className="h-44 bg-white"
-        style={{
-          backgroundImage: `url(${image_url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <Save product={product} />
-      </div>
-      <div className="pt-4">
+    <div className="bg-white h-96 shadow rounded" key={product.id}>
+      <a href={`/market/product/${product.id}`}>
+        <div
+          className="h-44 bg-white border-b"
+          style={{
+            backgroundImage: `url(${image_url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <Save product={product} />
+        </div>
+      </a>
+      <div className="pt-4 px-2">
         <Link to={`/market/product/${product.id}`}>
           <p className="text-gray-500 text-sm hover:border-b">{product_name}</p>
         </Link>

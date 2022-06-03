@@ -4,7 +4,7 @@ function Description({ product }) {
   const [changeView, setchangeView] = useState(true);
 
   return (
-    <div className="md:w-10/12 mx-auto h-fit pb-4 mb-4 mt-4 border rounded">
+    <div className="md:w-10/12 mx-auto h-fit pb-4 mb-4 mt-4 border rounded bg-white">
       <div className="flex justify-between items-center border w-full md:w-96 rounded">
         <div
           onClick={() => setchangeView(true)}
@@ -27,7 +27,7 @@ function Description({ product }) {
           </div>
         )}
       </div>
-      <div className="mt-3 px-2">
+      <div className="mt-3 px-2 bg-white">
         {changeView ? (
           <div className="w-fit">
             <p className=" text-sm text-gray-400">{product.product_details}</p>

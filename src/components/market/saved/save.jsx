@@ -5,7 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Save({ product }) {
   const storage = localStorage.getItem("saved");
-  const [saved, setSaved] = useState(storage ? JSON.parse(storage) : []);
+  const [saved, setSaved] = useState(
+    storage.length > 0 ? JSON.parse(storage) : []
+  );
 
   const notify = (msg) =>
     toast(msg, {
@@ -24,6 +26,11 @@ function Save({ product }) {
         if (save.id === product.id) {
           notify("Product already saved");
           return;
+        } else {
+          const newSaved = [...saved, product];
+          localStorage.setItem("saved", JSON.stringify(newSaved));
+          setSaved(newSaved);
+          notify(product.product_name + " added to saved");
         }
       });
     } else {
@@ -37,7 +44,7 @@ function Save({ product }) {
   return (
     <>
       <button
-        onClick={storeProduct}
+        onClick={(e) => storeProduct()}
         className="h-7 w-fit bg-white border border-yellow-500 flex items-center rounded px-2 text-sm"
       >
         <BsFillHeartFill size={12} className="mr-2 text-red-500" />
