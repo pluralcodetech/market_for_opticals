@@ -6,7 +6,7 @@ function Cart() {
     <div className="hover:border hover:border-[#E16A16] hover:px-2 hover:py-1">
       <Link to="/Orders" className="flex items-center">
         <FaCartArrowDown size={18} className="mx-2 text-[#E16A16]" />
-        Cart
+        <h6 className="hidden md:block">Cart</h6>
       </Link>
     </div>
   );

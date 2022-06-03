@@ -2,7 +2,8 @@ import { useState } from "react";
 import { BsFillHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-function Product({ img_url, title, description, price }) {
+function Product({ product }) {
+  const { image_url, product_name, product_price } = product;
   const [qty, setqty] = useState(1);
 
   const increment = () => {
@@ -16,31 +17,33 @@ function Product({ img_url, title, description, price }) {
   };
 
   return (
-    <Link to="/market/product/1" className="bg-white h-96">
+    <div className="bg-white h-96" key={product.id}>
       <div
         className="h-44 bg-white"
         style={{
-          backgroundImage: `url(https://via.placeholder.com/150})`,
+          backgroundImage: `url(${image_url})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="flex justify-between  h-full">
-          <div className="bg-slate-200 h-6 w-16 text-red-600 text-center flex justify-center items-center rounded  ">
-            <h6 className="text-xs">50% OFF</h6>
+        <Link to={`/market/product/${product.id}`}>
+          <div className="flex justify-between  h-full">
+            {/*
+            <div className="bg-slate-200 h-6 w-16 text-red-600 text-center flex justify-center items-center rounded  ">
+              <h6 className="text-xs">50% OFF</h6>
+            </div>
+            */}
+            <button className="h-7 w-fit bg-white border border-yellow-500 flex items-center rounded px-2 text-sm">
+              <BsFillHeartFill size={12} className="mr-2 text-red-500" />
+              Saved
+            </button>
           </div>
-          <button className="h-7 w-fit bg-white border border-yellow-500 flex items-center rounded px-2 text-sm">
-            <BsFillHeartFill size={12} className="mr-2 text-red-500" />
-            Saved
-          </button>
-        </div>
+        </Link>
       </div>
       <div className="pt-4">
-        <p className="text-gray-500 text-sm">
-          Korean Rectangle Eyeglasses Optical Eyewear Frames For Men
-        </p>
-        <h4 className="text-lg font-bold mt-2">&#x20A6;7,955</h4>
+        <p className="text-gray-500 text-sm">{product_name}</p>
+        <h4 className="text-lg font-bold mt-2">&#x20A6;{product_price}</h4>
         <div className="flex justify-between items-center">
           <h5 className="text-sm text-gray-500">free delivery</h5>
           <div className="flex justify-around items-center">
@@ -135,7 +138,7 @@ function Product({ img_url, title, description, price }) {
           </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

@@ -9,9 +9,9 @@ import Profile from "./profile";
 import LocationHolder from "./locationHolder";
 import Cat from "./cat";
 
-function Navbar({ setShowSidebar, showSidebar }) {
+function Navbar({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
   return (
-    <header className="h-[8rem] w-full bg-gray-50	">
+    <header className="h-fit pb-2 md:pb-1 md:h-[8rem] w-full bg-gray-50	">
       <nav className="flex justify-between items-center w-full md:w-11/12 mx-4 md:mx-auto pt-5">
         <div className="flex justify-between items-center w-full">
           <h1>
@@ -24,7 +24,7 @@ function Navbar({ setShowSidebar, showSidebar }) {
             <div className="flex items-center">
               <div
                 id="searchholder"
-                className=" h-8 border border-gray-300 w-96 bg-white flex justify-center items-center rounded-md"
+                className="hidden h-8 border border-gray-300 w-96 bg-white md:flex justify-center items-center rounded-md"
               >
                 <input
                   type="text"
@@ -32,20 +32,23 @@ function Navbar({ setShowSidebar, showSidebar }) {
                 />
                 <BiSearchAlt size={24} className=" ml-2" />
               </div>
+              <BiSearchAlt size={24} className="md:hidden ml-2" />
+
               <div className="flex items-center ml-2">
                 <Link
                   to="/Orders"
                   className="flex items-center hover:border hover:border-[#E16A16] hover:pr-1 hover:py-1"
                 >
                   <HiCube size={20} className="mx-2 text-[#E16A16]" />
-                  Orders
+
+                  <h6 className="hidden md:block">Orders</h6>
                 </Link>
                 <Link
                   to="/Orders"
                   className="flex items-center hover:border hover:border-[#E16A16] hover:pr-1 hover:py-1"
                 >
                   <BsFillHeartFill size={18} className="mx-2 text-red-500" />
-                  Saved
+                  <h6 className="hidden md:block">Saved</h6>
                 </Link>
                 <Cart />
               </div>
@@ -77,11 +80,11 @@ function Navbar({ setShowSidebar, showSidebar }) {
           </div>
         </div>
       </nav>
-      <div className="bg-[#FFFAF1] h-[3rem] mt-4 w-full">
+      <div className="bg-[#FFFAF1] h-[3rem] mt-4 w-full hidden md:block">
         <div className="h-full flex justify-between items-center w-full md:w-11/12 mx-4 md:mx-auto">
           <LocationHolder />
           <div className="flex justify-between items-center">
-            <Cat />
+            <Cat selectedCat={selectedCat} setselectedCat={setselectedCat} />
             <div className="ml-12">
               <Link to="/seller">Become Seller</Link>
             </div>
