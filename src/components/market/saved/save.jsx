@@ -25,14 +25,14 @@ function Save({ product }) {
       saved.map((save) => {
         if (save.id === product.id) {
           notify("Product already saved");
-          return;
-        } else {
-          const newSaved = [...saved, product];
-          localStorage.setItem("saved", JSON.stringify(newSaved));
-          setSaved(newSaved);
-          notify(product.product_name + " added to saved");
+          return false;
         }
       });
+
+      const newSaved = [...saved, product];
+      localStorage.setItem("saved", JSON.stringify(newSaved));
+      setSaved(newSaved);
+      notify(product.product_name + " added to saved");
     } else {
       const newSaved = [...saved, product];
       localStorage.setItem("saved", JSON.stringify(newSaved));

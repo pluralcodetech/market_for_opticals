@@ -28,9 +28,37 @@ function SingleProduct() {
       .catch((err) => {});
   }, [id]);
 
-  const change_major_image = (url) => {
+  const change_major_image = (url, id) => {
     const img = document.getElementById("majorimageview");
     img.src = url;
+
+    axios
+      .get(`${api_url}/get_subproduct_details?id=${id}`)
+      .then((res) => {
+        let newproduct = { ...product };
+        if (res.data.product_price !== null && res.data.product_price !== "") {
+          newproduct.product_price = res.data.product_price;
+        }
+
+        if (
+          res.data.product_details !== null &&
+          res.data.product_details !== ""
+        ) {
+          newproduct.product_details = res.data.product_details;
+        }
+
+        if (
+          res.data.product_specifications !== null &&
+          res.data.product_specifications !== ""
+        ) {
+          newproduct.product_specifications = res.data.product_specifications;
+        }
+
+        setproduct(newproduct);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -51,7 +79,10 @@ function SingleProduct() {
                 {product.image_url.map((image) => (
                   <div
                     className="h-16 md:h-20 bg-gray-200"
-                    onClick={(e) => change_major_image(image.image_url)}
+                    key={image.id}
+                    onClick={(e) =>
+                      change_major_image(image.image_url, image.id)
+                    }
                   >
                     <img src={image.image_url} className="h-full w-full" />
                   </div>
