@@ -5,9 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Save({ product }) {
   const storage = localStorage.getItem("saved");
-  const [saved, setSaved] = useState(
-    storage.length > 0 ? JSON.parse(storage) : []
-  );
+  const [saved, setSaved] = useState(storage ? JSON.parse(storage) : []);
 
   const notify = (msg) =>
     toast(msg, {

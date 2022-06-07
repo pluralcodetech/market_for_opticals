@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import SaveCart from "../cart/save";
 import Save from "../saved/save";
 
 function Product({ product }) {
@@ -36,47 +37,6 @@ function Product({ product }) {
         <h4 className="text-lg font-bold mt-2">&#x20A6;{product_price}</h4>
         <div className="flex justify-between items-center">
           <h5 className="text-sm text-gray-500">free delivery</h5>
-          <div className="flex justify-around items-center">
-            <button
-              className="bg-yellow-200 p-1 mr-2"
-              onClick={(e) => decrement()}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-500"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-            <div className="h-8 w-8 border bg-white flex justify-center items-center">
-              <h1>{qty}</h1>
-            </div>
-            <button
-              className="bg-yellow-200 p-1 ml-2"
-              onClick={(e) => increment()}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-            </button>
-          </div>
         </div>
         <div className="flex justify-between items-center mt-6">
           <div className="flex items-center">
@@ -123,9 +83,7 @@ function Product({ product }) {
             </svg>
             <h6 className="text-sm text-gray-500 mx-3">100</h6>
           </div>
-          <button className="bg-[#E16A16] hover:bg-amber-500 text-white text-sm py-1 px-1 rounded">
-            Add to cart
-          </button>
+          <SaveCart product={product} />
         </div>
       </div>
     </div>

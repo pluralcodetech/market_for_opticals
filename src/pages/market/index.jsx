@@ -34,7 +34,7 @@ function Index() {
     axios
       .get(`${api_url}/get_products?parent_cat_id=${selectedCat}`)
       .then((res) => {
-        //console.log(res);
+        console.log(res);
         setproducts(res.data);
       })
       .catch((err) => {
@@ -49,7 +49,7 @@ function Index() {
       axios
         .post(`${api_url}/product_search_subcategory`, formData)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setproducts(res.data);
         })
         .catch((err) => {
