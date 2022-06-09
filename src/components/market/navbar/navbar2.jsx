@@ -15,7 +15,7 @@ function Navbar2({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
       <nav className="flex justify-between items-center w-full md:w-11/12 mx-4 md:mx-auto pt-5">
         <div className="flex justify-between items-center w-full">
           <h1>
-            <Link to="/">
+            <Link to="/market">
               <img src={logo} alt="logo" />
             </Link>
           </h1>
