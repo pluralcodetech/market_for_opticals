@@ -14,7 +14,7 @@ function CartPage() {
     });
   }, []);
 
-  console.log(cart);
+  //console.log(cart);
 
   return (
     <Layout>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -7,6 +8,7 @@ import Spinner from "../../../pages/loader/spinner";
 
 function LoginForm({ setshowSignupForm }) {
   const api_url = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,14 +39,22 @@ function LoginForm({ setshowSignupForm }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+
     axios
-      .post(`${api_url}/login`, {
-        email,
-        password,
-      })
+      .post(`${api_url}/login`, formData)
       .then((res) => {
         setLoading(false);
-        notifySuccess(res.data.message);
+        notifySuccess(res.data.status);
+        sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("user", JSON.stringify(res.data.user));
+        console.log(res.data);
+        setTimeout(() => {
+          navigate("/market");
+        }, 2000);
       })
       .catch((err) => {
         setLoading(false);
@@ -67,32 +77,28 @@ function LoginForm({ setshowSignupForm }) {
         pauseOnHover
       />
       <div className="mb-4">
-        <label
-          className="block text-gray-500  md:text-left mb-1 md:mb-0 pr-4"
-          htmlFor="inline-email"
-        >
+        <label className="block text-gray-500  md:text-left mb-1 md:mb-0 pr-4">
           Email
         </label>
         <input
           className="bg-gray-200 appearance-none rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
-          id="inline-email"
           type="email"
           placeholder="JaneDoe@gofitish.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
       </div>
       <div className="mb-4">
-        <label
-          className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4"
-          htmlFor="inline-email"
-        >
+        <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
           Password
         </label>
         <input
           className="bg-gray-200 appearance-none rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
-          id="inline-email"
           type="password"
           placeholder="*******8"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
       </div>
@@ -101,7 +107,6 @@ function LoginForm({ setshowSignupForm }) {
           Forgot Password?
         </a>
         <a
-          href=""
           className="text-sm text-gray-500 hover:text-gray-900"
           onClick={(e) => setshowSignupForm(true)}
         >

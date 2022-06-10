@@ -25,7 +25,7 @@ function Remove({ index, product }) {
   const deleteProduct = () => {
     db.carts
       .where("product_id")
-      .equals(product.id)
+      .equals(product.product_id)
       .delete()
       .then(() => {
         notify(product.product_name + " removed from cart");

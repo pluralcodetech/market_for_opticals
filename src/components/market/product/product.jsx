@@ -18,7 +18,7 @@ function Product({ product }) {
   };
 
   return (
-    <div className="bg-white h-96 shadow rounded" key={product.id}>
+    <div className="bg-white h-fit pb-2 shadow rounded" key={product.id}>
       <div
         className="h-44 bg-white border-b"
         style={{

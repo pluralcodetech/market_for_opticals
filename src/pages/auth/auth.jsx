@@ -12,7 +12,7 @@ function Auth() {
       <Navbar2 />
       {showSignupForm ? (
         <div className="mt-16 md:w-8/12 mx-4 md:mx-auto shadow bg-white border">
-          <SignupForm />
+          <SignupForm setshowSignupForm={setshowSignupForm} />
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-16 md:w-10/12 mx-4 md:mx-auto shadow bg-white border">

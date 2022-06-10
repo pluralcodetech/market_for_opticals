@@ -1,15 +1,41 @@
 import { useState } from "react";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../../../db";
 
-function Counter({ setqty, qty }) {
-  //const [qty, setqty] = useState(1);
-
+function Counter({ setqty, qty, product_id }) {
   const increment = () => {
     setqty(qty + 1);
+
+    db.carts
+      .where("product_id")
+      .equals(product_id)
+      .modify({
+        product_quantity: qty + 1,
+      })
+      .then(() => {
+        console.log("updated");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const decrement = () => {
     if (qty > 1) {
       setqty(qty - 1);
+
+      db.carts
+        .where("product_id")
+        .equals(product_id)
+        .modify({
+          product_quantity: qty - 1,
+        })
+        .then(() => {
+          console.log("updated");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -32,8 +58,8 @@ function Counter({ setqty, qty }) {
           />
         </svg>
       </button>
-      <div className="h-8 w-8  bg-white flex justify-center items-center">
-        <h1>{qty}</h1>
+      <div className="h-8 w-8 text-slate-900 bg-white flex justify-center items-center">
+        <h1 style={{ color: "black " }}>{qty}</h1>
       </div>
       <button
         className="border border-amber-400 p-1 ml-2 rounded-full"

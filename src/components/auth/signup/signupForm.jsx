@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Spinner from "../../../pages/loader/spinner";
 
-function SignupForm() {
+function SignupForm({ setshowSignupForm }) {
   const api_url = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
 
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");
@@ -54,7 +56,14 @@ function SignupForm() {
       .post(`${api_url}/register`, formData)
       .then((res) => {
         setLoading(false);
-        notifySuccess(res.data);
+        notifySuccess(res.data.status);
+        sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("user", JSON.stringify(res.data.user));
+        console.log(res.data);
+
+        setTimeout(() => {
+          navigate("/market");
+        }, 2000);
       })
       .catch((err) => {
         setLoading(false);
@@ -78,15 +87,11 @@ function SignupForm() {
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="mb-4">
-          <label
-            className="block text-gray-500  md:text-left mb-1 md:mb-0 pr-4"
-            htmlFor="inline-email"
-          >
+          <label className="block text-gray-500  md:text-left mb-1 md:mb-0 pr-4">
             First Name
           </label>
           <input
             className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
-            id="inline-email"
             type="text"
             placeholder="Enter First Name"
             value={firstname}
@@ -95,15 +100,11 @@ function SignupForm() {
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4"
-            htmlFor="inline-email"
-          >
+          <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
             Last Name
           </label>
           <input
             className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
-            id="inline-email"
             type="text"
             placeholder="Enter Last Name"
             value={lastname}
@@ -114,15 +115,11 @@ function SignupForm() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="mb-4">
-          <label
-            className="block text-gray-500  md:text-left mb-1 md:mb-0 pr-4"
-            htmlFor="inline-email"
-          >
+          <label className="block text-gray-500  md:text-left mb-1 md:mb-0 pr-4">
             Email Address
           </label>
           <input
             className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
-            id="inline-email"
             type="email"
             placeholder="JaneDoe@gofitish.com"
             value={email}
@@ -131,15 +128,11 @@ function SignupForm() {
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4"
-            htmlFor="inline-email"
-          >
+          <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
             Phone Number
           </label>
           <input
             className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
-            id="inline-email"
             type="tel"
             placeholder="(234) 456-7890"
             value={phonenumber}
@@ -150,15 +143,11 @@ function SignupForm() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="mb-4">
-          <label
-            className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4"
-            htmlFor="inline-email"
-          >
+          <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
             Password
           </label>
           <input
             className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
-            id="inline-email"
             type="password"
             placeholder="*******8"
             value={password}
@@ -167,15 +156,11 @@ function SignupForm() {
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4"
-            htmlFor="inline-email"
-          >
+          <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
             Confirm Password
           </label>
           <input
             className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
-            id="inline-email"
             type="password"
             placeholder="*******8"
             value={cpassword}
@@ -200,7 +185,10 @@ function SignupForm() {
             I agree to the Terms of Service and Privacy Policy
           </label>
         </div>
-        <a href="#" className="text-sm text-gray-500 hover:text-gray-900">
+        <a
+          onClick={(e) => setshowSignupForm(false)}
+          className="text-sm text-gray-500 hover:text-gray-900"
+        >
           i already have an account
         </a>
       </div>
