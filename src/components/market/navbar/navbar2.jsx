@@ -8,6 +8,7 @@ import Cart from "./cart";
 import Profile from "./profile";
 import LocationHolder from "./locationHolder";
 import Cat from "./cat";
+import Wishlist from "./wishlist";
 
 function Navbar2({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
   return (
@@ -43,13 +44,7 @@ function Navbar2({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
 
                   <h6 className="hidden md:block">Orders</h6>
                 </Link>
-                <Link
-                  to="/saved"
-                  className="flex items-center hover:border hover:border-[#E16A16] hover:pr-1 hover:py-1"
-                >
-                  <BsFillHeartFill size={18} className="mx-2 text-red-500" />
-                  <h6 className="hidden md:block">Saved</h6>
-                </Link>
+                <Wishlist />
                 <Cart />
               </div>
             </div>
@@ -65,7 +60,7 @@ function Navbar2({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
               ) : (
                 <svg
                   onClick={() => setShowSidebar(!showSidebar)}
-                  className="fixed   z-30 flex items-center cursor-pointer right-10 top-6 md:hidden"
+                  className="fixed   z-30 flex items-center cursor-pointer right-10 top-6 hidden"
                   fill="#E16A16"
                   viewBox="0 0 100 80"
                   width="30"

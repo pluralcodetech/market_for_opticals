@@ -94,8 +94,8 @@ function Index() {
             : ""}
         </div>
         <div className="col-span-5  h-full pr-1 md:pr-4">
-          <div className="flex shadow rounded w-fit bg-white p-2">
-            <select className="bg-white border mx-2 border-gray-300 rounded py-2 px-4 focus:outline-none focus:border-gray-500">
+          <div className="flex shadow rounded w-screen md:w-fit bg-white p-2 ">
+            <select className="w-[46vw] md:w-full bg-white border mx-2 border-gray-300 rounded py-2 px-4 focus:outline-none focus:border-gray-500">
               <option>Sort by</option>
               <option>Lenses</option>
               <option>Frames</option>
@@ -103,8 +103,8 @@ function Index() {
               <option>Lab Equipment</option>
               <option>Optical Materials</option>
             </select>
-            <select className="bg-white border mx-2 border-gray-300 rounded py-2 px-4 focus:outline-none focus:border-gray-500">
-              <option>Delivery options</option>
+            <select className="w-[46vw] md:w-full bg-white border mx-2 border-gray-300 rounded py-2 px-4 focus:outline-none focus:border-gray-500">
+              <option>Delivery</option>
               <option>Lenses</option>
               <option>Frames</option>
               <option>Accessories</option>
@@ -114,7 +114,7 @@ function Index() {
           </div>
           <div className="mx-auto mb-6">
             {products.length > 0 ? (
-              <div className=" grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+              <div className=" grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 mx-2">
                 {products.map((product) => (
                   <Product key={product.id} product={product} />
                 ))}

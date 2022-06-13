@@ -90,8 +90,8 @@ function Checkout() {
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   const config = {
-    reference: new Date().getTime().toString(),
-    email: user.email,
+    reference: "optics" + new Date().getTime().toString(),
+    email: user ? user.email : "example@email.com",
     amount: total * 100,
     publicKey: "pk_test_ccac6828ea372cbc6082a24f27176734803dcee5",
   };
@@ -110,6 +110,15 @@ function Checkout() {
 
   const PaystackHookExample = () => {
     const initializePayment = usePaystackPayment(config);
+
+    if (!name || !phonenumber || !address || !state) {
+      return (
+        <button className="bg-[#E16A16] hover:bg-amber-500 text-white text-sm py-3 px-1 mt-2 mb-1 rounded w-[95%] mx-auto">
+          CHECKOUT &#x20A6; {total.toLocaleString() + ".00"}
+        </button>
+      );
+    }
+
     return (
       <div>
         <button
@@ -143,7 +152,7 @@ function Checkout() {
             Name
           </label>
           <input
-            className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+            className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border focus:border-slate-500"
             type="text"
             placeholder="Enter Name"
             value={name}
@@ -156,7 +165,7 @@ function Checkout() {
             Phone Number
           </label>
           <input
-            className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+            className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border focus:border-slate-500"
             type="tel"
             placeholder="(234) 456-7890"
             value={phonenumber}
@@ -167,7 +176,7 @@ function Checkout() {
       </div>
       <div className="w-full mb-4">
         <textarea
-          className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+          className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border focus:border-slate-500"
           type="text"
           placeholder="Enter Address"
           value={address}
@@ -177,7 +186,7 @@ function Checkout() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
         <select
-          className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+          className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border focus:border-slate-500"
           value={state}
           onChange={(e) => setstate(e.target.value)}
           required
@@ -187,7 +196,9 @@ function Checkout() {
         </select>
       </div>
 
-      <PaystackHookExample />
+      <div>
+        <PaystackHookExample />
+      </div>
     </form>
   );
 }

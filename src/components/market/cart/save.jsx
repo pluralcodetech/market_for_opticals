@@ -33,6 +33,7 @@ function SaveCart({ product }) {
                 product_price: product.product_price,
                 product_image: product.image_url,
                 product_quantity: 1,
+                owner_id: product.owner_id,
               })
               .then(() => {
                 notify(product.product_name + " added to cart");

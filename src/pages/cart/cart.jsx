@@ -36,7 +36,7 @@ function CartPage() {
         <div className="w-full md:w-8/12 mx-auto shadow bg-white mt-8  pb-4">
           <button
             onClick={(e) => setshowCheckout(false)}
-            className="h-7 mb-6 w-fit bg-slate-900 text-white border border-yellow-500 flex items-center rounded px-2 text-sm"
+            className="h-7 mb-6 w-fit  text-slate-900 border-[.01rem] border-gray-100 shadow flex items-center rounded px-2 py-4 text-sm"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@ function CartPage() {
           <Checkout />
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 w-fit md:w-11/12 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 w-full md:w-11/12 mx-auto">
           <div className="md:col-span-4 w-full mx-auto mt-8 h-fit bg-white shadow border mb-4 h-fit pb-4 ">
             <div className="border-b p-2 mb-3">
               <h4 className="text-lg font-bold">cart items ({cart.length})</h4>
@@ -67,7 +67,7 @@ function CartPage() {
                 return <Product key={save.id} product={save} index={index} />;
               })
             ) : (
-              <div className="text-center">
+              <div className="text-center w-full">
                 <h4 className="text-sm font-bold my-72">No cart items</h4>
               </div>
             )}
