@@ -83,7 +83,7 @@ function Product({ product }) {
             </svg>
             <h6 className="text-sm text-gray-500 mx-3 hidden md:block">100</h6>
           </div>
-          <SaveCart product={product} />
+          <SaveCart product={product} image_url={product.image_url} />
         </div>
       </div>
     </div>

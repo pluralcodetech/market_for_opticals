@@ -18,7 +18,6 @@ function Checkout() {
     });
 
     calculatePriceTotal();
-    getTotalProducts();
   }, [cart]);
 
   //console.log(cart);

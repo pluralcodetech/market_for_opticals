@@ -53,7 +53,7 @@ function LoginForm({ setshowSignupForm }) {
         sessionStorage.setItem("user", JSON.stringify(res.data.user));
         //console.log(res.data);
         setTimeout(() => {
-          navigate("/market");
+          window.history.back();
         }, 2000);
       })
       .catch((err) => {

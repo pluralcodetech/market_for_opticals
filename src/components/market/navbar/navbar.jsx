@@ -12,7 +12,7 @@ import Wishlist from "./wishlist";
 function Navbar({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
   return (
     <header className="h-fit pb-2 md:pb-1 md:h-[8rem] w-full bg-white shadow	">
-      <nav className="flex justify-between items-center w-full md:w-11/12 mx-4 md:mx-auto pt-5">
+      <nav className="flex justify-between items-center w-full md:w-11/12 mx-2 md:mx-auto pt-5">
         <div className="flex justify-between items-center w-full">
           <h1>
             <Link to="/market">
@@ -49,34 +49,36 @@ function Navbar({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
             </div>
             <div className="flex ml-6">
               <Profile />
-              {showSidebar ? (
-                <button
-                  className="flex text-4xl text-slate-900 items-center cursor-pointer fixed right-10 top-6 z-50 md:hidden"
-                  onClick={() => setShowSidebar(!showSidebar)}
-                >
-                  x
-                </button>
-              ) : (
-                <svg
-                  onClick={() => setShowSidebar(!showSidebar)}
-                  className="fixed   z-30 flex items-center cursor-pointer right-10 top-6 hidden"
-                  fill="#E16A16"
-                  viewBox="0 0 100 80"
-                  width="30"
-                  height="30"
-                >
-                  <rect width="100" height="10"></rect>
-                  <rect y="30" width="100" height="10"></rect>
-                  <rect y="60" width="100" height="10"></rect>
-                </svg>
-              )}
             </div>
           </div>
         </div>
       </nav>
-      <div className="bg-[#FFFAF1] h-[3rem] mt-4 w-full hidden md:block">
+      <div className="bg-[#FFFAF1] h-[3rem] mt-4 w-screen overflow-x-auto">
         <div className="h-full flex justify-between items-center w-full md:w-11/12 mx-4 md:mx-auto">
           <LocationHolder />
+          {showSidebar ? (
+            <button
+              className="flex text-4xl text-slate-900 items-center cursor-pointer fixed right-10 top-6 z-50 md:hidden"
+              onClick={() => setShowSidebar(!showSidebar)}
+            >
+              x
+            </button>
+          ) : (
+            <button className="mr-4 block md:hidden">
+              <svg
+                onClick={() => setShowSidebar(!showSidebar)}
+                className="   z-30 flex items-center cursor-pointer "
+                fill="#E16A16"
+                viewBox="0 0 100 80"
+                width="30"
+                height="30"
+              >
+                <rect width="100" height="10"></rect>
+                <rect y="30" width="100" height="10"></rect>
+                <rect y="60" width="100" height="10"></rect>
+              </svg>
+            </button>
+          )}
           <div className="flex justify-between items-center">
             <Cat selectedCat={selectedCat} setselectedCat={setselectedCat} />
             <div className="ml-12">

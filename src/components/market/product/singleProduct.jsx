@@ -127,7 +127,10 @@ function SingleProduct() {
                 <h6 className="text-base  mb-2">Qty</h6>
                 <Counter setqty={setqty} qty={qty} />
               </div>
-              <SaveCart product={product} />
+              <SaveCart
+                product={product}
+                image_url={product.image_url[0].image_url}
+              />
             </div>
           </div>
         </div>

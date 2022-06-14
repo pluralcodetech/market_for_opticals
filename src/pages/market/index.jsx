@@ -10,6 +10,8 @@ import Brand from "../../components/market/brand";
 function Index() {
   const api_url = import.meta.env.VITE_API_URL;
 
+  const [showSidebar, setShowSidebar] = useState(false);
+
   const [products, setproducts] = useState([]);
 
   const [selectedCat, setselectedCat] = useState(2);
@@ -73,7 +75,12 @@ function Index() {
       title="home for market4opticals"
       description="home for market4opticals"
     >
-      <Navbar selectedCat={selectedCat} setselectedCat={setselectedCat} />
+      <Navbar
+        selectedCat={selectedCat}
+        setselectedCat={setselectedCat}
+        showSidebar={showSidebar}
+        setShowSidebar={setShowSidebar}
+      />
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mt-8 h-fit">
         <div className="hidden md:block md:w-10/12 w-full md:mx-auto h-fit pb-6  pt-8 bg-white shadow rounded">
           {subcart.length > 0
@@ -94,6 +101,7 @@ function Index() {
             : ""}
         </div>
         <div className="col-span-5  h-full pr-1 md:pr-4">
+          {/*
           <div className="flex   shadow rounded w-[95vw] md:w-fit md:w-fit bg-white p-2 mx-3 ">
             <select className="w-40 md:w-full bg-white border mx-2 border-gray-300 rounded py-2 px-4 focus:outline-none focus:border-gray-500">
               <option>Sort by</option>
@@ -111,10 +119,10 @@ function Index() {
               <option>Lab Equipment</option>
               <option>Optical Materials</option>
             </select>
-          </div>
+          </div> */}
           <div className="mx-auto mb-6">
             {products.length > 0 ? (
-              <div className=" grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 mx-2">
+              <div className=" grid grid-cols-2 md:grid-cols-4 gap-4 mt-1 md:mt-3 mx-2">
                 {products.map((product) => (
                   <Product key={product.id} product={product} />
                 ))}

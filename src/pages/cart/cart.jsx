@@ -31,10 +31,10 @@ function CartPage() {
   };
 
   return (
-    <Auth>
-      <Layout>
-        <Navbar2 />
-        {showCheckout ? (
+    <Layout>
+      <Navbar2 />
+      {showCheckout ? (
+        <Auth>
           <div className="w-full md:w-8/12 mx-auto shadow bg-white mt-8  pb-4">
             <button
               onClick={(e) => setshowCheckout(false)}
@@ -58,45 +58,43 @@ function CartPage() {
             </button>
             <Checkout />
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-4 w-full md:w-11/12 mx-auto">
-            <div className="md:col-span-4 w-full mx-auto mt-8 h-fit bg-white shadow border mb-4 h-fit pb-4 ">
-              <div className="border-b p-2 mb-3">
-                <h4 className="text-lg font-bold">
-                  cart items ({cart.length})
-                </h4>
-              </div>
-              {cart.length > 0 ? (
-                cart.map((save, index) => {
-                  return <Product key={save.id} product={save} index={index} />;
-                })
-              ) : (
-                <div className="text-center w-full">
-                  <h4 className="text-sm font-bold my-72">No cart items</h4>
-                </div>
-              )}
+        </Auth>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 w-full md:w-11/12 mx-auto">
+          <div className="md:col-span-4 w-full mx-auto mt-8 h-fit bg-white shadow border mb-4 h-fit pb-4 ">
+            <div className="border-b p-2 mb-3">
+              <h4 className="text-lg font-bold">cart items ({cart.length})</h4>
             </div>
+            {cart.length > 0 ? (
+              cart.map((save, index) => {
+                return <Product key={save.id} product={save} index={index} />;
+              })
+            ) : (
+              <div className="text-center w-full">
+                <h4 className="text-sm font-bold my-72">No cart items</h4>
+              </div>
+            )}
+          </div>
 
-            <div className="md:col-span-2 w-full mx-auto mt-8 h-fit bg-white shadow border mb-4 h-fit pb-4 sticky md:static bottom-0  ">
-              <div className="border-b p-2 mb-3">
-                <h4 className="text-lg font-bold">CART SUMMARY</h4>
-              </div>
-              <div className="pl-3">
-                <p>Subtotal :&#x20A6; {total.toLocaleString() + ".00"}</p>
-                <button
-                  onClick={() => {
-                    setshowCheckout(true);
-                  }}
-                  className="bg-[#E16A16] hover:bg-amber-500 text-white text-sm py-3 px-1 mt-2 mb-1 rounded w-[95%] mx-auto"
-                >
-                  CHECKOUT &#x20A6; {total.toLocaleString() + ".00"}
-                </button>
-              </div>
+          <div className="md:col-span-2 w-full mx-auto mt-8 h-fit bg-white shadow border mb-4 h-fit pb-4 sticky md:static bottom-0  ">
+            <div className="border-b p-2 mb-3">
+              <h4 className="text-lg font-bold">CART SUMMARY</h4>
+            </div>
+            <div className="pl-3">
+              <p>Subtotal :&#x20A6; {total.toLocaleString() + ".00"}</p>
+              <button
+                onClick={() => {
+                  setshowCheckout(true);
+                }}
+                className="bg-[#E16A16] hover:bg-amber-500 text-white text-sm py-3 px-1 mt-2 mb-1 rounded w-[95%] mx-auto"
+              >
+                CHECKOUT &#x20A6; {total.toLocaleString() + ".00"}
+              </button>
             </div>
           </div>
-        )}
-      </Layout>
-    </Auth>
+        </div>
+      )}
+    </Layout>
   );
 }
 

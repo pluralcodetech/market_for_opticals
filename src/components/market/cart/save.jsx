@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../../../db";
 
-function SaveCart({ product }) {
-  /* const storage = localStorage.getItem("cart");
-  const [cart, setcart] = useState(storage ? JSON.parse(storage) : []);*/
-
+function SaveCart({ product, image_url }) {
   const notify = (msg) =>
     toast(msg, {
       position: "top-right",
@@ -20,7 +16,7 @@ function SaveCart({ product }) {
     });
 
   const storeProduct = () => {
-    if (product.stock === "In Stock") {
+    if (product.stock.toLowerCase() === "in stock") {
       try {
         const carts = db.carts.where("product_id").equals(product.id);
 
@@ -31,7 +27,7 @@ function SaveCart({ product }) {
                 product_id: product.id,
                 product_name: product.product_name,
                 product_price: product.product_price,
-                image_url: product.image_url,
+                image_url: image_url,
                 product_quantity: 1,
                 owner_id: product.owner_id,
               })
@@ -46,22 +42,6 @@ function SaveCart({ product }) {
     } else {
       notify(product.product_name + " is out of stock");
     }
-
-    /* if (cart) {
-      if (cart.find((item) => item.id === product.id)) {
-        notify("product already added to cart");
-      } else {
-        let updatedCart = [...cart, product];
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
-        setcart(updatedCart);
-        notify(product.product_name + " added to cart");
-      }
-    } else {
-      let updatedCart = [...cart, product];
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      setcart(updatedCart);
-      notify(product.product_name + " added to cart");
-    }*/
   };
 
   return (

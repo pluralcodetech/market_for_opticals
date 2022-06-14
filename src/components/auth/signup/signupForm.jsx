@@ -62,7 +62,7 @@ function SignupForm({ setshowSignupForm }) {
         console.log(res.data);
 
         setTimeout(() => {
-          navigate("/market");
+          window.history.back();
         }, 2000);
       })
       .catch((err) => {
