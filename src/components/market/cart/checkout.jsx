@@ -7,6 +7,39 @@ import "react-toastify/dist/ReactToastify.css";
 import { usePaystackPayment } from "react-paystack";
 
 function Checkout() {
+  const api_url = import.meta.env.VITE_API_URL;
+
+  const [cart, setcart] = useState([]);
+  const [total, settotal] = useState(0);
+  const [product_qty, setproduct_qty] = useState(0);
+
+  useEffect(() => {
+    db.carts.toArray().then((data) => {
+      setcart(data);
+    });
+
+    calculatePriceTotal();
+    getTotalProducts();
+  }, [cart]);
+
+  //console.log(cart);
+
+  const calculatePriceTotal = () => {
+    let val = 0;
+    cart.map((item) => {
+      val += item.product_price * item.product_quantity;
+    });
+    settotal(val);
+  };
+
+  const getTotalProducts = () => {
+    let val = 0;
+    cart.map((item) => {
+      val += item.product_quantity;
+    });
+    setproduct_qty(val);
+  };
+
   const [name, setname] = useState("");
   const [phonenumber, setphonenumber] = useState("");
   const [address, setaddress] = useState("");
@@ -35,58 +68,6 @@ function Checkout() {
       progress: undefined,
     });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const name = firstname + " " + lastname;
-
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("phone_number", phonenumber);
-    formData.append("password", password);
-    formData.append("password_confirmation", cpassword);
-
-    axios
-      .post(`${api_url}/register`, formData)
-      .then((res) => {
-        setLoading(false);
-        notifySuccess(res.data.status);
-        sessionStorage.setItem("token", res.data.token);
-        sessionStorage.setItem("user", JSON.stringify(res.data.user));
-        console.log(res.data);
-
-        setTimeout(() => {
-          navigate("/market");
-        }, 2000);
-      })
-      .catch((err) => {
-        setLoading(false);
-        notifyWarning(err.response.data.error);
-        console.log(err.response);
-      });
-  };
-
-  const [cart, setcart] = useState([]);
-  const [total, settotal] = useState(0);
-
-  useEffect(() => {
-    db.carts.toArray().then((data) => {
-      setcart(data);
-    });
-
-    calculatePriceTotal();
-  }, [cart]);
-
-  //console.log(cart);
-
-  const calculatePriceTotal = () => {
-    let val = 0;
-    cart.map((item) => {
-      val += item.product_price * item.product_quantity;
-    });
-    settotal(val);
-  };
-
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   const config = {
@@ -96,10 +77,37 @@ function Checkout() {
     publicKey: "pk_test_ccac6828ea372cbc6082a24f27176734803dcee5",
   };
 
+  const handleCheckout = (reference) => {
+    const formData = new FormData();
+    formData.append("reference", reference.reference);
+    formData.append("user_id", user.id);
+    formData.append("total_amount", product_qty);
+    formData.append("products", JSON.stringify(cart));
+    formData.append("shipping_name", name);
+    formData.append("phone_number", phonenumber);
+    formData.append("destination_address", address);
+    formData.append("state", state);
+
+    setLoading(true);
+    axios
+      .post(`${api_url}/verify_payments`, formData)
+      .then((res) => {
+        console.log(res);
+        setLoading(false);
+        notifySuccess("Order Placed Successfully");
+        db.carts.clear();
+        //useNavigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        notifyWarning("Order Failed");
+      });
+  };
+
   // you can call this function anything
   const onSuccess = (reference) => {
-    // Implementation for whatever you want to do with reference and after success call.
-    console.log(reference);
+    handleCheckout(reference);
   };
 
   // you can call this function anything
@@ -134,7 +142,7 @@ function Checkout() {
   };
 
   return (
-    <form className="px-2 mt-3" onSubmit={handleSubmit}>
+    <form className="px-2 mt-3" onSubmit={(e) => e.preventDefault()}>
       <ToastContainer
         position="top-right"
         autoClose={5000}

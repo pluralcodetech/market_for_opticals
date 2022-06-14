@@ -14,7 +14,7 @@ function product({ product, index }) {
       <div className="col-span-2 md:col-span-1 bg-gray-200 mx-2 h-20 rounded">
         <a href={`/market/product/${product.product_id}`}>
           <img
-            src={product.product_image}
+            src={product.image_url}
             className="w-full h-full rounded-lg"
             alt={`${product.product_name}`}
           />

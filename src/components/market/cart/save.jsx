@@ -31,7 +31,7 @@ function SaveCart({ product }) {
                 product_id: product.id,
                 product_name: product.product_name,
                 product_price: product.product_price,
-                product_image: product.image_url,
+                image_url: product.image_url,
                 product_quantity: 1,
                 owner_id: product.owner_id,
               })
