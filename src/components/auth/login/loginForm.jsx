@@ -51,7 +51,7 @@ function LoginForm({ setshowSignupForm }) {
         notifySuccess(res.data.status);
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("user", JSON.stringify(res.data.user));
-        console.log(res.data);
+        //console.log(res.data);
         setTimeout(() => {
           navigate("/market");
         }, 2000);

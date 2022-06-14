@@ -9,6 +9,7 @@ import Counter from "./counter";
 import Layout from "../../layout";
 import Spinner from "../../../pages/loader/spinner";
 import Description from "./description";
+import SaveCart from "../cart/save";
 
 function SingleProduct() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -126,9 +127,7 @@ function SingleProduct() {
                 <h6 className="text-base  mb-2">Qty</h6>
                 <Counter setqty={setqty} qty={qty} />
               </div>
-              <button className="bg-[#E16A16] w-fit mt-4 hover:bg-amber-500 text-white text-lg py-2 px-4 rounded">
-                Add to cart
-              </button>
+              <SaveCart product={product} />
             </div>
           </div>
         </div>

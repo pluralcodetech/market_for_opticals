@@ -8,10 +8,9 @@ import { usePaystackPayment } from "react-paystack";
 
 function Checkout() {
   const api_url = import.meta.env.VITE_API_URL;
-
+  const navigate = useNavigate();
   const [cart, setcart] = useState([]);
   const [total, settotal] = useState(0);
-  const [product_qty, setproduct_qty] = useState(0);
 
   useEffect(() => {
     db.carts.toArray().then((data) => {
@@ -30,14 +29,6 @@ function Checkout() {
       val += item.product_price * item.product_quantity;
     });
     settotal(val);
-  };
-
-  const getTotalProducts = () => {
-    let val = 0;
-    cart.map((item) => {
-      val += item.product_quantity;
-    });
-    setproduct_qty(val);
   };
 
   const [name, setname] = useState("");
@@ -78,10 +69,10 @@ function Checkout() {
   };
 
   const handleCheckout = (reference) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("reference", reference.reference);
-    formData.append("user_id", user.id);
-    formData.append("total_amount", product_qty);
+    formData.append("total_amount", total);
     formData.append("products", JSON.stringify(cart));
     formData.append("shipping_name", name);
     formData.append("phone_number", phonenumber);
@@ -89,19 +80,26 @@ function Checkout() {
     formData.append("state", state);
 
     setLoading(true);
+    //add authtoken to header
     axios
-      .post(`${api_url}/verify_payments`, formData)
+      .post(`${api_url}/verify_payments`, formData, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setLoading(false);
-        notifySuccess("Order Placed Successfully");
+        notifySuccess(res.data.message);
         db.carts.clear();
-        //useNavigate("/");
+        setTimeout(() => {
+          navigate("/market");
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        notifyWarning("Order Failed");
+        notifyWarning(err.response.data.message);
       });
   };
 
@@ -132,7 +130,7 @@ function Checkout() {
         <button
           className="bg-[#E16A16] hover:bg-amber-500 text-white text-sm py-3 px-1 mt-2 mb-1 rounded w-[95%] mx-auto"
           onClick={() => {
-            initializePayment(onSuccess, onClose);
+            initializePayment(handleCheckout, onClose);
           }}
         >
           CHECKOUT &#x20A6; {total.toLocaleString() + ".00"}
