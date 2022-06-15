@@ -11,8 +11,8 @@ import Wishlist from "./wishlist";
 
 function Navbar({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
   return (
-    <header className="h-fit pb-2 md:pb-1 md:h-[8rem] w-full bg-white shadow	">
-      <nav className="flex justify-between items-center w-full md:w-11/12 mx-2 md:mx-auto pt-5">
+    <header className="h-fit pb-2 md:pb-1 md:h-[8rem] w-screen bg-white shadow	">
+      <nav className="flex justify-between items-center w-full md:w-11/12 mx-2 md:mx-auto py-3">
         <div className="flex justify-between items-center w-full">
           <h1>
             <Link to="/market">
@@ -47,7 +47,7 @@ function Navbar({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
                 <Cart />
               </div>
             </div>
-            <div className="flex ml-6">
+            <div className="flex ml-1 md:ml-6">
               <Profile />
             </div>
           </div>

@@ -4,6 +4,8 @@ import Auth from "./pages/auth/auth";
 import CartPage from "./pages/cart/cart";
 import Home from "./pages/home";
 import Index from "./pages/market";
+import History from "./pages/orderHistory/history";
+import Profile from "./pages/profile/profile";
 import Saved from "./pages/saved/saved";
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
         <Route path="/saved" element={<Saved />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/orders" element={<History />} />
       </Routes>
     </BrowserRouter>
   );
