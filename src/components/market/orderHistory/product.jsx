@@ -21,7 +21,7 @@ function product({ product, index }) {
         </a>
       </div>
       <div className="pr-2">
-        <h4 className="mb-3">{product.stock}</h4>
+        <h4 className="mb-3">{product.status}</h4>
       </div>
     </div>
   );
