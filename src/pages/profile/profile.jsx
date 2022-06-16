@@ -103,7 +103,7 @@ function Profile() {
               </h1>
               <button
                 onClick={(e) => logout()}
-                className="text-[#E16A16] border border-[#E16A16]  text-white text-sm font-bold py-1 px-4 rounded hidden md:block"
+                className="text-[#E16A16] border border-[#E16A16]  text-white text-sm font-bold py-1 px-4 rounded"
               >
                 Logout
               </button>
