@@ -3,8 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import spiral from "../../assets/images/spiral.svg";
-import logo from "../../assets/images/logo.svg";
+import spiral from "../../../assets/images/spiral.svg";
+import logo from "../../../assets/images/logo.svg";
 
 function LoginForm() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -66,13 +66,13 @@ function LoginForm() {
     <div className="h-screen bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
         <div
-          className="h-full"
+          className="h-full hidden md:block"
           style={{
             background: `url(${spiral})`,
           }}
         ></div>
         <div className="bg-[#F8C881] flex flex-col justify-center items-center">
-          <div className="bg-white rounded-2xl h-[80vh] w-[80%] mx-auto py-6 px-3">
+          <div className="bg-white rounded-2xl h-fit w-[90%] md:w-[80%] mx-auto py-6 px-3">
             <img src={logo} alt="" className="h-12 w-full mx-auto " />
             <form className="px-2 mt-12" onSubmit={handleSubmit}>
               <ToastContainer

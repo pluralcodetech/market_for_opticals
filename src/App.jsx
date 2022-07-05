@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SingleProduct from "./components/market/product/singleProduct";
+import SignupForm from "./components/seller/auth/signupForm";
 import Auth from "./pages/auth/auth";
 import CartPage from "./pages/cart/cart";
 import Home from "./pages/home";
@@ -7,7 +8,8 @@ import Index from "./pages/market";
 import History from "./pages/orderHistory/history";
 import Profile from "./pages/profile/profile";
 import Saved from "./pages/saved/saved";
-import Login from "./pages/seller/Login";
+import Login from "./pages/seller/auth/Login";
+import Dashboard from "./pages/seller/Dashboard";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/orders" element={<History />} />
         <Route path="/seller/login" element={<Login />} />
+        <Route path="/seller/register" element={<SignupForm />} />
+        <Route path="/seller/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
