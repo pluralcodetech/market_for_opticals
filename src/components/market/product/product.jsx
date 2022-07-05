@@ -23,7 +23,7 @@ function Product({ product }) {
         className="h-44 bg-white border-b"
         style={{
           backgroundImage: `url(${image_url})`,
-          backgroundSize: "cover",
+          backgroundSize: "contain",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}

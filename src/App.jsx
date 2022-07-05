@@ -7,6 +7,7 @@ import Index from "./pages/market";
 import History from "./pages/orderHistory/history";
 import Profile from "./pages/profile/profile";
 import Saved from "./pages/saved/saved";
+import Login from "./pages/seller/Login";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/orders" element={<History />} />
+        <Route path="/seller/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
