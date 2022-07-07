@@ -8,7 +8,7 @@ function Header() {
           <input
             type="text"
             placeholder="Search"
-            className="w-96 h-full border-none"
+            className="w-96 h-[2rem] border-none"
           />
           <div>
             <p>11:30 - 18 March 2022</p>

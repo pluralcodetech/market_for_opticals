@@ -10,6 +10,7 @@ import Profile from "./pages/profile/profile";
 import Saved from "./pages/saved/saved";
 import Login from "./pages/seller/auth/Login";
 import Dashboard from "./pages/seller/Dashboard";
+import Marketplace from "./pages/seller/marketplace/Marketplace";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/seller/login" element={<Login />} />
         <Route path="/seller/register" element={<SignupForm />} />
         <Route path="/seller/dashboard" element={<Dashboard />} />
+        <Route path="/seller/market-place" element={<Marketplace />} />
       </Routes>
     </BrowserRouter>
   );
