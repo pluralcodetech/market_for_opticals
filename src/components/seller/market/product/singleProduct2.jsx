@@ -173,7 +173,8 @@ function SingleProduct2() {
               </div>
               <div className="w-full md:w-10/12  md:mx-auto bg-white p-2">
                 <h3 className="text-xl font-bold">
-                  for 2second hand eye balls
+                  Everything you are seeing here is a representation of a
+                  product page{" "}
                 </h3>
                 <div className="flex justify-between items-center mt-3">
                   <div className="flex items-center">

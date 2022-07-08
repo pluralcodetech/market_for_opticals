@@ -1,19 +1,35 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
+import axios from "axios";
 import logoWhite from "../../../assets/images/logo-white.svg";
-import { CgHome } from "react-icons/cg";
-import { MdAddShoppingCart } from "react-icons/md";
-import { GiWallet } from "react-icons/gi";
-import { GiPriceTag } from "react-icons/gi";
-import { GiShoppingCart } from "react-icons/gi";
-import { AiOutlineUser } from "react-icons/ai";
-import { GrSettingsOption } from "react-icons/gr";
 import sideBarDatas from "./data";
 
 function Sidebar() {
+  const api_url = import.meta.env.VITE_API_URL;
   const [isOpen, setIsOpen] = useState(false);
   const [sideBarData, setsideBarData] = useAtom(sideBarDatas);
+
+  const logout = () => {
+    if (window.confirm("are you sure you want to logout?")) {
+      axios
+        .get(`${api_url}/admin_logout`, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          sessionStorage.removeItem("token");
+          window.location.href = "/seller/login";
+          window.location.reload();
+        })
+        .catch((err) => {
+          sessionStorage.removeItem("token");
+          window.location.href = "/seller/login";
+          window.location.reload();
+        });
+    }
+  };
 
   return (
     <div className="flex  items-center h-full w-full flex-col">
@@ -51,6 +67,12 @@ function Sidebar() {
           </li>
         ))}
       </ul>
+      <button
+        className="bg-white px-5 py-2 rounded-lg"
+        onClick={() => logout()}
+      >
+        Logout
+      </button>
     </div>
   );
 }

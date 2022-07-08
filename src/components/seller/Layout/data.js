@@ -23,7 +23,7 @@ const sideBarDatas = atom([
   {
     name: "Wallet",
     icon: GiWallet,
-    link: "/wallet",
+    link: "/seller/wallet",
     isActive: false,
   },
   {
@@ -35,19 +35,19 @@ const sideBarDatas = atom([
   {
     name: "Orders",
     icon: GiShoppingCart,
-    link: "/orders",
+    link: "/seller/order-list",
     isActive: false,
   },
   {
     name: "Profile",
     icon: AiOutlineUser,
-    link: "/profile",
+    link: "/seller/profile",
     isActive: false,
   },
   {
     name: "Settings",
     icon: GrSettingsOption,
-    link: "/settings",
+    link: "/seller/settings",
     isActive: false,
   },
 ]);

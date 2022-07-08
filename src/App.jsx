@@ -13,6 +13,10 @@ import Dashboard from "./pages/seller/Dashboard";
 import Marketplace from "./pages/seller/marketplace/Marketplace";
 import SingleProduct2 from "./components/seller/market/product/singleProduct2";
 import Product from "./pages/seller/product/Product";
+import SettingsPage from "./pages/seller/settings/SettingsPage";
+import ProfilePage from "./pages/seller/profile/ProfilePage";
+import Wallet from "./pages/seller/wallet/Wallet";
+import OrderPage from "./pages/seller/order/OrderPage";
 
 function App() {
   return (
@@ -35,6 +39,10 @@ function App() {
           element={<SingleProduct2 />}
         />
         <Route path="/seller/market-place/products" element={<Product />} />
+        <Route path="/seller/settings" element={<SettingsPage />} />
+        <Route path="/seller/profile" element={<ProfilePage />} />
+        <Route path="/seller/wallet" element={<Wallet />} />
+        <Route path="/seller/order-list" element={<OrderPage />} />
       </Routes>
     </BrowserRouter>
   );
