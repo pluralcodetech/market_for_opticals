@@ -12,10 +12,13 @@ function SignupForm({ setshowSignupForm }) {
   const api_url = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
-  const [firstname, setfirstname] = useState("");
-  const [lastname, setlastname] = useState("");
+  const [company_name, setcompany_name] = useState("");
+  const [state, setstate] = useState("");
   const [email, setEmail] = useState("");
+  const [address, setaddress] = useState("");
   const [phonenumber, setphonenumber] = useState("");
+  const [license, setlicense] = useState("");
+  const [passport, setpassport] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setcpassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -45,31 +48,35 @@ function SignupForm({ setshowSignupForm }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    const name = firstname + " " + lastname;
+    const name = company_name + " " + state;
 
     const formData = new FormData();
-    formData.append("name", name);
+    formData.append("company_name", company_name);
     formData.append("email", email);
-    formData.append("phone_number", phonenumber);
+    formData.append("address", address);
+    formData.append("state", state);
+    formData.append("license", license);
+    formData.append("passport_photo", passport);
+    formData.append("company_phone_number", phonenumber);
     formData.append("password", password);
     formData.append("password_confirmation", cpassword);
 
     axios
-      .post(`${api_url}/register`, formData)
+      .post(`${api_url}/register_admin`, formData)
       .then((res) => {
         setLoading(false);
-        notifySuccess(res.data.status);
-        sessionStorage.setItem("token", res.data.token);
-        sessionStorage.setItem("user", JSON.stringify(res.data.user));
+
         console.log(res.data);
+        notifySuccess(res.data.message);
 
         setTimeout(() => {
-          window.history.back();
+          navigate("/seller/login");
         }, 2000);
       })
       .catch((err) => {
         setLoading(false);
-        notifyWarning(err.response.data.error);
+        notifyWarning(err.response.data.error.license[0]);
+        notifyWarning(err.response.data.error.passport_photo[0]);
         console.log(err.response);
       });
   };
@@ -103,8 +110,8 @@ function SignupForm({ setshowSignupForm }) {
                   className="bg-gray-200 appearance-none rounded w-full py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
                   type="text"
                   placeholder=" Enter your Company Name"
-                  value={firstname}
-                  onChange={(e) => setfirstname(e.target.value)}
+                  value={company_name}
+                  onChange={(e) => setcompany_name(e.target.value)}
                   required
                 />
               </div>
@@ -114,8 +121,8 @@ function SignupForm({ setshowSignupForm }) {
                     className="bg-gray-200 appearance-none rounded w-full py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
                     type="text"
                     placeholder="Enter your Company Location"
-                    value={firstname}
-                    onChange={(e) => setfirstname(e.target.value)}
+                    value={state}
+                    onChange={(e) => setstate(e.target.value)}
                     required
                   />
                 </div>
@@ -124,8 +131,8 @@ function SignupForm({ setshowSignupForm }) {
                     className="bg-gray-200 appearance-none rounded w-full py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
                     type="text"
                     placeholder=" Company Address"
-                    value={lastname}
-                    onChange={(e) => setlastname(e.target.value)}
+                    value={address}
+                    onChange={(e) => setaddress(e.target.value)}
                     required
                   />
                 </div>
@@ -153,6 +160,29 @@ function SignupForm({ setshowSignupForm }) {
                   />
                 </div>
               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="mb-4">
+                  <label>license</label>
+                  <input
+                    className="bg-gray-200 appearance-none rounded w-full py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+                    type="file"
+                    placeholder=""
+                    onChange={(e) => setlicense(e.target.files[0])}
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label>passport</label>
+                  <input
+                    className="bg-gray-200 appearance-none rounded w-full py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+                    type="file"
+                    placeholder=" "
+                    onChange={(e) => setpassport(e.target.files[0])}
+                    required
+                  />
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="mb-4">
                   <input
@@ -199,7 +229,12 @@ function SignupForm({ setshowSignupForm }) {
                 </a>
               </div>
               {loading ? (
-                <Spinner />
+                <div className="flex items-center justify-center">
+                  <div className="spinner-border text-gray-500" role="status">
+                    <span className="sr-only">Loading...</span>
+                    <span className="">Loading...</span>
+                  </div>
+                </div>
               ) : (
                 <button
                   type="submit"

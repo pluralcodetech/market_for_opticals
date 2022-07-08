@@ -31,7 +31,7 @@ function App() {
         <Route path="/seller/dashboard" element={<Dashboard />} />
         <Route path="/seller/market-place" element={<Marketplace />} />
         <Route
-          path="/seller/market-place/product/"
+          path="/seller/market-place/product/:id"
           element={<SingleProduct2 />}
         />
         <Route path="/seller/market-place/products" element={<Product />} />

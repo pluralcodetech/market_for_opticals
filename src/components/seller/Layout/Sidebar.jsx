@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { atom, useAtom } from "jotai";
 import logoWhite from "../../../assets/images/logo-white.svg";
 import { CgHome } from "react-icons/cg";
 import { MdAddShoppingCart } from "react-icons/md";
@@ -7,53 +9,11 @@ import { GiPriceTag } from "react-icons/gi";
 import { GiShoppingCart } from "react-icons/gi";
 import { AiOutlineUser } from "react-icons/ai";
 import { GrSettingsOption } from "react-icons/gr";
+import sideBarDatas from "./data";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [sideBarData, setsideBarData] = useState([
-    {
-      name: "Dashboard",
-      icon: <CgHome size={21} />,
-      link: "/seller/dashboard",
-      isActive: true,
-    },
-    {
-      name: "Market Place",
-      icon: <MdAddShoppingCart size={21} />,
-      link: "/seller/dashboard",
-      isActive: false,
-    },
-    {
-      name: "Wallet",
-      icon: <GiWallet size={21} />,
-      link: "/seller/dashboard",
-      isActive: false,
-    },
-    {
-      name: "Products",
-      icon: <GiPriceTag size={21} />,
-      link: "/seller/dashboard",
-      isActive: false,
-    },
-    {
-      name: "Orders",
-      icon: <GiShoppingCart size={21} />,
-      link: "/cart",
-      isActive: false,
-    },
-    {
-      name: "Profile",
-      icon: <AiOutlineUser size={21} />,
-      link: "/seller/dashboard",
-      isActive: false,
-    },
-    {
-      name: "Settings",
-      icon: <GrSettingsOption size={21} />,
-      link: "/seller/dashboard",
-      isActive: false,
-    },
-  ]);
+  const [sideBarData, setsideBarData] = useAtom(sideBarDatas);
 
   return (
     <div className="flex  items-center h-full w-full flex-col">
@@ -80,12 +40,14 @@ function Sidebar() {
               setsideBarData(sideBarData);
             }}
           >
-            <div className="flex justify-center items-center h-full mr-2">
-              {item.icon}
-            </div>
-            <h1 className="flex justify-center items-center h-full font-medium text-base">
-              {item.name}
-            </h1>
+            <Link to={item.link} className="flex  items-center">
+              <div className="flex justify-center items-center h-full mr-2">
+                <item.icon size={22} />
+              </div>
+              <h1 className="flex justify-center items-center h-full font-medium text-base">
+                {item.name}
+              </h1>
+            </Link>
           </li>
         ))}
       </ul>

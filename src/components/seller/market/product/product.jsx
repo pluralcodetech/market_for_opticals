@@ -31,7 +31,7 @@ function Product({ product }) {
         <Save product={product} />
       </div>
       <div className="pt-4 px-2">
-        <Link to={`/market/product/${product.id}`}>
+        <Link to={`/seller/market-place/product/${product.id}`}>
           <p className="text-gray-500 text-sm hover:border-b">{product_name}</p>
         </Link>
         <h4 className="text-lg font-bold mt-2">&#x20A6;{product_price}</h4>

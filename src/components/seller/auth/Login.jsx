@@ -44,15 +44,15 @@ function LoginForm() {
     formData.append("password", password);
 
     axios
-      .post(`${api_url}/login`, formData)
+      .post(`${api_url}/admin_login`, formData)
       .then((res) => {
         setLoading(false);
         notifySuccess(res.data.status);
         sessionStorage.setItem("token", res.data.token);
-        sessionStorage.setItem("user", JSON.stringify(res.data.user));
-        //console.log(res.data);
+        sessionStorage.setItem("admin", JSON.stringify(res.data.admin));
+        console.log(res.data);
         setTimeout(() => {
-          window.history.back();
+          navigate("/seller/dashboard");
         }, 2000);
       })
       .catch((err) => {
@@ -121,7 +121,12 @@ function LoginForm() {
                 </a>
               </div>
               {loading ? (
-                <Spinner />
+                <div className="flex items-center justify-center">
+                  <div className="spinner-border text-gray-500" role="status">
+                    <span className="sr-only">Loading...</span>
+                    <span className="">Loading...</span>
+                  </div>
+                </div>
               ) : (
                 <button
                   type="submit"
