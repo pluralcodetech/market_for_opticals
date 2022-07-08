@@ -11,6 +11,8 @@ import Saved from "./pages/saved/saved";
 import Login from "./pages/seller/auth/Login";
 import Dashboard from "./pages/seller/Dashboard";
 import Marketplace from "./pages/seller/marketplace/Marketplace";
+import SingleProduct2 from "./components/seller/market/product/singleProduct2";
+import Product from "./pages/seller/product/Product";
 
 function App() {
   return (
@@ -28,6 +30,11 @@ function App() {
         <Route path="/seller/register" element={<SignupForm />} />
         <Route path="/seller/dashboard" element={<Dashboard />} />
         <Route path="/seller/market-place" element={<Marketplace />} />
+        <Route
+          path="/seller/market-place/product/"
+          element={<SingleProduct2 />}
+        />
+        <Route path="/seller/market-place/products" element={<Product />} />
       </Routes>
     </BrowserRouter>
   );

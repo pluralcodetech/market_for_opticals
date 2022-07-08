@@ -30,8 +30,8 @@ function Cat({ selectedCat, setselectedCat }) {
             key={cat.id}
             className={
               selectedCat !== cat.id
-                ? `mx-2 items-center text-center block w-full`
-                : `mx-2 items-center text-center border border-[#E16A16] p-1 rounded block w-full`
+                ? `mx-2 items-center text-center block w-full  border border-[#E16A16] rounded-lg`
+                : `mx-2 items-center text-center border border-[#E16A16] p-1 rounded-lg block w-full`
             }
             onClick={(e) => setselectedCat(cat.id)}
           >

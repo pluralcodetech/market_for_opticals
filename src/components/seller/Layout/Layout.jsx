@@ -9,7 +9,7 @@ function Layout({ children }) {
         <div className="bg-amber-500">
           <Sidebar />
         </div>
-        <div className="col-col-6 h-full w-[85vw] overflow-y-auto">
+        <div className="col-col-6 h-full w-[85.5vw] overflow-y-auto">
           <Header />
           {children}
         </div>

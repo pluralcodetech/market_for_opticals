@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Layout from "../../components/seller/Layout/Layout";
+import Layout from "../../components/layout";
 import Navbar from "../../components/market/navbar/navbar";
 import Product from "../../components/market/product/product";
 import Sidebar from "../../components/market/sidebar";

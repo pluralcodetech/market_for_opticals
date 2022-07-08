@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { db } from "../../../db";
+import { db } from "../../../../db";
 
 import { FaCartArrowDown } from "react-icons/fa";
 
@@ -14,7 +14,7 @@ function Cart() {
   }, [cart]);
 
   return (
-    <div className="hover:border hover:border-[#E16A16] hover:px-2 hover:py-1">
+    <div className="border border-[#E16A16] px-2 py-1 rounded-lg">
       <Link to="/cart" className="flex items-center">
         <FaCartArrowDown size={18} className="ml-2 text-[#E16A16]" />
         <h6 className="hidden md:block">Cart</h6>

@@ -15,7 +15,7 @@ function Wishlist() {
       {" "}
       <Link
         to="/saved"
-        className="flex items-center hover:border hover:border-[#E16A16] hover:pr-1 hover:py-1"
+        className="flex items-center border border-[#E16A16] pr-1 rounded-lg py-1"
       >
         <BsFillHeartFill size={18} className="ml-2 text-red-500" />
         <h6 className="hidden md:block">Saved</h6>
