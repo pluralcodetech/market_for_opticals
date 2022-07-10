@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
 import axios from "axios";
 import logoWhite from "../../../assets/images/logo-white.svg";
@@ -7,6 +7,7 @@ import sideBarDatas from "./data";
 
 function Sidebar() {
   const api_url = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [sideBarData, setsideBarData] = useAtom(sideBarDatas);
 
@@ -20,13 +21,11 @@ function Sidebar() {
         })
         .then((res) => {
           sessionStorage.removeItem("token");
-          window.location.href = "/seller/login";
-          window.location.reload();
+          navigate("/seller/login");
         })
         .catch((err) => {
           sessionStorage.removeItem("token");
-          window.location.href = "/seller/login";
-          window.location.reload();
+          navigate("/seller/login");
         });
     }
   };
