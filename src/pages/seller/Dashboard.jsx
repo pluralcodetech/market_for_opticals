@@ -131,17 +131,17 @@ function Dashboard() {
                 amount={dashboarddatas.total_aproved_products || 0}
               />
               <Card
-                title={"total_orders_made_perday"}
+                title={"total orders_made perday"}
                 amount={dashboarddatas.total_orders_made_perday || 0}
               />
               <Card
-                title={"total_pending_order"}
+                title={"total pending order"}
                 amount={dashboarddatas.total_pending_order || 0}
               />
             </div>
             <div className="mt-6 bg-white rounded-lg h-20 shadow grid grid-cols-3 gap-4">
               <Card
-                title={"total_unaproved_products"}
+                title={"total unaproved products"}
                 amount={dashboarddatas.total_unaproved_products || 0}
               />
               <Card

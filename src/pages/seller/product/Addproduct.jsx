@@ -3,7 +3,11 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Addproduct({ setisAddproductModalShowing }) {
+function Addproduct({
+  setisAddproductModalShowing,
+  setisAddSubproductModalShowing,
+  setproduct_id,
+}) {
   const api_url = import.meta.env.VITE_API_URL;
 
   const notifyWarning = (msg) =>
@@ -41,6 +45,17 @@ function Addproduct({ setisAddproductModalShowing }) {
   const [subcategory, setsubcategory] = useState("");
   const [previewurl, setpreviewurl] = useState("");
 
+  const [brands, setbrands] = useState([]);
+  const [cats, setcats] = useState([
+    {
+      id: 1,
+      name: "Lenses",
+    },
+  ]);
+  const [subcats, setsubcats] = useState([]);
+  const [selectedCat, setselectedCat] = useState(2);
+  const [selectedSubCat, setselectedSubCat] = useState(1);
+
   const [isLoading, setisLoading] = useState(false);
 
   const submitProduct = (e) => {
@@ -54,8 +69,10 @@ function Addproduct({ setisAddproductModalShowing }) {
     formData.append("eye_size", eye_size);
     formData.append("image", image);
     formData.append("brand", brand);
-    formData.append("parent_category_id", Math.floor(Math.random() * 10));
-    formData.append("sub_category_id", Math.floor(Math.random() * 10));
+    formData.append("product_details", description);
+    formData.append("product_specifications", specifications);
+    formData.append("parent_category_id", selectedCat);
+    formData.append("sub_category_id", selectedSubCat);
 
     axios
       .post(`${api_url}/create_product`, formData, {
@@ -67,6 +84,11 @@ function Addproduct({ setisAddproductModalShowing }) {
         setisLoading(false);
         console.log(res.data);
         notifySuccess(res.data.message);
+        setproduct_id(res.data.product_id);
+
+        setisAddSubproductModalShowing(true);
+        setisAddproductModalShowing(false);
+
         setproduct_name("");
         setstock("");
         setproduct_price("");
@@ -93,6 +115,44 @@ function Addproduct({ setisAddproductModalShowing }) {
       im.src = URL.createObjectURL(image);
     }
   }, [image]);
+
+  useEffect(() => {
+    axios
+      .get(`${api_url}/get_brands`)
+      .then((res) => {
+        setbrands(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${api_url}/get_parent_category`)
+      .then((res) => {
+        //console.log(res);
+        setcats(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    const formData = new FormData();
+    formData.append("id", selectedCat);
+    axios
+      .post(`${api_url}/get_subcategory`, formData)
+      .then((res) => {
+        console.log(res);
+        setsubcats(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [selectedCat, selectedSubCat]);
 
   return (
     <div className="bg-white w-[60%] mx-auto z-[20000px] h-[90vh] overflow-y-auto -mt-[15vh] absolute border shadow rounded-lg p-6">
@@ -192,22 +252,90 @@ function Addproduct({ setisAddproductModalShowing }) {
             onChange={(e) => setstock(e.target.value)}
           >
             <option>Select Availability</option>
-            <option value="in stock">In Stock</option>
-            <option value="out of stock">Out of Stock</option>
+            <option value="In stock">In Stock</option>
+            <option value="Out of stock">Out of Stock</option>
           </select>
         </div>{" "}
         <div className="mb-4">
           <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
             Brand Name
           </label>
-          <input
-            className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
-            type="text"
-            placeholder="Enter brand Name"
-            value={brand}
-            onChange={(e) => setbrand(e.target.value)}
-            required
-          />
+          {brands.length > 0 ? (
+            <select
+              required
+              className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+              value={brand}
+              onChange={(e) => setbrand(e.target.value)}
+            >
+              <option>Select Brand</option>
+              {brands.map((brand) => (
+                <option key={brand.id} value={brand.name}>
+                  {brand.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <select
+              required
+              className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+            >
+              <option>no Availabile brands</option>
+            </select>
+          )}
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
+            Product Category
+          </label>
+          {cats.length > 0 ? (
+            <select
+              required
+              className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+              value={selectedCat}
+              onChange={(e) => setselectedCat(e.target.value)}
+            >
+              <option>Select category</option>
+              {cats.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <select
+              required
+              className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+            >
+              <option>no Availabile category</option>
+            </select>
+          )}
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
+            Product Subcategory
+          </label>
+          {cats.length > 0 ? (
+            <select
+              required
+              className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+              value={selectedSubCat}
+              onChange={(e) => setselectedSubCat(e.target.value)}
+            >
+              <option>Select Subcategory</option>
+              {subcats.map((subcat) => (
+                <option key={subcat.id} value={subcat.id}>
+                  {subcat.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <select
+              required
+              className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+            >
+              <option>no Availabile Subcategory</option>
+            </select>
+          )}
         </div>
         <div className="mb-4">
           <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
@@ -220,7 +348,7 @@ function Addproduct({ setisAddproductModalShowing }) {
             onChange={(e) => setproduct_type(e.target.value)}
           >
             <option value="wholesale">Whole sale</option>
-            <option value="single">single</option>
+            <option value="retail">retail</option>
             <option></option>
           </select>
         </div>
@@ -234,6 +362,32 @@ function Addproduct({ setisAddproductModalShowing }) {
             placeholder="Enter  Product Size "
             value={eye_size}
             onChange={(e) => seteye_size(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
+            Product Description
+          </label>
+          <textarea
+            className="bg-gray-200 h-20 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+            type="text"
+            placeholder="Enter  Product Description "
+            value={description}
+            onChange={(e) => setdescription(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-500 md:text-left mb-1 md:mb-0 pr-4">
+            Product specifications
+          </label>
+          <input
+            className="bg-gray-200 appearance-none rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-amber-500"
+            type="text"
+            placeholder="Enter  Product specifications "
+            value={specifications}
+            onChange={(e) => setspecifications(e.target.value)}
             required
           />
         </div>

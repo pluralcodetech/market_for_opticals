@@ -20,16 +20,17 @@ const sideBarDatas = atom([
     link: "/seller/market-place",
     isActive: false,
   },
-  {
-    name: "Wallet",
-    icon: GiWallet,
-    link: "/seller/wallet",
-    isActive: false,
-  },
+
   {
     name: "Products",
     icon: GiPriceTag,
     link: "/seller/market-place/products",
+    isActive: false,
+  },
+  {
+    name: "Wallet",
+    icon: GiWallet,
+    link: "/seller/wallet",
     isActive: false,
   },
   {

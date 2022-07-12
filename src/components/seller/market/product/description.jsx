@@ -4,7 +4,7 @@ function Description({ product }) {
   const [changeView, setchangeView] = useState(true);
 
   return (
-    <div className=" h-fit pb-4 mb-4 mt-4 border rounded-lg bg-white">
+    <div className=" h-fit pb-4 mb-4 mt-4 border rounded-lg bg-white w-full">
       <div className="flex justify-between items-center border w-full md:w-96 rounded-lg">
         <div
           onClick={() => setchangeView(true)}

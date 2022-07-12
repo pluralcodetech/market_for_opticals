@@ -5,10 +5,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Layout from "../../../components/seller/Layout/Layout";
 import Card from "../../../components/seller/product/Card";
 import Addproduct from "./Addproduct";
+import Addsubproduct from "./Addsubproduct";
 
 function Product() {
   const api_url = import.meta.env.VITE_API_URL;
   const [isAddproductModalShowing, setisAddproductModalShowing] =
+    useState(false);
+  const [isAddSubproductModalShowing, setisAddSubproductModalShowing] =
     useState(false);
 
   const notifyWarning = (msg) =>
@@ -34,8 +37,12 @@ function Product() {
     });
 
   const [products, setProducts] = useState([]);
+  const [product_id, setproduct_id] = useState("");
   const [filter, setfilter] = useState("approved");
   const [loading, setLoading] = useState(false);
+  const [isDeleting, setisDeleting] = useState(false);
+
+  const [product_stock_count, setproduct_stock_count] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -63,6 +70,28 @@ function Product() {
         setLoading(false);
       });
   }, [filter]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      navigate("/seller/login");
+    }
+
+    axios
+      .get(`${api_url}/product_stock_count`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setproduct_stock_count(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        notifyWarning(err.response.data.message);
+        console.log(err.response);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -94,13 +123,28 @@ function Product() {
           <div className="h-full w-full">
             <Addproduct
               setisAddproductModalShowing={setisAddproductModalShowing}
+              setisAddSubproductModalShowing={setisAddSubproductModalShowing}
+              setproduct_id={setproduct_id}
+            />
+          </div>
+        )}
+        {isAddSubproductModalShowing && (
+          <div className="h-full w-full">
+            <Addsubproduct
+              setisAddSubproductModalShowing={setisAddSubproductModalShowing}
+              product_id={product_id}
             />
           </div>
         )}
         <div className="grid grid-cols-4 gap-4">
-          <Card title="Total Amount Made" amount="100,000.00" />
-          <Card title="Total Amount Made" amount="100,000.00" />
-          <Card title="Total Amount Made" amount="100,000.00" />
+          <Card
+            title="sum of stock products"
+            amount={product_stock_count.sum_of_stock_products}
+          />
+          <Card
+            title="sum of out of stock products"
+            amount={product_stock_count.sum_of_outof_stock_products}
+          />
           <div
             onClick={(e) =>
               setisAddproductModalShowing(!isAddproductModalShowing)
@@ -138,6 +182,7 @@ function Product() {
                 <th className="border">Qty sold</th>
                 <th className="border">Status</th>
                 <th className="border">Action</th>
+                <th className="border"></th>
                 <th className="border">Date Listed</th>
               </tr>
             </thead>
@@ -145,7 +190,7 @@ function Product() {
               {products.length > 0 ? (
                 products.map((product, index) => (
                   <tr key={product.id} className="border-b">
-                    <td className="p-4 border text-center">{index}</td>
+                    <td className="p-4 border text-center">{product.id}</td>
                     <td className="border">
                       <img
                         src={`${product.product_image}`}
@@ -167,45 +212,56 @@ function Product() {
                       {product.approved_status}
                     </td>
                     <td className="border text-center">
-                      <div className="flex justify-center items-center">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                      <div className="flex justify-center items-center w-full">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mr-2">
                           Edit
                         </button>
-                        <button
-                          onClick={() => {
-                            const token = sessionStorage.getItem("token");
-                            if (!token) {
-                              navigate("/seller/login");
-                            }
-
-                            axios
-                              .get(
-                                `${api_url}/admin_delete_product/${product.id}`,
-                                formData,
-                                {
-                                  headers: {
-                                    Authorization: `Bearer ${token}`,
-                                  },
-                                }
-                              )
-                              .then((res) => {
-                                notifySuccess(res.data.message);
-                                setProducts(
-                                  products.filter((p) => p.id !== product.id)
-                                );
-                              })
-                              .catch((err) => {
-                                notifyWarning(err.response.data.message);
-                              })
-                              .finally(() => {
-                                setLoading(false);
-                              });
-                          }}
-                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                          Delete
-                        </button>
+                        {!isDeleting && (
+                          <button
+                            onClick={() => {
+                              const token = sessionStorage.getItem("token");
+                              if (!token) {
+                                navigate("/seller/login");
+                              }
+                              setisDeleting(true);
+                              axios
+                                .get(
+                                  `${api_url}/admin_delete_product/${product.id}`,
+                                  {
+                                    headers: {
+                                      Authorization: `Bearer ${token}`,
+                                    },
+                                  }
+                                )
+                                .then((res) => {
+                                  notifySuccess(res.data.message);
+                                  setProducts(
+                                    products.filter((p) => p.id !== product.id)
+                                  );
+                                })
+                                .catch((err) => {
+                                  notifyWarning(err.response.data.message);
+                                })
+                                .finally(() => {
+                                  setisDeleting(false);
+                                });
+                            }}
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
+                          >
+                            Delete
+                          </button>
+                        )}
                       </div>
+                    </td>
+                    <td className="border text-center">
+                      <a
+                        href={`/seller/product-detail/${product.id}`}
+                        className="flex justify-center items-center w-full"
+                      >
+                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded">
+                          View
+                        </button>
+                      </a>
                     </td>
                     <td className="border text-center">{product.date_time}</td>
                   </tr>

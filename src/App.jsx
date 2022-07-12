@@ -17,6 +17,7 @@ import SettingsPage from "./pages/seller/settings/SettingsPage";
 import ProfilePage from "./pages/seller/profile/ProfilePage";
 import Wallet from "./pages/seller/wallet/Wallet";
 import OrderPage from "./pages/seller/order/OrderPage";
+import ProductDetails from "./pages/seller/product/ProductDetails";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/seller/profile" element={<ProfilePage />} />
         <Route path="/seller/wallet" element={<Wallet />} />
         <Route path="/seller/order-list" element={<OrderPage />} />
+        <Route path="/seller/product-detail/:id" element={<ProductDetails />} />
       </Routes>
     </BrowserRouter>
   );
