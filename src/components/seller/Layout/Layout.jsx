@@ -11,6 +11,11 @@ function Layout({ children }) {
       alert("Please use desktop version to access this page xx");
       navigate("/market");
     }
+
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      navigate("/seller/login");
+    }
   }, []);
 
   return (
