@@ -223,7 +223,7 @@ function SignupForm() {
                 </div>
                 <Link
                   to="/seller/login"
-                  className="text-sm text-gray-500 hover:text-gray-900 w-full"
+                  className="text-sm text-gray-500 hover:text-gray-900 "
                 >
                   i already have an account
                 </Link>
