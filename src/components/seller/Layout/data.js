@@ -28,17 +28,18 @@ const sideBarDatas = atom([
     isActive: false,
   },
   {
-    name: "Wallet",
-    icon: GiWallet,
-    link: "/seller/wallet",
-    isActive: false,
-  },
-  {
     name: "Orders",
     icon: GiShoppingCart,
     link: "/seller/order-list",
     isActive: false,
   },
+  {
+    name: "Wallet",
+    icon: GiWallet,
+    link: "/seller/wallet",
+    isActive: false,
+  },
+
   {
     name: "Profile",
     icon: AiOutlineUser,

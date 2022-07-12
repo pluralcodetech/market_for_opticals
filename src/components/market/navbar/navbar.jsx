@@ -82,7 +82,7 @@ function Navbar({ setShowSidebar, showSidebar, selectedCat, setselectedCat }) {
           <div className="flex justify-between items-center">
             <Cat selectedCat={selectedCat} setselectedCat={setselectedCat} />
             <div className="ml-12">
-              <Link to="/seller">Become Seller</Link>
+              <Link to="/seller/register">Become Seller</Link>
             </div>
           </div>
         </div>

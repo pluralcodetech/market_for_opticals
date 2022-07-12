@@ -178,7 +178,6 @@ function Product() {
                 <th className="border">Image</th>
                 <th className="border">Product Name</th>
                 <th className="border">Price</th>
-                <th className="border">Quantity</th>
                 <th className="border">Qty sold</th>
                 <th className="border">Status</th>
                 <th className="border">Action</th>
@@ -204,7 +203,6 @@ function Product() {
                     <td className="border text-center">
                       {product.product_price}
                     </td>
-                    <td className="border text-center">{product.quantity}</td>
                     <td className="border text-center">
                       {product.product_amount_sold}
                     </td>
@@ -213,9 +211,11 @@ function Product() {
                     </td>
                     <td className="border text-center">
                       <div className="flex justify-center items-center w-full">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mr-2">
-                          Edit
-                        </button>
+                        <a href={`/seller/edit-product/${product.id}`}>
+                          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mr-2">
+                            Edit
+                          </button>
+                        </a>
                         {!isDeleting && (
                           <button
                             onClick={() => {

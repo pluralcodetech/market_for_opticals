@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import spiral from "../../../assets/images/spiral.svg";
@@ -8,7 +8,7 @@ import logo from "../../../assets/images/logo.svg";
 
 import Spinner from "../../../pages/loader/spinner";
 
-function SignupForm({ setshowSignupForm }) {
+function SignupForm() {
   const api_url = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
@@ -221,12 +221,12 @@ function SignupForm({ setshowSignupForm }) {
                     I agree to the Terms of Service and Privacy Policy
                   </label>
                 </div>
-                <a
-                  onClick={(e) => setshowSignupForm(false)}
-                  className="text-sm text-gray-500 hover:text-gray-900"
+                <Link
+                  to="/seller/login"
+                  className="text-sm text-gray-500 hover:text-gray-900 w-full"
                 >
                   i already have an account
-                </a>
+                </Link>
               </div>
               {loading ? (
                 <div className="flex items-center justify-center">

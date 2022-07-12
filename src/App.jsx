@@ -18,12 +18,15 @@ import ProfilePage from "./pages/seller/profile/ProfilePage";
 import Wallet from "./pages/seller/wallet/Wallet";
 import OrderPage from "./pages/seller/order/OrderPage";
 import ProductDetails from "./pages/seller/product/ProductDetails";
+import OrdersDetails from "./pages/seller/order/OrdersDetails";
+import UpdateProduct from "./pages/seller/product/UpdateProduct";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Index />} />
+        <Route path="/waitlist" element={<Home />} />
         <Route path="/market" element={<Index />} />
         <Route path="/market/product/:id" element={<SingleProduct />} />
         <Route path="/saved" element={<Saved />} />
@@ -44,7 +47,9 @@ function App() {
         <Route path="/seller/profile" element={<ProfilePage />} />
         <Route path="/seller/wallet" element={<Wallet />} />
         <Route path="/seller/order-list" element={<OrderPage />} />
+        <Route path="/seller/orders-detail/:id" element={<OrdersDetails />} />
         <Route path="/seller/product-detail/:id" element={<ProductDetails />} />
+        <Route path="/seller/edit-product/:id" element={<UpdateProduct />} />
       </Routes>
     </BrowserRouter>
   );
