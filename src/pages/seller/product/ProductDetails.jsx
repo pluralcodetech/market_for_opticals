@@ -110,7 +110,7 @@ function ProductDetails() {
                         <h6 className="text-base text-gray-400 mb-2">size</h6>
                         <div className="flex">
                           <div className="flex">
-                            {product.product_sizes.length > 0
+                            {product.product_sizes?.length > 0
                               ? product.product_sizes.map((size, i) => (
                                   <Size size={size} key={i} />
                                 ))

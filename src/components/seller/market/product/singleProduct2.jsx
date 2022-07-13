@@ -18,10 +18,14 @@ function SingleProduct2() {
 
   useEffect(() => {
     axios
-      .get(`${api_url}/get_product_details/${id}`)
+      .get(`${api_url}/admin_product_details/${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         setproduct(res.data);
-        //console.log(res);
+        console.log(res);
       })
       .catch((err) => {});
   }, [id]);
@@ -116,7 +120,7 @@ function SingleProduct2() {
                   <h6 className="text-base text-gray-400 mb-2">size</h6>
                   <div className="flex">
                     <div className="flex">
-                      {product.product_sizes.length > 0
+                      {product.product_sizes?.length > 0
                         ? product.product_sizes.map((size, i) => (
                             <Size size={size} key={i} />
                           ))
