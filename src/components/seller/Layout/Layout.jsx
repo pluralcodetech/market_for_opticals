@@ -7,8 +7,13 @@ function Layout({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (screen.orientation !== null) {
-      alert("Please use desktop version to access this page xx");
+    /*if (typeof screen.orientation !== "undefined") {
+      alert("Please use desktop version to access this page ");
+      navigate("/market");
+    }*/
+
+    if (window.innerWidth < 768) {
+      alert("Please use desktop version to access this page ");
       navigate("/market");
     }
 
