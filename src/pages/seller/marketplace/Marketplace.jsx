@@ -26,7 +26,11 @@ function Marketplace() {
 
   useEffect(() => {
     axios
-      .get(`${api_url}/get_subcategory/${selectedCat}`)
+      .get(`${api_url}/get_subcategory/${selectedCat}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         //console.log(res);
         setsubcart(res.data.children);
@@ -39,7 +43,11 @@ function Marketplace() {
 
   useEffect(() => {
     axios
-      .get(`${api_url}/get_products?parent_cat_id=${selectedCat}`)
+      .get(`${api_url}/get_wholesale_product?parent_cat_id=${selectedCat}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         console.log(res);
         setproducts(res.data);
@@ -54,7 +62,11 @@ function Marketplace() {
     formData.append("id[]", selectedSubCat);
     if (selectedSubCat.length > 0) {
       axios
-        .post(`${api_url}/product_search_subcategory`, formData)
+        .post(`${api_url}/product_search_subcategory`, formData, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        })
         .then((res) => {
           // console.log(res);
           setproducts(res.data);
@@ -64,7 +76,11 @@ function Marketplace() {
         });
     } else {
       axios
-        .get(`${api_url}/get_products?parent_cat_id=${selectedCat}`)
+        .get(`${api_url}/get_wholesale_product?parent_cat_id=${selectedCat}`, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        })
         .then((res) => {
           //console.log(res);
           setproducts(res.data);

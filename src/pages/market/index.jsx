@@ -61,7 +61,7 @@ function Index() {
       axios
         .get(`${api_url}/get_products?parent_cat_id=${selectedCat}`)
         .then((res) => {
-          //console.log(res);
+          console.log(res);
           setproducts(res.data);
         })
         .catch((err) => {
