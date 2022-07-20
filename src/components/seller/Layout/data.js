@@ -40,18 +40,12 @@ const sideBarDatas = atom([
     isActive: false,
   },
 
-  {
+  /*{
     name: "Profile",
     icon: AiOutlineUser,
     link: "/seller/profile",
     isActive: false,
-  },
-  {
-    name: "Settings",
-    icon: GrSettingsOption,
-    link: "/seller/settings",
-    isActive: false,
-  },
+  },*/
 ]);
 
 export default sideBarDatas;
