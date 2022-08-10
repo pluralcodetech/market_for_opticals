@@ -20,6 +20,12 @@ import OrderPage from "./pages/seller/order/OrderPage";
 import ProductDetails from "./pages/seller/product/ProductDetails";
 import OrdersDetails from "./pages/seller/order/OrdersDetails";
 import UpdateProduct from "./pages/seller/product/UpdateProduct";
+import LoginAdmin from "./pages/superAdmin/auth/Login";
+import SignupAdmin from "./pages/superAdmin/auth/Signup";
+import MarketplaceAdmin from "./pages/superAdmin/marketplace/Marketplace";
+import DashboardAdmin from "./pages/superAdmin/Dashboard";
+import AdminProduct from "./pages/superAdmin/product/Product";
+import ProductDetailsAdmin from "./pages/superAdmin/product/ProductDetails";
 
 function App() {
   return (
@@ -50,6 +56,14 @@ function App() {
         <Route path="/seller/orders-detail/:id" element={<OrdersDetails />} />
         <Route path="/seller/product-detail/:id" element={<ProductDetails />} />
         <Route path="/seller/edit-product/:id" element={<UpdateProduct />} />
+        <Route path="/superadmin/login" element={<LoginAdmin />} />
+        <Route path="/superadmin/register" element={<SignupAdmin />} />
+        <Route path="/superadmin/dashboard" element={<DashboardAdmin />} />
+        <Route path="/superadmin/products" element={<AdminProduct />} />
+        <Route
+          path="/superadmin/product/:id"
+          element={<ProductDetailsAdmin />}
+        />
       </Routes>
     </BrowserRouter>
   );
