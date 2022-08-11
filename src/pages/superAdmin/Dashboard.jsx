@@ -38,9 +38,9 @@ function DashboardAdmin() {
     });
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("super_token");
     if (!token) {
-      navigate("/seller/login");
+      navigate("/superadmin/login");
     }
 
     axios
@@ -62,9 +62,9 @@ function DashboardAdmin() {
   }, []);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("super_token");
     if (!token) {
-      navigate("/seller/login");
+      navigate("/superadmin/login");
     }
 
     axios

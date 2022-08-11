@@ -18,7 +18,7 @@ function ProductDetailsAdmin() {
     axios
       .get(`${api_url}/admin_product_details/${id}`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("super_token")}`,
         },
       })
       .then((res) => {
@@ -30,7 +30,7 @@ function ProductDetailsAdmin() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-fit overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
         <h1 className="text-2xl font-bold">Products</h1>
         <div className="flex">
           <img src={icon} alt="" className="mr-3" />
@@ -38,7 +38,7 @@ function ProductDetailsAdmin() {
         </div>
         {Object.keys(product).length > 0 ? (
           <div className="w-full my-3 bg-white rounded-lg ">
-            <div className="pt-3 pb-3 px-12 flex items-center justify-between border">
+            <div className="pt-3 pb-3 px-12 flex items-center justify-between border w-full">
               <div className="flex items-center">
                 <h6 className="mx-4">Product ID</h6>
                 <h1 className="text-3xl font-bold">{product.id}</h1>
@@ -46,7 +46,7 @@ function ProductDetailsAdmin() {
               <div className="flex">
                 <button
                   onClick={() => {
-                    const token = sessionStorage.getItem("token");
+                    const token = sessionStorage.getItem("super_token");
                     if (!token) {
                       navigate("/seller/login");
                     }
@@ -80,9 +80,10 @@ function ProductDetailsAdmin() {
                 </button>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-7 gap-2 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-8 gap-2 w-full">
               <div className="p-8 h-fit w-full col-span-5 w-full">
-                <div className="w-full p-6 bg-white rounded-lg">
+                <p className="text-gray-500 text-sm pl-6">Details</p>
+                <div className="w-full px-6 pt-2 bg-white rounded-lg">
                   <div className="">
                     <div className="">
                       <div className="bg-gray-400 h-64 md:h-80 rounded">
@@ -93,7 +94,7 @@ function ProductDetailsAdmin() {
                         />
                       </div>
                     </div>
-                    <div className="w-full  md:mx-auto bg-white p-2 border">
+                    <div className="w-full  md:mx-auto bg-white p-2 border-x rounded-lg">
                       <h3 className="text-xl font-bold">
                         {product.product_name}
                       </h3>
@@ -101,7 +102,7 @@ function ProductDetailsAdmin() {
                       <div className="flex justify-between items-center mt-4">
                         <h4 className="text-lg font-bold mt-2">
                           &#x20A6; {product.product_price}
-                        </h4>{" "}
+                        </h4>
                         <div className="">
                           <h4>{product.stock}</h4>
                         </div>
@@ -121,8 +122,8 @@ function ProductDetailsAdmin() {
                     </div>
                   </div>
                 </div>
-                <div className="w-full">
-                  <div className=" h-fit pb-4 mb-4 mt-4 border rounded-lg bg-white w-full">
+                <div className="w-full px-6">
+                  <div className=" h-fit pb-4 mb-4  border-x border-b  rounded-lg bg-white w-full">
                     <div className="flex justify-between items-center border w-full md:w-96 rounded-lg">
                       <div
                         onClick={() => setchangeView(true)}
@@ -162,60 +163,38 @@ function ProductDetailsAdmin() {
                         </div>
                       )}
                     </div>
-                  </div>{" "}
+                  </div>
                 </div>
               </div>
-              {/*
-              <div className=" mt-4  w-full border-l pl-1">
-                <h4>sub products</h4>
-                {product.image_url.map((image) => (
-                  <div className="grid grid-cols-2 h-20 w-full mt-3 border-b">
-                    <div className="h-16 md:h-20 bg-gray-200" key={image.id}>
-                      <img src={image.image_url} className="h-full w-full" />
-                    </div>
-                    <div className="flex w-full h-full items-center">
-                      <button
-                        onClick={() => {
-                          const token = sessionStorage.getItem("token");
-                          if (!token) {
-                            navigate("/seller/login");
-                          }
-                          setisDeleting(true);
-                          axios
-                            .get(
-                              `${api_url}/admin_delete_product/${image.id}`,
-                              {
-                                headers: {
-                                  Authorization: `Bearer ${token}`,
-                                },
-                              }
-                            )
-                            .then((res) => {
-                              notifySuccess(res.data.message);
-
-                              setTimeout(() => {
-                                window.history.back();
-                              }, 2000);
-                            })
-                            .catch((err) => {
-                              notifyWarning(err.response.data.message);
-                            })
-                            .finally(() => {
-                              setisDeleting(false);
-                            });
-                        }}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 h-8 rounded mx-4"
-                      >
-                        Delete
-                      </button>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 h-8 rounded">
-                        Edit
-                      </button>
-                    </div>
+              <div className=" mt-4  w-full border pl-1 border-[#DEDEDE] rounded-lg col-span-3">
+                <h4 className="text-gray-500 text-sm p-3">Product Analytics</h4>
+                <div className="grid grid-cols-2">
+                  <div className="bg-[#FADFB6] h-[80px] rounded-lg w-[95%] mb-4 mx-1 flex flex-col justify-between items-center p-2">
+                    <h4>Sold Product</h4>
+                    <h2 className="text-lg font-bold">30</h2>
                   </div>
-                ))}
+                  <div className="bg-[#FADFB6] h-[80px] rounded-lg w-[95%] mb-4 mx-1 flex flex-col justify-between items-center p-2">
+                    <h4>Status</h4>
+                    <h2 className="text-lg font-bold text-[#FF9900]">
+                      {product.product_status === "active"
+                        ? "Active"
+                        : "Suspended"}
+                    </h2>
+                  </div>
+                  <div className="bg-[#FADFB6] h-[80px] rounded-lg w-[95%] mb-4 mx-1 flex flex-col justify-between items-center p-2">
+                    <h4>Product Price</h4>
+                    <h2 className="text-lg font-bold">₦10,000.00</h2>
+                  </div>
+                  <div className="bg-[#FADFB6] h-[80px] rounded-lg w-[95%] mb-4 mx-1 flex flex-col justify-between items-center p-2">
+                    <h4>Commission </h4>
+                    <h2 className="text-lg font-bold">₦10,000.00</h2>
+                  </div>
+                </div>
+                <div className="bg-[#FBC77A] h-[80px] rounded-lg w-[97%] mx-auto mb-4 mx-1 flex flex-col justify-between items-center p-2">
+                  <h4>Total Amount made on this product </h4>
+                  <h2 className="text-lg font-bold">₦300,000.00</h2>
+                </div>
               </div>
-              */}
             </div>
           </div>
         ) : (
@@ -254,7 +233,7 @@ function ProductDetailsAdmin() {
                 <div className="w-full md:w-10/12  md:mx-auto bg-white p-2">
                   <h3 className="text-xl font-bold">
                     Everything you are seeing here is a representation of a
-                    product page{" "}
+                    product page
                   </h3>
 
                   <div className="flex justify-between items-center mt-4">

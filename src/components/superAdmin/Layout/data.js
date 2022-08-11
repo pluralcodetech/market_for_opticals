@@ -48,7 +48,7 @@ const sideBarDatas = atom([
   {
     name: "Settings",
     icon: MdSettingsSuggest,
-    link: "/superadmin/profile",
+    link: "/superadmin/settings",
     isActive: false,
   },
 ]);

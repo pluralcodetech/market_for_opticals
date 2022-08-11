@@ -26,6 +26,8 @@ import MarketplaceAdmin from "./pages/superAdmin/marketplace/Marketplace";
 import DashboardAdmin from "./pages/superAdmin/Dashboard";
 import AdminProduct from "./pages/superAdmin/product/Product";
 import ProductDetailsAdmin from "./pages/superAdmin/product/ProductDetails";
+import SettingsPageAdmin from "./pages/superAdmin/settings/SettingsPage";
+import OrderPageAdmin from "./pages/superAdmin/order/OrderPage";
 
 function App() {
   return (
@@ -64,6 +66,8 @@ function App() {
           path="/superadmin/product/:id"
           element={<ProductDetailsAdmin />}
         />
+        <Route path="/superadmin/order-list" element={<OrderPageAdmin />} />
+        <Route path="/superadmin/settings" element={<SettingsPageAdmin />} />
       </Routes>
     </BrowserRouter>
   );

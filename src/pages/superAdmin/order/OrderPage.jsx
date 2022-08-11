@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Layout from "../../../components/seller/Layout/Layout";
-import Card from "../../../components/seller/product/Card";
+import Layout from "../../../components/superAdmin/Layout/Layout";
+import Card from "../../../components/superAdmin/product/Card";
 
-function OrderPage() {
+function OrderPageAdmin() {
   const api_url = import.meta.env.VITE_API_URL;
 
   const notifyWarning = (msg) =>
@@ -36,9 +36,9 @@ function OrderPage() {
   const [dashboarddatas, setdashboarddatas] = useState([]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("super_token");
     if (!token) {
-      navigate("/seller/login");
+      navigate("/superadmin/login");
     }
 
     const formData = new FormData();
@@ -63,7 +63,7 @@ function OrderPage() {
   }, [filter]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("super_token");
     if (!token) {
       navigate("/seller/login");
     }
@@ -88,9 +88,9 @@ function OrderPage() {
 
   return (
     <Layout>
-      <div className="bg-gray-200 h-fit overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
-          <h1 className="text-2xl font-bold">Products</h1>
+          <h1 className="text-2xl font-bold">Orders</h1>
           <ToastContainer
             position="top-right"
             autoClose={5000}
@@ -137,6 +137,9 @@ function OrderPage() {
               <tr className="text-sm text-gray-500 p-4">
                 <th className="p-4 border">Order ID</th>
                 <th className="border">Customer Name</th>
+                <th className="border">Status</th>
+                <th className="p-4 border">Product ID</th>
+                <th className="p-4 border">Qty</th>
                 <th className="border"> Ordered on</th>
                 <th className="border"></th>
               </tr>
@@ -146,18 +149,23 @@ function OrderPage() {
                 products.map((product, index) => (
                   <tr key={product.order_id} className="border-b">
                     <td className="p-4 border text-center">
-                      {product.order_id}
+                      {product.customer_id}
                     </td>
 
-                    <td className="border text-center">{product.name}</td>
+                    <td className="border text-center">
+                      {product.customer_name}
+                    </td>
+                    <td className="border text-center">{product.date}</td>
+                    <td className="border text-center">{product.date}</td>
+                    <td className="border text-center">{product.date}</td>
                     <td className="border text-center">{product.date}</td>
 
-                    <td className="border text-center">
+                    <td className="border text-center rounded-lg">
                       <a
-                        href={`/seller/orders-detail/${product.order_id}`}
+                        href={`/superadmin/order-detail/${product.customer_id}`}
                         className="flex justify-center items-center w-full"
                       >
-                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded">
+                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded-lg">
                           View
                         </button>
                       </a>
@@ -179,4 +187,4 @@ function OrderPage() {
   );
 }
 
-export default OrderPage;
+export default OrderPageAdmin;

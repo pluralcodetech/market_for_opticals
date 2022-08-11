@@ -1,8 +1,8 @@
 import React from "react";
-import Layout from "../../../components/seller/Layout/Layout";
+import Layout from "../../../components/superAdmin/Layout/Layout";
 
-function SettingsPage() {
+function SettingsPageAdmin() {
   return <Layout>SettingsPage</Layout>;
 }
 
-export default SettingsPage;
+export default SettingsPageAdmin;

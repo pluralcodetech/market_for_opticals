@@ -45,9 +45,9 @@ function AdminProduct() {
   const [product_stock_count, setproduct_stock_count] = useState("");
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("super_token");
     if (!token) {
-      navigate("/seller/login");
+      navigate("/superadmin/login");
     }
 
     const formData = new FormData();
@@ -72,9 +72,9 @@ function AdminProduct() {
   }, [filter]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("super_token");
     if (!token) {
-      navigate("/seller/login");
+      navigate("/superadmin/login");
     }
 
     axios
@@ -95,7 +95,7 @@ function AdminProduct() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-fit overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
           <h1 className="text-2xl font-bold">Products</h1>
           <ToastContainer
@@ -120,7 +120,7 @@ function AdminProduct() {
           </select>
         </div>
         {isAddproductModalShowing && (
-          <div className="h-full w-full">
+          <div className="h-full w-full hidden">
             <Addproduct
               setisAddproductModalShowing={setisAddproductModalShowing}
               setisAddSubproductModalShowing={setisAddSubproductModalShowing}
@@ -129,7 +129,7 @@ function AdminProduct() {
           </div>
         )}
         {isAddSubproductModalShowing && (
-          <div className="h-full w-full">
+          <div className="h-full w-full hidden">
             <Addsubproduct
               setisAddSubproductModalShowing={setisAddSubproductModalShowing}
               product_id={product_id}
@@ -149,7 +149,7 @@ function AdminProduct() {
             onClick={(e) =>
               setisAddproductModalShowing(!isAddproductModalShowing)
             }
-            className="h-20 w-full bg-white rounded-lg flex flex-col justify-between items-center p-2 shadow"
+            className="h-20 w-full bg-white rounded-lg flex flex-col justify-between items-center p-2 shadow hidden"
           >
             <h4 className="text-lg font-light">Add Product</h4>
             <h1 className="text-xl font-bold rounded-full bg-amber-400 h-10 w-10 border shadow flex justify-center items-center">
