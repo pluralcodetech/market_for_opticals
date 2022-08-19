@@ -38,9 +38,9 @@ function Wallet() {
   const [product_stock_count, setproduct_stock_count] = useState("");
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("super_token");
     if (!token) {
-      navigate("/seller/login");
+      navigate("/superadmin/login");
     }
 
     const formData = new FormData();
@@ -65,9 +65,9 @@ function Wallet() {
   }, [filter]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("super_token");
     if (!token) {
-      navigate("/seller/login");
+      navigate("/superadmin/login");
     }
 
     axios
@@ -88,7 +88,7 @@ function Wallet() {
 
   return (
     <Layout>
-      <div className="bg-gray-200 h-fit overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
           <h1 className="text-2xl font-bold">Wallet</h1>
           <ToastContainer
@@ -112,8 +112,8 @@ function Wallet() {
             <option value="Out of stock">Out of Stock</option>
           </select>
         </div>
-        <div className="bg-white rounded-lg h-fit w-full mt-6 grid grid-cols-7 gap-1">
-          <table className="table-auto	w-full border col-span-5">
+        <div className="bg-white rounded-lg h-fit w-full mt-6 grid grid-cols-7 gap-1 pb-5">
+          <table className="table-auto	w-full border col-span-5 rounded-lg">
             <thead>
               <tr className="text-sm text-gray-500 p-4">
                 <th className="p-4 border">Product ID</th>
@@ -171,11 +171,25 @@ function Wallet() {
               )}
             </tbody>
           </table>
-          <div className="bg-amber-500 h-24 w-[90%] pt-3 rounded-lg col-span-2 mt-6 mx-3 flex flex-col items-center">
-            <h4 className="text-gray-50">Total Amount Earned</h4>
-            <h1 className="text-3xl font-bold my-3 text-gray-50">
-              ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
-            </h1>
+          <div className="w-full col-span-2">
+            <div className="bg-[#E16A16] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
+              <h4 className="text-gray-50">Total Amount Earned</h4>
+              <h1 className="text-3xl font-bold my-3 text-gray-50">
+                ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
+              </h1>
+            </div>
+            <div className="bg-[#FBC77A] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
+              <h4 className="text-gray-50">Total Amount Unpaid </h4>
+              <h1 className="text-3xl font-bold my-3 text-gray-50">
+                ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
+              </h1>
+            </div>
+            <div className="bg-[#BCFFDB] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
+              <h4 className="text-gray-50">Total Amount Paid</h4>
+              <h1 className="text-3xl font-bold my-3 text-gray-50">
+                ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
+              </h1>
+            </div>
           </div>
         </div>
       </div>

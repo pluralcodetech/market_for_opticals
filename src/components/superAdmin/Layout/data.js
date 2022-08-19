@@ -36,13 +36,13 @@ const sideBarDatas = atom([
   {
     name: "Customer",
     icon: AiOutlineUser,
-    link: "/superadmin/profile",
+    link: "/superadmin/customers",
     isActive: false,
   },
   {
     name: "Merchant",
     icon: TiGroup,
-    link: "/superadmin/profile",
+    link: "/superadmin/merchants",
     isActive: false,
   },
   {

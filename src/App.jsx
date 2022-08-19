@@ -28,6 +28,9 @@ import AdminProduct from "./pages/superAdmin/product/Product";
 import ProductDetailsAdmin from "./pages/superAdmin/product/ProductDetails";
 import SettingsPageAdmin from "./pages/superAdmin/settings/SettingsPage";
 import OrderPageAdmin from "./pages/superAdmin/order/OrderPage";
+import Merchants from "./pages/superAdmin/merchants/Merchants";
+import Customers from "./pages/superAdmin/customer/Customers";
+import WalletAdmin from "./pages/superAdmin/wallet/Wallet";
 
 function App() {
   return (
@@ -67,6 +70,10 @@ function App() {
           element={<ProductDetailsAdmin />}
         />
         <Route path="/superadmin/order-list" element={<OrderPageAdmin />} />
+        <Route path="/superadmin/order-list/:id" element={<OrderPageAdmin />} />
+        <Route path="/superadmin/customers" element={<Customers />} />
+        <Route path="/superadmin/wallet" element={<WalletAdmin />} />
+        <Route path="/superadmin/merchants" element={<Merchants />} />
         <Route path="/superadmin/settings" element={<SettingsPageAdmin />} />
       </Routes>
     </BrowserRouter>

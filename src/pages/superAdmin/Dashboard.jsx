@@ -119,7 +119,7 @@ function DashboardAdmin() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-fit p-4 w-full">
+      <div className="bg-[#FDF0DC] h-fit p-4 w-full overflow-y-auto">
         <div className="my-3">
           <h1 className="text-2xl font-bold">Dashboard</h1>
         </div>
@@ -139,7 +139,7 @@ function DashboardAdmin() {
                 amount={dashboarddatas.total_pending_order || 0}
               />
             </div>
-            <div className="mt-6 bg-white rounded-lg h-20 shadow grid grid-cols-3 gap-4">
+            <div className="mt-6 bg-white rounded-lg h-fit shadow grid grid-cols-3 gap-4">
               <Card
                 title={"total unaproved products"}
                 amount={dashboarddatas.total_unaproved_products || 0}

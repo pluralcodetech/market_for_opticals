@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Layout from "../../../components/superadmin/Layout/Layout";
+import Layout from "../../../components/superAdmin/Layout/Layout";
+import Card from "../../../components/superAdmin/product/Card";
+import { Avatar, Badge } from "flowbite-react";
+import { HiCheck } from "react-icons/hi";
 
-function WalletAdmin() {
+function Merchants() {
   const api_url = import.meta.env.VITE_API_URL;
 
   const notifyWarning = (msg) =>
@@ -32,9 +35,7 @@ function WalletAdmin() {
   const [products, setProducts] = useState([]);
   const [filter, setfilter] = useState("approved");
   const [loading, setLoading] = useState(false);
-  const [isDeleting, setisDeleting] = useState(false);
-
-  const [product_stock_count, setproduct_stock_count] = useState("");
+  const [dashboarddatas, setdashboarddatas] = useState([]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -46,7 +47,7 @@ function WalletAdmin() {
     formData.append("filter", filter);
 
     axios
-      .get(`${api_url}/get_orderedproduct_and_paymentstatus`, {
+      .get(`${api_url}/get_adminorderedproduct`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,7 +67,7 @@ function WalletAdmin() {
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
     if (!token) {
-      navigate("/superadmin/login");
+      navigate("/seller/login");
     }
 
     axios
@@ -76,12 +77,14 @@ function WalletAdmin() {
         },
       })
       .then((res) => {
-        setproduct_stock_count(res.data);
+        setdashboarddatas(res.data);
         console.log(res.data);
+        setLoading(false);
       })
       .catch((err) => {
-        notifyWarning(err.response.data.message);
+        notifyWarning(err.response.data.error);
         console.log(err.response);
+        setLoading(false);
       });
   }, []);
 
@@ -89,7 +92,7 @@ function WalletAdmin() {
     <Layout>
       <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
-          <h1 className="text-2xl font-bold">Wallet</h1>
+          <h1 className="text-2xl font-bold">Merchants</h1>
           <ToastContainer
             position="top-right"
             autoClose={5000}
@@ -111,89 +114,88 @@ function WalletAdmin() {
             <option value="Out of stock">Out of Stock</option>
           </select>
         </div>
-        <div className="bg-white rounded-lg h-fit w-full mt-6 grid grid-cols-7 gap-1 pb-5">
-          <table className="table-auto	w-full border col-span-5 rounded-lg">
+
+        <div className="grid grid-cols-4 gap-4">
+          <Card
+            title={"Total Sellers"}
+            amount={dashboarddatas.total_aproved_products || 0}
+          />
+          <Card
+            title={"Active Sellers"}
+            amount={dashboarddatas.total_orders_made_perday || 0}
+          />
+          <Card
+            title={"Request Not Approved"}
+            amount={dashboarddatas.total_pending_order || 0}
+          />
+          <Card
+            title={"Inactive Sellers"}
+            amount={dashboarddatas.total_unaproved_products || 0}
+          />
+        </div>
+        <div className="bg-white rounded-lg h-fit w-full mt-6">
+          <table className="table-auto	w-full border rounded-lg">
             <thead>
               <tr className="text-sm text-gray-500 p-4">
-                <th className="p-4 border">Product ID</th>
-                <th className="border">Image</th>
-                <th className="border">Product Name</th>
-                <th className="border">Price</th>
-                <th className="border">Qty Ordered</th>
+                <th className="p-4 border">Order ID</th>
+                <th className="p-4 border">Image</th>
+                <th className="border">UserName</th>
                 <th className="border">Status</th>
+                <th className="p-4 border">Joined Date</th>
+                <th className="p-4 border">Amount of product Bought </th>
+                <th className="border">Total Prod. Approved </th>
+                <th className="border">Amt. of Prod. Not Approved </th>
                 <th className="border"></th>
-                <th className="border">Date Listed</th>
               </tr>
             </thead>
             <tbody>
               {products.length > 0 ? (
                 products.map((product, index) => (
-                  <tr key={product.id} className="border-b">
-                    <td className="p-4 border text-center">{product.id}</td>
-                    <td className="border">
-                      <img
-                        src={`${product.image_url}`}
-                        alt="product"
-                        className="h-20 w-20"
-                      />
+                  <tr key={product.order_id} className="border-b rounded-lg">
+                    <td className="p-4 border text-center">
+                      {product.customer_id}
+                    </td>
+                    <td className="p-4 border text-center">
+                      <Avatar img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" />
                     </td>
                     <td className="border text-center">
-                      {product.product_name}
+                      {product.customer_name}
                     </td>
                     <td className="border text-center">
-                      {product.product_price}
+                      <Badge color="success" icon={HiCheck}>
+                        verified
+                      </Badge>
                     </td>
-                    <td className="border text-center">
-                      {product.amount_ordered}
-                    </td>
-                    <td className="border text-center">{product.status}</td>
+                    <td className="border text-center">{product.date}</td>
+                    <td className="border text-center">{product.date}</td>
+                    <td className="border text-center">{product.date}</td>
+                    <td className="border text-center">{product.date}</td>
 
-                    <td className="border text-center">
+                    <td className="border text-center rounded-lg">
                       <a
-                        href={`/seller/product-detail/${product.id}`}
+                        href={`/superadmin/order-detail/${product.customer_id}`}
                         className="flex justify-center items-center w-full"
                       >
-                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded">
+                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded-lg">
                           View
                         </button>
                       </a>
                     </td>
-                    <td className="border text-center">{product.date}</td>
                   </tr>
                 ))
               ) : (
                 <tr className="border-b">
                   <td className="p-4 border" colSpan="8">
-                    <h1 className="text-center text-gray-500">Nothing found</h1>
+                    <h1 className="text-center text-gray-500">No Merchants</h1>
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
-          <div className="w-full col-span-2">
-            <div className="bg-[#E16A16] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
-              <h4 className="text-gray-50">Total Amount Earned</h4>
-              <h1 className="text-3xl font-bold my-3 text-gray-50">
-                ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
-              </h1>
-            </div>
-            <div className="bg-[#FBC77A] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
-              <h4 className="text-gray-50">Total Amount Unpaid </h4>
-              <h1 className="text-3xl font-bold my-3 text-gray-50">
-                ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
-              </h1>
-            </div>
-            <div className="bg-[#BCFFDB] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
-              <h4 className="text-gray-50">Total Amount Paid</h4>
-              <h1 className="text-3xl font-bold my-3 text-gray-50">
-                ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
-              </h1>
-            </div>
-          </div>
         </div>
       </div>
     </Layout>
   );
 }
 
-export default WalletAdmin;
+export default Merchants;
