@@ -5,6 +5,7 @@ import Layout from "../../../components/superAdmin/Layout/Layout";
 import Description from "../../../components/market/product/description";
 import Size from "../../../components/market/product/size";
 import icon from "../../../assets/images/icon.svg";
+import { Card, Avatar } from "flowbite-react";
 
 function ProductDetailsAdmin() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -194,6 +195,21 @@ function ProductDetailsAdmin() {
                   <h4>Total Amount made on this product </h4>
                   <h2 className="text-lg font-bold">₦300,000.00</h2>
                 </div>
+
+                <h6 className="text-slate-800 mb-2">product owner</h6>
+                <Card>
+                  <div className="flex items-center">
+                    <Avatar rounded={true} bordered={true} />
+                    <div className="">
+                      <p className="font-bold mb-2 text-gray-700 dark:text-gray-400 ml-4">
+                        James Lee
+                      </p>
+                      <p className="font-normal text-gray-700 dark:text-gray-400 ml-4">
+                        sellers ID| 1234
+                      </p>
+                    </div>
+                  </div>
+                </Card>
               </div>
             </div>
           </div>

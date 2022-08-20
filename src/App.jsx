@@ -31,6 +31,9 @@ import OrderPageAdmin from "./pages/superAdmin/order/OrderPage";
 import Merchants from "./pages/superAdmin/merchants/Merchants";
 import Customers from "./pages/superAdmin/customer/Customers";
 import WalletAdmin from "./pages/superAdmin/wallet/Wallet";
+import OrdersDetailsAdmin from "./pages/superAdmin/order/OrdersDetails";
+import CustomersDetails from "./pages/superAdmin/customer/CustomersDetails";
+import MerchantDetails from "./pages/superAdmin/merchants/MerchantDetails";
 
 function App() {
   return (
@@ -70,10 +73,18 @@ function App() {
           element={<ProductDetailsAdmin />}
         />
         <Route path="/superadmin/order-list" element={<OrderPageAdmin />} />
-        <Route path="/superadmin/order-list/:id" element={<OrderPageAdmin />} />
+        <Route
+          path="/superadmin/order-list/:id"
+          element={<OrdersDetailsAdmin />}
+        />
         <Route path="/superadmin/customers" element={<Customers />} />
+        <Route
+          path="/superadmin/customers/:id"
+          element={<CustomersDetails />}
+        />
         <Route path="/superadmin/wallet" element={<WalletAdmin />} />
         <Route path="/superadmin/merchants" element={<Merchants />} />
+        <Route path="/superadmin/merchants/:id" element={<MerchantDetails />} />
         <Route path="/superadmin/settings" element={<SettingsPageAdmin />} />
       </Routes>
     </BrowserRouter>

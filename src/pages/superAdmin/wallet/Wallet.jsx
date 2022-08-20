@@ -115,50 +115,47 @@ function WalletAdmin() {
           <table className="table-auto	w-full border col-span-5 rounded-lg">
             <thead>
               <tr className="text-sm text-gray-500 p-4">
-                <th className="p-4 border">Product ID</th>
-                <th className="border">Image</th>
-                <th className="border">Product Name</th>
-                <th className="border">Price</th>
-                <th className="border">Qty Ordered</th>
+                <th className="p-4 border"> ID</th>
+                <th className="p-4 border">Image</th>
+                <th className="border">UserName</th>
+                <th className="p-4 border"> Date</th>
                 <th className="border">Status</th>
+                <th className="p-4 border">Account</th>
+                <th className="p-4 border">Total Price</th>
                 <th className="border"></th>
-                <th className="border">Date Listed</th>
               </tr>
             </thead>
             <tbody>
               {products.length > 0 ? (
                 products.map((product, index) => (
-                  <tr key={product.id} className="border-b">
-                    <td className="p-4 border text-center">{product.id}</td>
-                    <td className="border">
-                      <img
-                        src={`${product.image_url}`}
-                        alt="product"
-                        className="h-20 w-20"
-                      />
+                  <tr key={product.order_id} className="border-b rounded-lg">
+                    <td className="p-4 border text-center">
+                      {product.customer_id}
+                    </td>
+                    <td className="p-4 border text-center">
+                      <Avatar img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" />
                     </td>
                     <td className="border text-center">
-                      {product.product_name}
+                      {product.customer_name}
                     </td>
                     <td className="border text-center">
-                      {product.product_price}
+                      <Badge color="success" icon={HiCheck}>
+                        verified
+                      </Badge>
                     </td>
-                    <td className="border text-center">
-                      {product.amount_ordered}
-                    </td>
-                    <td className="border text-center">{product.status}</td>
+                    <td className="border text-center">{product.date}</td>
+                    <td className="border text-center">{product.date}</td>
 
-                    <td className="border text-center">
+                    <td className="border text-center rounded-lg">
                       <a
-                        href={`/seller/product-detail/${product.id}`}
+                        href={`/superadmin/order-detail/${product.customer_id}`}
                         className="flex justify-center items-center w-full"
                       >
-                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded">
+                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded-lg">
                           View
                         </button>
                       </a>
                     </td>
-                    <td className="border text-center">{product.date}</td>
                   </tr>
                 ))
               ) : (

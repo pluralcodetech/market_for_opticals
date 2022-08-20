@@ -169,7 +169,7 @@ function Customers() {
 
                     <td className="border text-center rounded-lg">
                       <a
-                        href={`/superadmin/order-detail/${product.customer_id}`}
+                        href={`/superadmin/customers/${product.customer_id}`}
                         className="flex justify-center items-center w-full"
                       >
                         <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded-lg">

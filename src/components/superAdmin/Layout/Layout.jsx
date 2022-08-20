@@ -12,11 +12,11 @@ function Layout({ children }) {
       navigate("/market");
     }*/
 
-    if (window.innerWidth < 768) {
+    /*  if (window.innerWidth < 768) {
       alert("Please use desktop version to access this page ");
       navigate("/superadmin/dashboard");
     }
-
+*/
     const token = sessionStorage.getItem("super_token");
     if (!token) {
       navigate("/superadmin/login");
