@@ -6,11 +6,26 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Chart from "chart.js/auto";
+//import Chart from "../../components/superAdmin/dashboard/Chart";
 
 function DashboardAdmin() {
   const [dashboarddatas, setdashboarddatas] = useState([]);
-  const [chartsdata, setchartsdata] = useState("");
+  const [chartsdata, setchartsdata] = useState({
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "loading .... Sales Per Day",
+        data: [65, 59, 80, 81, 56, 55, 40],
+        backgroundColor: [
+          "#ffbb11",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+      },
+    ],
+  });
   const api_url = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -44,14 +59,14 @@ function DashboardAdmin() {
     }
 
     axios
-      .get(`${api_url}/admin_dashboard_api`, {
+      .get(`${api_url}/super_admin_dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         setdashboarddatas(res.data);
-        console.log(res.data);
+        //console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -68,47 +83,33 @@ function DashboardAdmin() {
     }
 
     axios
-      .get(`${api_url}/admin_charts`, {
+      .get(`${api_url}/super_admin_charts`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        const arr = Object.values(res.data);
-        setchartsdata(arr);
-        console.log(arr);
-        console.log(res.data);
-        setLoading(false);
-
-        const labels = [
-          arr.map((data) => {
-            data.date;
-          }),
-        ];
-
-        const data = {
-          labels: labels,
+        setchartsdata({
+          labels: res?.data.map((value) => value.date),
           datasets: [
             {
-              label: "주문수",
-              backgroundColor: "rgb(255, 99, 132)",
-              borderColor: "rgb(255, 99, 132)",
-              data: [
-                arr.map((data) => {
-                  data.data.total_number_of_orders_made;
-                }),
+              label: "Sales Per Day",
+              data: res?.data.map(
+                (value) => value.data.total_number_of_orders_made
+              ),
+              backgroundColor: [
+                "#ffbb11",
+                "#ecf0f1",
+                "#50AF95",
+                "#f3ba2f",
+                "#2a71d0",
               ],
             },
           ],
-        };
-
-        const config = {
-          type: "line",
-          data: data,
-          options: {},
-        };
-
-        const myChart = new Chart(document.getElementById("myChart"), config);
+        });
+        // console.log(arr);
+        console.log(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         // notifyWarning(err.response.data.error);
@@ -127,42 +128,48 @@ function DashboardAdmin() {
           <div className="col-span-5 ">
             <div className="grid grid-cols-3 gap-4">
               <Card
-                title={"total aproved products"}
-                amount={dashboarddatas.total_aproved_products || 0}
+                title={"total amount ordered"}
+                amount={dashboarddatas.total_amount_ordered || 0}
               />
               <Card
-                title={"total orders_made perday"}
-                amount={dashboarddatas.total_orders_made_perday || 0}
+                title={"total pending delivery"}
+                amount={dashboarddatas.total_pending_delivery || 0}
               />
               <Card
-                title={"total pending order"}
-                amount={dashboarddatas.total_pending_order || 0}
+                title={"total products uploaded"}
+                amount={dashboarddatas.total_products_uploaded || 0}
               />
             </div>
             <div className="mt-6 bg-white rounded-lg h-fit shadow grid grid-cols-3 gap-4">
               <Card
-                title={"total unaproved products"}
-                amount={dashboarddatas.total_unaproved_products || 0}
+                title={"total sellers on the platform"}
+                amount={dashboarddatas.total_sellers_on_the_platform || 0}
               />
               <Card
-                title={"total_aproved_products"}
+                title={"total customers"}
                 amount={
-                  dashboarddatas.total_aproved_products
-                    ? dashboarddatas.total_aproved_products
+                  dashboarddatas.total_customers
+                    ? dashboarddatas.total_customers
                     : 0
                 }
               />
               <Card
                 title={"total aproved products"}
                 amount={
-                  dashboarddatas.total_aproved_products
-                    ? dashboarddatas.total_aproved_products
+                  dashboarddatas.total_products_uploaded
+                    ? dashboarddatas.total_products_uploaded
                     : 0
                 }
               />
             </div>
             <div className="h-fit bg-white mt-4 w-full rounded-lg px-6 py-6">
-              <canvas id="myChart"></canvas>
+              {
+                <div className="text-center">
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </div>
+              }
             </div>
           </div>
           <div className="col-span-2 bg-white rounded-lg h-full w-full">

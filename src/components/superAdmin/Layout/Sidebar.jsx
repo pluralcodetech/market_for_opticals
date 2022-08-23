@@ -17,16 +17,16 @@ function Sidebar() {
       axios
         .get(`${api_url}/admin_logout`, {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("super_token")}`,
           },
         })
         .then((res) => {
-          sessionStorage.removeItem("token");
-          navigate("/seller/login");
+          sessionStorage.removeItem("super_token");
+          navigate("/superadmin/login");
         })
         .catch((err) => {
-          sessionStorage.removeItem("token");
-          navigate("/seller/login");
+          sessionStorage.removeItem("super_token");
+          navigate("/superadmin/login");
         });
     }
   };

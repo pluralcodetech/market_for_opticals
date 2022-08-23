@@ -74,7 +74,7 @@ function App() {
         />
         <Route path="/superadmin/order-list" element={<OrderPageAdmin />} />
         <Route
-          path="/superadmin/order-list/:id"
+          path="/superadmin/order-list/:id/:date/:time"
           element={<OrdersDetailsAdmin />}
         />
         <Route path="/superadmin/customers" element={<Customers />} />

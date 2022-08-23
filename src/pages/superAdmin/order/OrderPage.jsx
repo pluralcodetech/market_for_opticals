@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "../../../components/superAdmin/Layout/Layout";
 import Card from "../../../components/superAdmin/product/Card";
+import { Badge } from "flowbite-react";
 
 function OrderPageAdmin() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -31,7 +32,7 @@ function OrderPageAdmin() {
     });
 
   const [products, setProducts] = useState([]);
-  const [filter, setfilter] = useState("approved");
+  const [filter, setfilter] = useState("pending");
   const [loading, setLoading] = useState(false);
   const [dashboarddatas, setdashboarddatas] = useState([]);
 
@@ -45,7 +46,7 @@ function OrderPageAdmin() {
     formData.append("filter", filter);
 
     axios
-      .get(`${api_url}/get_adminorderedproduct`, {
+      .get(`${api_url}/orders_on_opticals`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,7 +70,7 @@ function OrderPageAdmin() {
     }
 
     axios
-      .get(`${api_url}/admin_dashboard_api`, {
+      .get(`${api_url}/super_admin_dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -107,28 +108,28 @@ function OrderPageAdmin() {
             onChange={(e) => setfilter(e.target.value)}
             className="w-40  bg-white border mx-2 border-gray-300 rounded py-2 px-4 focus:outline-none focus:border-gray-500"
           >
-            <option value="approved">Approved</option>
-            <option value="in stock">In stock</option>
-            <option value="Out of stock">Out of Stock</option>
+            <option value="pending">Pending</option>
+            <option value="delivered">Delivered</option>
+            <option value="on the way">On the way</option>
           </select>
         </div>
 
         <div className="grid grid-cols-4 gap-4">
           <Card
-            title={"total aproved products"}
-            amount={dashboarddatas.total_aproved_products || 0}
+            title={"total amount ordered"}
+            amount={dashboarddatas.total_amount_ordered || 0}
           />
           <Card
-            title={"total orders_made perday"}
-            amount={dashboarddatas.total_orders_made_perday || 0}
+            title={"total pending delivery"}
+            amount={dashboarddatas.total_pending_delivery || 0}
           />
           <Card
-            title={"total pending order"}
-            amount={dashboarddatas.total_pending_order || 0}
+            title={"total products uploaded"}
+            amount={dashboarddatas.total_products_uploaded || 0}
           />
           <Card
-            title={"total unaproved products"}
-            amount={dashboarddatas.total_unaproved_products || 0}
+            title={"total sellers on the platform"}
+            amount={dashboarddatas.total_sellers_on_the_platform || 0}
           />
         </div>
         <div className="bg-white rounded-lg h-fit w-full mt-6">
@@ -137,10 +138,9 @@ function OrderPageAdmin() {
               <tr className="text-sm text-gray-500 p-4">
                 <th className="p-4 border">Order ID</th>
                 <th className="border">Customer Name</th>
-                <th className="border">Status</th>
-                <th className="p-4 border">Product ID</th>
-                <th className="p-4 border">Qty</th>
+                <th className="border"> Status</th>
                 <th className="border"> Ordered on</th>
+                <th className="border"> Time </th>
                 <th className="border"></th>
               </tr>
             </thead>
@@ -155,14 +155,24 @@ function OrderPageAdmin() {
                     <td className="border text-center">
                       {product.customer_name}
                     </td>
+                    <td className="border text-center">
+                      <Badge
+                        color={
+                          product.delivery_status === "pending"
+                            ? "warning"
+                            : "success"
+                        }
+                        size="sm"
+                      >
+                        {product.delivery_status}
+                      </Badge>
+                    </td>
                     <td className="border text-center">{product.date}</td>
-                    <td className="border text-center">{product.date}</td>
-                    <td className="border text-center">{product.date}</td>
-                    <td className="border text-center">{product.date}</td>
+                    <td className="border text-center">{product.time}</td>
 
                     <td className="border text-center rounded-lg">
                       <a
-                        href={`/superadmin/order-list/${product.customer_id}`}
+                        href={`/superadmin/order-list/${product.customer_id}/${product.date}/${product.time}`}
                         className="flex justify-center items-center w-full"
                       >
                         <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded-lg">

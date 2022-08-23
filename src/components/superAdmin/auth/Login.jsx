@@ -44,7 +44,7 @@ function LoginForm() {
     formData.append("password", password);
 
     axios
-      .post(`${api_url}/admin_login`, formData)
+      .post(`${api_url}/super_admin_login`, formData)
       .then((res) => {
         setLoading(false);
         notifySuccess(res.data.status);
@@ -112,12 +112,6 @@ function LoginForm() {
                   className="text-sm text-gray-500 hover:text-gray-900"
                 >
                   Forgot Password?
-                </a>
-                <a
-                  className="text-sm text-gray-500 hover:text-gray-900"
-                  href="/seller/register"
-                >
-                  Register
                 </a>
               </div>
               {loading ? (

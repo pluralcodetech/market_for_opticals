@@ -54,7 +54,7 @@ function AdminProduct() {
     formData.append("filter", filter);
 
     axios
-      .post(`${api_url}/admin_product_list`, formData, {
+      .post(`${api_url}/super_admin_product_list`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,7 +69,7 @@ function AdminProduct() {
         console.log(err.response);
         setLoading(false);
       });
-  }, [filter]);
+  }, [filter, isDeleting]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -78,7 +78,7 @@ function AdminProduct() {
     }
 
     axios
-      .get(`${api_url}/product_stock_count`, {
+      .get(`${api_url}/superadmin_product_count`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -114,9 +114,10 @@ function AdminProduct() {
             onChange={(e) => setfilter(e.target.value)}
             className="w-40  bg-white border mx-2 border-gray-300 rounded py-2 px-4 focus:outline-none focus:border-gray-500"
           >
-            <option value="active">Active</option>
-            <option value="approved">Approved</option>
-            <option value="not_approved">Not approved</option>
+            <option value="In stock">In stock</option>
+            <option value="Out of stock">Out of stock</option>
+            <option value="approved"> approved</option>
+            <option value="not approved"> not approved</option>
           </select>
         </div>
         {isAddproductModalShowing && (
@@ -145,6 +146,15 @@ function AdminProduct() {
             title="sum of out of stock products"
             amount={product_stock_count.sum_of_outof_stock_products}
           />
+          <Card
+            title="sum of approved products"
+            amount={product_stock_count.sum_of_approved_products}
+          />
+          <Card
+            title="sum of total order made"
+            amount={product_stock_count.sum_of_totalorder_made}
+          />
+
           <div
             onClick={(e) =>
               setisAddproductModalShowing(!isAddproductModalShowing)
@@ -214,14 +224,15 @@ function AdminProduct() {
                         {!isDeleting && (
                           <button
                             onClick={() => {
-                              const token = sessionStorage.getItem("token");
+                              const token =
+                                sessionStorage.getItem("super_token");
                               if (!token) {
                                 navigate("/seller/login");
                               }
                               setisDeleting(true);
                               axios
                                 .get(
-                                  `${api_url}/admin_delete_product/${product.id}`,
+                                  `${api_url}/aprove_product/${product.id}`,
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,
@@ -229,10 +240,7 @@ function AdminProduct() {
                                   }
                                 )
                                 .then((res) => {
-                                  notifySuccess(res.data.message);
-                                  setProducts(
-                                    products.filter((p) => p.id !== product.id)
-                                  );
+                                  notifySuccess("status updated successfully");
                                 })
                                 .catch((err) => {
                                   notifyWarning(err.response.data.message);
@@ -241,9 +249,15 @@ function AdminProduct() {
                                   setisDeleting(false);
                                 });
                             }}
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
+                            className={`${
+                              product?.approved_status === "Approved"
+                                ? " bg-red-500 hover:bg-red-700"
+                                : " bg-green-500 hover:bg-green-700"
+                            } text-white font-light py-1 px-4 rounded`}
                           >
-                            Suspend
+                            {product?.approved_status === "Approved"
+                              ? "Suspend"
+                              : "Approve"}
                           </button>
                         )}
                       </div>
@@ -253,7 +267,7 @@ function AdminProduct() {
                         href={`/superadmin/product/${product.id}`}
                         className="flex justify-center items-center w-full"
                       >
-                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded">
+                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-light py-1 px-4 rounded">
                           View
                         </button>
                       </a>
