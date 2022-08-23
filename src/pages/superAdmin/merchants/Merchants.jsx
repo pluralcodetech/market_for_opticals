@@ -32,7 +32,7 @@ function Merchants() {
       progress: undefined,
     });
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState("");
   const [filter, setfilter] = useState("approved");
   const [loading, setLoading] = useState(false);
   const [dashboarddatas, setdashboarddatas] = useState([]);
@@ -47,7 +47,7 @@ function Merchants() {
     formData.append("filter", filter);
 
     axios
-      .get(`${api_url}/get_adminorderedproduct`, {
+      .get(`${api_url}/list_all_sellers`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -71,7 +71,7 @@ function Merchants() {
     }
 
     axios
-      .get(`${api_url}/admin_dashboard_api`, {
+      .get(`${api_url}/sellers_count`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -117,63 +117,52 @@ function Merchants() {
 
         <div className="grid grid-cols-4 gap-4">
           <Card
-            title={"Total Sellers"}
-            amount={dashboarddatas.total_aproved_products || 0}
+            title={"Total inActive Sellers"}
+            amount={dashboarddatas.total_unactive_sellers || 0}
           />
           <Card
             title={"Active Sellers"}
-            amount={dashboarddatas.total_orders_made_perday || 0}
-          />
-          <Card
-            title={"Request Not Approved"}
-            amount={dashboarddatas.total_pending_order || 0}
-          />
-          <Card
-            title={"Inactive Sellers"}
-            amount={dashboarddatas.total_unaproved_products || 0}
+            amount={dashboarddatas.total_active_sellers || 0}
           />
         </div>
         <div className="bg-white rounded-lg h-fit w-full mt-6">
           <table className="table-auto	w-full border rounded-lg">
             <thead>
               <tr className="text-sm text-gray-500 p-4">
-                <th className="p-4 border">Order ID</th>
                 <th className="p-4 border">Image</th>
-                <th className="border">UserName</th>
+                <th className="border">Company Name</th>
                 <th className="border">Status</th>
-                <th className="p-4 border">Joined Date</th>
-                <th className="p-4 border">Amount of product Bought </th>
-                <th className="border">Total Prod. Approved </th>
-                <th className="border">Amt. of Prod. Not Approved </th>
+                <th className="p-4 border">email</th>
+                <th className="p-4 border">company phone number </th>
+
                 <th className="border"></th>
               </tr>
             </thead>
             <tbody>
-              {products.length > 0 ? (
-                products.map((product, index) => (
-                  <tr key={product.order_id} className="border-b rounded-lg">
+              {products && products.data.length > 0 ? (
+                products.data.map((product, index) => (
+                  <tr key={product.id} className="border-b rounded-lg">
                     <td className="p-4 border text-center">
-                      {product.customer_id}
-                    </td>
-                    <td className="p-4 border text-center">
-                      <Avatar img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" />
+                      <Avatar />
                     </td>
                     <td className="border text-center">
-                      {product.customer_name}
+                      {product.company_name}
                     </td>
                     <td className="border text-center">
-                      <Badge color="success" icon={HiCheck}>
-                        verified
+                      <Badge
+                        color={product.active ? "success" : "warning"}
+                        icon={HiCheck}
+                      >
+                        {product.active ? "active" : "suspended"}
                       </Badge>
                     </td>
-                    <td className="border text-center">{product.date}</td>
-                    <td className="border text-center">{product.date}</td>
-                    <td className="border text-center">{product.date}</td>
-                    <td className="border text-center">{product.date}</td>
-
+                    <td className="border text-center">{product.email}</td>
+                    <td className="border text-center">
+                      {product.company_phone_number}
+                    </td>
                     <td className="border text-center rounded-lg">
                       <a
-                        href={`/superadmin/merchants/${product.customer_id}`}
+                        href={`/superadmin/merchants/${product.id}`}
                         className="flex justify-center items-center w-full"
                       >
                         <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded-lg">

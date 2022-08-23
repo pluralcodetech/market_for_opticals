@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Avatar, Badge } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { HiCheck } from "react-icons/hi";
 import Layout from "../../../components/superadmin/Layout/Layout";
 
 function WalletAdmin() {
@@ -46,7 +48,7 @@ function WalletAdmin() {
     formData.append("filter", filter);
 
     axios
-      .get(`${api_url}/get_orderedproduct_and_paymentstatus`, {
+      .get(`${api_url}/super_admin_wallet`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -70,7 +72,7 @@ function WalletAdmin() {
     }
 
     axios
-      .get(`${api_url}/admin_dashboard_api`, {
+      .get(`${api_url}/super_admin_dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -128,27 +130,29 @@ function WalletAdmin() {
             <tbody>
               {products.length > 0 ? (
                 products.map((product, index) => (
-                  <tr key={product.order_id} className="border-b rounded-lg">
+                  <tr key={product.owner_id} className="border-b rounded-lg">
                     <td className="p-4 border text-center">
-                      {product.customer_id}
+                      {product.owner_id}
                     </td>
                     <td className="p-4 border text-center">
                       <Avatar img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" />
                     </td>
                     <td className="border text-center">
-                      {product.customer_name}
+                      {product.company_name}
                     </td>
                     <td className="border text-center">
                       <Badge color="success" icon={HiCheck}>
                         verified
                       </Badge>
                     </td>
-                    <td className="border text-center">{product.date}</td>
+                    <td className="border text-center">
+                      {product.payment_status}
+                    </td>
                     <td className="border text-center">{product.date}</td>
 
                     <td className="border text-center rounded-lg">
                       <a
-                        href={`/superadmin/order-detail/${product.customer_id}`}
+                        href={`/superadmin/merchants/${product.owner_id}`}
                         className="flex justify-center items-center w-full"
                       >
                         <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded-lg">
@@ -171,19 +175,28 @@ function WalletAdmin() {
             <div className="bg-[#E16A16] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
               <h4 className="text-gray-50">Total Amount Earned</h4>
               <h1 className="text-3xl font-bold my-3 text-gray-50">
-                ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
+                ₦
+                {product_stock_count
+                  ? product_stock_count.total_amount_made
+                  : 0}
               </h1>
             </div>
             <div className="bg-[#FBC77A] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
               <h4 className="text-gray-50">Total Amount Unpaid </h4>
               <h1 className="text-3xl font-bold my-3 text-gray-50">
-                ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
+                ₦
+                {product_stock_count
+                  ? product_stock_count.total_unpaid_amount
+                  : 0}
               </h1>
             </div>
             <div className="bg-[#BCFFDB] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
               <h4 className="text-gray-50">Total Amount Paid</h4>
               <h1 className="text-3xl font-bold my-3 text-gray-50">
-                ₦{product_stock_count ? product_stock_count.admin.wallet : 0}
+                ₦
+                {product_stock_count
+                  ? product_stock_count.total_paid_amount
+                  : 0}
               </h1>
             </div>
           </div>
