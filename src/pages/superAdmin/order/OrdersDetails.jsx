@@ -86,14 +86,6 @@ function OrdersDetailsAdmin() {
               <h6 className="mx-4">Order ID</h6>
               <h1 className="text-3xl font-bold">{id}</h1>
             </div>
-            <div className="flex">
-              <button className="border border-red-500 hover:bg-red-300 text-red-500  py-2 px-5 rounded-xl mx-4">
-                view summary
-              </button>
-              <button className="border border-slate-400 hover:bg-slate-300 text-slate-700  py-2 px-5 rounded-xl mx-4">
-                Go to Seller Profile
-              </button>
-            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 h-fit mt-3 ">
             <div className="col-span-1  h-fit p-2">

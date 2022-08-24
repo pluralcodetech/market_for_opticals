@@ -144,35 +144,6 @@ function CustomersDetails() {
                       <Purchased id={id} />
                     </div>
                   </Tabs.Item>
-                  <Tabs.Item title=" Bank Details">
-                    <div className="h-full">
-                      <h4 className="text-md m-2 font-semibold">
-                        Personal Bank Account
-                      </h4>
-                      <BankDetails />
-                    </div>
-                  </Tabs.Item>
-
-                  <Tabs.Item title=" Purchase Stats">
-                    <div className="h-full">
-                      <div className="flex justify-between items-center w-full mt-3">
-                        <h6 className="text-sm font-light">Total Cash Spent</h6>
-                        <h6>₦50,000.00</h6>
-                      </div>
-                      <div className="flex justify-between items-center w-full mt-3">
-                        <h6 className="text-sm font-light">
-                          Amount of Delivered products to customer
-                        </h6>
-                        <h6>9</h6>
-                      </div>
-                      <div className="flex justify-between items-center w-full mt-3">
-                        <h6 className="text-sm font-light">
-                          Amount of product In Progress
-                        </h6>
-                        <h6>10</h6>
-                      </div>
-                    </div>
-                  </Tabs.Item>
                 </Tabs.Group>
               </div>
             </div>

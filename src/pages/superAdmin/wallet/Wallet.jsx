@@ -135,7 +135,7 @@ function WalletAdmin() {
                       {product.owner_id}
                     </td>
                     <td className="p-4 border text-center">
-                      <Avatar img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" />
+                      <Avatar />
                     </td>
                     <td className="border text-center">
                       {product.company_name}

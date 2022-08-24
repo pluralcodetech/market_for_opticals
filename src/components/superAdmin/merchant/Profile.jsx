@@ -30,7 +30,9 @@ function Profile({ merchant }) {
       </div>
       <div className="w-full mt-3">
         <h6 className="text-lg font-semibold">license</h6>
-        <img src={merchant.license} className="h-96 w-full rounded-lg" />
+        <a href={merchant.license} className="h-96 w-full rounded-lg">
+          View license
+        </a>
       </div>
     </div>
   );
