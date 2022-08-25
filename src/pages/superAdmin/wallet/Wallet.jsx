@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { HiCheck } from "react-icons/hi";
 import Layout from "../../../components/superadmin/Layout/Layout";
+import Paginator from "../../../components/superAdmin/Paginator";
 
 function WalletAdmin() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -31,10 +32,13 @@ function WalletAdmin() {
       progress: undefined,
     });
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState("");
   const [filter, setfilter] = useState("approved");
   const [loading, setLoading] = useState(false);
   const [isDeleting, setisDeleting] = useState(false);
+  const [currentPageIndex, setcurrentPageIndex] = useState(
+    products?.current_page || 1
+  );
 
   const [product_stock_count, setproduct_stock_count] = useState("");
 
@@ -48,7 +52,7 @@ function WalletAdmin() {
     formData.append("filter", filter);
 
     axios
-      .get(`${api_url}/super_admin_wallet`, {
+      .get(`${api_url}/super_admin_wallet?page=${currentPageIndex}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -63,7 +67,7 @@ function WalletAdmin() {
         console.log(err.response);
         setLoading(false);
       });
-  }, [filter]);
+  }, [filter, currentPageIndex]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -114,63 +118,72 @@ function WalletAdmin() {
           </select>
         </div>
         <div className="bg-white rounded-lg h-fit w-full mt-6 grid grid-cols-7 gap-1 pb-5">
-          <table className="table-auto	w-full border col-span-5 rounded-lg">
-            <thead>
-              <tr className="text-sm text-gray-500 p-4">
-                <th className="p-4 border"> ID</th>
-                <th className="p-4 border">Image</th>
-                <th className="border">UserName</th>
-                <th className="p-4 border"> Date</th>
-                <th className="border">Status</th>
-                <th className="p-4 border">Account</th>
-                <th className="p-4 border">Total Price</th>
-                <th className="border"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.length > 0 ? (
-                products.map((product, index) => (
-                  <tr key={product.owner_id} className="border-b rounded-lg">
-                    <td className="p-4 border text-center">
-                      {product.owner_id}
-                    </td>
-                    <td className="p-4 border text-center">
-                      <Avatar />
-                    </td>
-                    <td className="border text-center">
-                      {product.company_name}
-                    </td>
-                    <td className="border text-center">
-                      <Badge color="success" icon={HiCheck}>
-                        verified
-                      </Badge>
-                    </td>
-                    <td className="border text-center">
-                      {product.payment_status}
-                    </td>
-                    <td className="border text-center">{product.date}</td>
+          <div className="col-span-5">
+            <table className="table-auto	w-full border  rounded-lg">
+              <thead>
+                <tr className="text-sm text-gray-500 p-4">
+                  <th className="p-4 border"> ID</th>
+                  <th className="p-4 border">Image</th>
+                  <th className="border">UserName</th>
+                  <th className="p-4 border"> Date</th>
+                  <th className="border">Status</th>
+                  <th className="p-4 border">Account</th>
+                  <th className="p-4 border">Total Price</th>
+                  <th className="border"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {products && products.data.length > 0 ? (
+                  products.data.map((product, index) => (
+                    <tr key={product.owner_id} className="border-b rounded-lg">
+                      <td className="p-4 border text-center">
+                        {product.owner_id}
+                      </td>
+                      <td className="p-4 border text-center">
+                        <Avatar />
+                      </td>
+                      <td className="border text-center">
+                        {product.company_name}
+                      </td>
+                      <td className="border text-center">
+                        <Badge color="success" icon={HiCheck}>
+                          verified
+                        </Badge>
+                      </td>
+                      <td className="border text-center">
+                        {product.payment_status}
+                      </td>
+                      <td className="border text-center">{product.date}</td>
 
-                    <td className="border text-center rounded-lg">
-                      <a
-                        href={`/superadmin/merchants/${product.owner_id}`}
-                        className="flex justify-center items-center w-full"
-                      >
-                        <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded-lg">
-                          View
-                        </button>
-                      </a>
+                      <td className="border text-center rounded-lg">
+                        <a
+                          href={`/superadmin/wallet/history/${product.date}/${product.owner_id}`}
+                          className="flex justify-center items-center w-full"
+                        >
+                          <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded-lg">
+                            View
+                          </button>
+                        </a>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr className="border-b">
+                    <td className="p-4 border" colSpan="8">
+                      <h1 className="text-center text-gray-500">
+                        Nothing found
+                      </h1>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr className="border-b">
-                  <td className="p-4 border" colSpan="8">
-                    <h1 className="text-center text-gray-500">Nothing found</h1>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+            <Paginator
+              data={products}
+              setcurrentPageIndex={setcurrentPageIndex}
+              currentPageIndex={currentPageIndex}
+            />
+          </div>
           <div className="w-full col-span-2">
             <div className="bg-[#E16A16] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
               <h4 className="text-gray-50">Total Amount Earned</h4>

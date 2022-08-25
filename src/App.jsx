@@ -34,6 +34,7 @@ import WalletAdmin from "./pages/superAdmin/wallet/Wallet";
 import OrdersDetailsAdmin from "./pages/superAdmin/order/OrdersDetails";
 import CustomersDetails from "./pages/superAdmin/customer/CustomersDetails";
 import MerchantDetails from "./pages/superAdmin/merchants/MerchantDetails";
+import WalletHistory from "./pages/superAdmin/wallet/WalletHistory";
 
 function App() {
   return (
@@ -83,6 +84,10 @@ function App() {
           element={<CustomersDetails />}
         />
         <Route path="/superadmin/wallet" element={<WalletAdmin />} />
+        <Route
+          path="/superadmin/wallet/history/:date/:id"
+          element={<WalletHistory />}
+        />
         <Route path="/superadmin/merchants" element={<Merchants />} />
         <Route path="/superadmin/merchants/:id" element={<MerchantDetails />} />
         <Route path="/superadmin/settings" element={<SettingsPageAdmin />} />

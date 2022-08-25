@@ -4,8 +4,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "../../../components/superAdmin/Layout/Layout";
 import Card from "../../../components/superAdmin/product/Card";
-import { Avatar, Badge } from "flowbite-react";
+import { Avatar, Badge, Button } from "flowbite-react";
 import { HiCheck } from "react-icons/hi";
+import Paginator from "../../../components/superAdmin/Paginator";
 
 function Customers() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -36,6 +37,9 @@ function Customers() {
   const [filter, setfilter] = useState("approved");
   const [loading, setLoading] = useState(false);
   const [dashboarddatas, setdashboarddatas] = useState([]);
+  const [currentPageIndex, setcurrentPageIndex] = useState(
+    products?.current_page || 1
+  );
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -47,7 +51,7 @@ function Customers() {
     formData.append("filter", filter);
 
     axios
-      .get(`${api_url}/get_all_customers`, {
+      .get(`${api_url}/get_all_customers?page=${currentPageIndex}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +66,7 @@ function Customers() {
         console.log(err.response);
         setLoading(false);
       });
-  }, [filter]);
+  }, [filter, currentPageIndex]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -188,6 +192,11 @@ function Customers() {
               )}
             </tbody>
           </table>
+          <Paginator
+            data={products}
+            setcurrentPageIndex={setcurrentPageIndex}
+            currentPageIndex={currentPageIndex}
+          />
         </div>
       </div>
     </Layout>

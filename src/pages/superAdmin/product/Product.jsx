@@ -6,6 +6,7 @@ import Layout from "../../../components/superAdmin/Layout/Layout";
 import Card from "../../../components/superAdmin/product/Card";
 import Addproduct from "./Addproduct";
 import Addsubproduct from "./Addsubproduct";
+import Paginator from "../../../components/superAdmin/Paginator";
 
 function AdminProduct() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -36,11 +37,14 @@ function AdminProduct() {
       progress: undefined,
     });
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState("");
   const [product_id, setproduct_id] = useState("");
   const [filter, setfilter] = useState("approved");
   const [loading, setLoading] = useState(false);
   const [isDeleting, setisDeleting] = useState(false);
+  const [currentPageIndex, setcurrentPageIndex] = useState(
+    products?.current_page || 1
+  );
 
   const [product_stock_count, setproduct_stock_count] = useState("");
 
@@ -54,22 +58,26 @@ function AdminProduct() {
     formData.append("filter", filter);
 
     axios
-      .post(`${api_url}/super_admin_product_list`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `${api_url}/super_admin_product_list?page=${currentPageIndex}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
+        console.log(res.data.data);
         setProducts(res.data);
         setLoading(false);
-        console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
         console.log(err.response);
         setLoading(false);
       });
-  }, [filter, isDeleting]);
+  }, [filter, isDeleting, currentPageIndex]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -85,7 +93,7 @@ function AdminProduct() {
       })
       .then((res) => {
         setproduct_stock_count(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
@@ -196,8 +204,8 @@ function AdminProduct() {
               </tr>
             </thead>
             <tbody>
-              {products.length > 0 ? (
-                products.map((product, index) => (
+              {products && products.data.length > 0 ? (
+                products.data.map((product, index) => (
                   <tr key={product.id} className="border-b">
                     <td className="p-4 border text-center">{product.id}</td>
                     <td className="border">
@@ -284,6 +292,11 @@ function AdminProduct() {
               )}
             </tbody>
           </table>
+          <Paginator
+            data={products}
+            setcurrentPageIndex={setcurrentPageIndex}
+            currentPageIndex={currentPageIndex}
+          />
         </div>
       </div>
     </Layout>

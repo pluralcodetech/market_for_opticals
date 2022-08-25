@@ -6,6 +6,7 @@ import Layout from "../../../components/superAdmin/Layout/Layout";
 import Card from "../../../components/superAdmin/product/Card";
 import { Avatar, Badge } from "flowbite-react";
 import { HiCheck } from "react-icons/hi";
+import Paginator from "../../../components/superAdmin/Paginator";
 
 function Merchants() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -36,6 +37,9 @@ function Merchants() {
   const [filter, setfilter] = useState("approved");
   const [loading, setLoading] = useState(false);
   const [dashboarddatas, setdashboarddatas] = useState([]);
+  const [currentPageIndex, setcurrentPageIndex] = useState(
+    products?.current_page || 1
+  );
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -47,7 +51,7 @@ function Merchants() {
     formData.append("filter", filter);
 
     axios
-      .get(`${api_url}/list_all_sellers`, {
+      .get(`${api_url}/list_all_sellers?page=${currentPageIndex}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +66,7 @@ function Merchants() {
         console.log(err.response);
         setLoading(false);
       });
-  }, [filter]);
+  }, [filter, currentPageIndex]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -181,6 +185,11 @@ function Merchants() {
               )}
             </tbody>
           </table>
+          <Paginator
+            data={products}
+            setcurrentPageIndex={setcurrentPageIndex}
+            currentPageIndex={currentPageIndex}
+          />
         </div>
       </div>
     </Layout>
