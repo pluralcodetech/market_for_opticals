@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Layout from "../../../components/superAdmin/Layout/Layout";
 import Card from "../../../components/superAdmin/product/Card";
 import { Badge } from "flowbite-react";
+import Paginator from "../../../components/superAdmin/Paginator";
 
 function OrderPageAdmin() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -31,10 +32,13 @@ function OrderPageAdmin() {
       progress: undefined,
     });
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState("");
   const [filter, setfilter] = useState("pending");
   const [loading, setLoading] = useState(false);
   const [dashboarddatas, setdashboarddatas] = useState([]);
+  const [currentPageIndex, setcurrentPageIndex] = useState(
+    products?.current_page || 1
+  );
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -46,7 +50,7 @@ function OrderPageAdmin() {
     formData.append("filter", filter);
 
     axios
-      .get(`${api_url}/orders_on_opticals`, {
+      .get(`${api_url}/orders_on_opticals?page=${currentPageIndex}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +65,7 @@ function OrderPageAdmin() {
         console.log(err.response);
         setLoading(false);
       });
-  }, [filter]);
+  }, [filter, currentPageIndex]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("super_token");
@@ -145,8 +149,8 @@ function OrderPageAdmin() {
               </tr>
             </thead>
             <tbody>
-              {products.length > 0 ? (
-                products.map((product, index) => (
+              {products && products?.data.length > 0 ? (
+                products?.data.map((product, index) => (
                   <tr key={product.order_id} className="border-b">
                     <td className="p-4 border text-center">
                       {product.customer_id}
@@ -191,6 +195,11 @@ function OrderPageAdmin() {
               )}
             </tbody>
           </table>
+          <Paginator
+            data={products}
+            setcurrentPageIndex={setcurrentPageIndex}
+            currentPageIndex={currentPageIndex}
+          />
         </div>
       </div>
     </Layout>

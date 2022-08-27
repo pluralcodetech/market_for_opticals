@@ -194,7 +194,7 @@ function WalletAdmin() {
                   : 0}
               </h1>
             </div>
-            <div className="bg-[#FBC77A] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
+            <div className="bg-[#005126] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
               <h4 className="text-gray-50">Total Amount Unpaid </h4>
               <h1 className="text-3xl font-bold my-3 text-gray-50">
                 ₦

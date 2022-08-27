@@ -108,14 +108,12 @@ function ProductDetailsAdmin() {
                         });
                     }}
                     className={`${
-                      product?.approved_status === "Approved"
+                      product?.status === "Approved"
                         ? " bg-red-500 hover:bg-red-700"
                         : " bg-green-500 hover:bg-green-700"
                     } text-white font-light py-1 px-4 rounded`}
                   >
-                    {product?.approved_status === "Approved"
-                      ? "Suspend"
-                      : "Approve"}
+                    {product?.status === "Approved" ? "Suspend" : "Approve"}
                   </button>
                 )}
                 <a
@@ -231,9 +229,7 @@ function ProductDetailsAdmin() {
                   <div className="bg-[#FADFB6] h-[80px] rounded-lg w-[95%] mb-4 mx-1 flex flex-col justify-between items-center p-2">
                     <h4>Status</h4>
                     <h2 className="text-lg font-bold text-[#FF9900]">
-                      {product.product_status === "active"
-                        ? "Active"
-                        : "Suspended"}
+                      {product.status === "Approved" ? "Approved" : "Suspended"}
                     </h2>
                   </div>
                   <div className="bg-[#FADFB6] h-[80px] rounded-lg w-[95%] mb-4 mx-1 flex flex-col justify-between items-center p-2">

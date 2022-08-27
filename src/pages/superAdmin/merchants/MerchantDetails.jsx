@@ -5,7 +5,7 @@ import axios from "axios";
 import Layout from "../../../components/superadmin/Layout/Layout";
 import Profile from "../../../components/superAdmin/merchant/Profile";
 import icon from "../../../assets/images/icon.svg";
-import Purchased from "../../../components/superAdmin/customer/Purchased";
+import Purchased from "../../../components/superAdmin/merchant/Purchased";
 import BankDetails from "../../../components/superAdmin/customer/BankDetails";
 
 function MerchantDetails() {
@@ -65,22 +65,12 @@ function MerchantDetails() {
                   </div>
                 </Card>
                 <Tabs.Group aria-label="Full width tabs" style="fullWidth">
-                  <Tabs.Item title=" Bank Details">
-                    <div className="h-full">
-                      <h4 className="text-md m-2 font-semibold">
-                        Personal Bank Account
-                      </h4>
-                      <BankDetails />
-                    </div>
-                  </Tabs.Item>
                   <Tabs.Item title=" Purchase history">
                     <div className="h-full">
                       <h4 className="text-md m-2 font-semibold">
                         All Transactions
                       </h4>
-                      <Purchased />
-                      <Purchased />
-                      <Purchased />
+                      <Purchased id={id} />
                     </div>
                   </Tabs.Item>
                   <Tabs.Item title=" Purchase Stats">
