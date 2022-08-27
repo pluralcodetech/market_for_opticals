@@ -4,7 +4,7 @@ import { Card, Avatar, Spinner } from "flowbite-react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Layout from "../../../components/superadmin/Layout/Layout";
+import Layout from "../../../components/superAdmin/Layout/Layout";
 import Profile from "../../../components/superAdmin/wallet/Profile";
 import icon from "../../../assets/images/icon.svg";
 
@@ -57,7 +57,7 @@ function WalletHistory() {
       )
       .then((res) => {
         setProduct(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         console.log(err.response);
@@ -67,7 +67,7 @@ function WalletHistory() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-1 md:p-4 w-full">
         <h1 className="text-2xl font-bold">Wallet History</h1>
         <ToastContainer
           position="top-right"
@@ -118,7 +118,7 @@ function WalletHistory() {
                 )}
               </div>
             </div>
-            <div className="col-span-1  p-5 ">
+            <div className="col-span-1  p-2 md:p-5 ">
               {product && product?.seller_details ? (
                 <Profile merchant={product?.seller_details} date={date} />
               ) : (

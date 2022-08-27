@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card, Avatar, Badge, Tabs } from "flowbite-react";
 import axios from "axios";
-import Layout from "../../../components/superadmin/Layout/Layout";
+import Layout from "../../../components/superAdmin/Layout/Layout";
 import Profile from "../../../components/superAdmin/merchant/Profile";
 import icon from "../../../assets/images/icon.svg";
 import Purchased from "../../../components/superAdmin/merchant/Purchased";
@@ -27,7 +27,7 @@ function MerchantDetails() {
       })
       .then((res) => {
         setmerchant(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         console.log(err.response);
@@ -36,7 +36,7 @@ function MerchantDetails() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-fit overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-fit overflow-y-auto p-2 md:p-4 w-full">
         <h1 className="text-2xl font-bold">Merchant</h1>
         <div className="flex">
           <img src={icon} alt="" className="mr-3" />

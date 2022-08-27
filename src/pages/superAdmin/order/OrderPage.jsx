@@ -58,7 +58,7 @@ function OrderPageAdmin() {
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
@@ -81,7 +81,7 @@ function OrderPageAdmin() {
       })
       .then((res) => {
         setdashboarddatas(res.data);
-        console.log(res.data);
+        //console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -93,7 +93,7 @@ function OrderPageAdmin() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto py-4 px-2 md:px-4 w-full">
         <div className="my-3 flex justify-between items-center ">
           <h1 className="text-2xl font-bold">Orders</h1>
           <ToastContainer
@@ -118,7 +118,7 @@ function OrderPageAdmin() {
           </select>
         </div>
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card
             title={"total amount ordered"}
             amount={dashboarddatas.total_amount_ordered || 0}
@@ -128,15 +128,15 @@ function OrderPageAdmin() {
             amount={dashboarddatas.total_pending_delivery || 0}
           />
           <Card
-            title={"total products uploaded"}
+            title={"total products"}
             amount={dashboarddatas.total_products_uploaded || 0}
           />
           <Card
-            title={"total sellers on the platform"}
+            title={"total sellers"}
             amount={dashboarddatas.total_sellers_on_the_platform || 0}
           />
         </div>
-        <div className="bg-white rounded-lg h-fit w-full mt-6">
+        <div className="bg-white rounded-lg h-fit w-full mt-6 overflow-y-auto">
           <table className="table-auto	w-full border">
             <thead>
               <tr className="text-sm text-gray-500 p-4">

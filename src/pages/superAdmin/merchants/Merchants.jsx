@@ -59,11 +59,11 @@ function Merchants() {
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
-        console.log(err.response);
+        //console.log(err.response);
         setLoading(false);
       });
   }, [filter, currentPageIndex]);
@@ -82,7 +82,7 @@ function Merchants() {
       })
       .then((res) => {
         setdashboarddatas(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -94,7 +94,7 @@ function Merchants() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-1 md:p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
           <h1 className="text-2xl font-bold">Merchants</h1>
           <ToastContainer
@@ -119,9 +119,9 @@ function Merchants() {
           </select>
         </div>
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
           <Card
-            title={"Total inActive Sellers"}
+            title={" inActive Sellers"}
             amount={dashboarddatas.total_unactive_sellers || 0}
           />
           <Card
@@ -129,7 +129,7 @@ function Merchants() {
             amount={dashboarddatas.total_active_sellers || 0}
           />
         </div>
-        <div className="bg-white rounded-lg h-fit w-full mt-6">
+        <div className="bg-white rounded-lg h-fit w-full mt-6 overflow-y-auto">
           <table className="table-auto	w-full border rounded-lg">
             <thead>
               <tr className="text-sm text-gray-500 p-4">

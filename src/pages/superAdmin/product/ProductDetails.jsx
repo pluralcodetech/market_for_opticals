@@ -27,7 +27,7 @@ function ProductDetailsAdmin() {
       })
       .then((res) => {
         setproduct(res.data);
-        console.log(res);
+        //console.log(res);
       })
       .catch((err) => {});
   }, [id]);
@@ -56,7 +56,7 @@ function ProductDetailsAdmin() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-1 md:p-4 w-full">
         <h1 className="text-2xl font-bold">Products</h1>
         <ToastContainer
           position="top-right"
@@ -75,12 +75,12 @@ function ProductDetailsAdmin() {
         </div>
         {product ? (
           <div className="w-full my-3 bg-white rounded-lg ">
-            <div className="pt-3 pb-3 px-12 flex items-center justify-between border w-full">
+            <div className="pt-3 pb-3 px-2 md:px-12 md:flex items-center justify-between border w-full">
               <div className="flex items-center">
                 <h6 className="mx-4">Product ID</h6>
                 <h1 className="text-3xl font-bold">{id}</h1>
               </div>
-              <div className="flex">
+              <div className="flex w-full pt-2 md:pt-0">
                 {!isUpdating && (
                   <button
                     onClick={() => {
@@ -128,9 +128,9 @@ function ProductDetailsAdmin() {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-8 gap-2 w-full">
-              <div className="p-8 h-fit w-full col-span-5 w-full">
+              <div className="p-2 md:p-8 h-fit w-full col-span-5 w-full">
                 <p className="text-gray-500 text-sm pl-6">Details</p>
-                <div className="w-full px-6 pt-2 bg-white rounded-lg">
+                <div className="w-full md:px-6 pt-2 bg-white rounded-lg">
                   <div className="">
                     <div className="">
                       <div className="bg-gray-400 h-64 md:h-80 rounded">
@@ -173,7 +173,7 @@ function ProductDetailsAdmin() {
                     </div>
                   </div>
                 </div>
-                <div className="w-full px-6">
+                <div className="w-full md:px-6">
                   <div className=" h-fit pb-4 mb-4  border-x border-b  rounded-lg bg-white w-full">
                     <div className="flex justify-between items-center border w-full md:w-96 rounded-lg">
                       <div

@@ -4,7 +4,7 @@ import { Card, Avatar, Spinner } from "flowbite-react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Layout from "../../../components/superadmin/Layout/Layout";
+import Layout from "../../../components/superAdmin/Layout/Layout";
 import Profile from "../../../components/superAdmin/orders/Profile";
 import icon from "../../../assets/images/icon.svg";
 
@@ -53,7 +53,7 @@ function OrdersDetailsAdmin() {
       )
       .then((res) => {
         setProduct(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         console.log(err.response);
@@ -63,7 +63,7 @@ function OrdersDetailsAdmin() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto py-4 px-2 md:px-4 w-full">
         <h1 className="text-2xl font-bold">Order</h1>
         <ToastContainer
           position="top-right"
@@ -80,7 +80,7 @@ function OrdersDetailsAdmin() {
           <img src={icon} alt="" className="mr-3" />
           <h6 className="text-slate-800">order-details |{id}</h6>
         </div>
-        <div className="w-[100%] h-fit bg-white rounded-lg mt-3">
+        <div className="w-[100%] h-fit bg-white rounded-lg mt-3 pb-4">
           <div className="pt-3 pb-3 px-12 flex items-center justify-between border w-full">
             <div className="flex items-center">
               <h6 className="mx-4">Order ID</h6>
@@ -130,7 +130,7 @@ function OrdersDetailsAdmin() {
                 )}
               </div>
             </div>
-            <div className="col-span-1  p-5 ">
+            <div className="col-span-1  px-3 md:p-5 ">
               {product && product?.customer_detail ? (
                 <Profile customer={product?.customer_detail} />
               ) : (

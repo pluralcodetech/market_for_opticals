@@ -50,7 +50,7 @@ function SettingsPageAdmin() {
       })
       .then((res) => {
         setdashboarddatas(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
@@ -73,7 +73,7 @@ function SettingsPageAdmin() {
         pauseOnHover
       />{" "}
       {!loading ? (
-        <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
+        <div className="bg-[#FDF0DC] h-screen overflow-y-auto md:p-4 w-full">
           <h1 className="text-2xl font-bold">Settings</h1>
           <div className="bg-white rounded-lg h-fit my-5">
             {!isEditing && (

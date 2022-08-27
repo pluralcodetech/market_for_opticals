@@ -22,7 +22,6 @@ import OrdersDetails from "./pages/seller/order/OrdersDetails";
 import UpdateProduct from "./pages/seller/product/UpdateProduct";
 import LoginAdmin from "./pages/superAdmin/auth/Login";
 import SignupAdmin from "./pages/superAdmin/auth/Signup";
-import MarketplaceAdmin from "./pages/superAdmin/marketplace/Marketplace";
 import DashboardAdmin from "./pages/superAdmin/Dashboard";
 import AdminProduct from "./pages/superAdmin/product/Product";
 import ProductDetailsAdmin from "./pages/superAdmin/product/ProductDetails";
@@ -35,6 +34,7 @@ import OrdersDetailsAdmin from "./pages/superAdmin/order/OrdersDetails";
 import CustomersDetails from "./pages/superAdmin/customer/CustomersDetails";
 import MerchantDetails from "./pages/superAdmin/merchants/MerchantDetails";
 import WalletHistory from "./pages/superAdmin/wallet/WalletHistory";
+import SearchPage from "./pages/superAdmin/search /SearchPage";
 
 function App() {
   return (
@@ -91,6 +91,10 @@ function App() {
         <Route path="/superadmin/merchants" element={<Merchants />} />
         <Route path="/superadmin/merchants/:id" element={<MerchantDetails />} />
         <Route path="/superadmin/settings" element={<SettingsPageAdmin />} />
+        <Route
+          path="/superadmin/search/:category/:query"
+          element={<SearchPage />}
+        />
       </Routes>
     </BrowserRouter>
   );

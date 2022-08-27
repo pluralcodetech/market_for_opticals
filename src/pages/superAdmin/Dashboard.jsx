@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 //import Chart from "../../components/superAdmin/dashboard/Chart";
 
 function DashboardAdmin() {
-  const [dashboarddatas, setdashboarddatas] = useState([]);
+  const [dashboarddatas, setdashboarddatas] = useState("");
   const [chartsdata, setchartsdata] = useState({
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
@@ -66,7 +66,7 @@ function DashboardAdmin() {
       })
       .then((res) => {
         setdashboarddatas(res.data);
-        //console.log(res.data);
+        // console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -108,12 +108,12 @@ function DashboardAdmin() {
           ],
         });
         // console.log(arr);
-        console.log(res.data);
+        // console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {
         // notifyWarning(err.response.data.error);
-        console.log(err);
+        //console.log(err);
         setLoading(false);
       });
   }, []);
@@ -124,26 +124,28 @@ function DashboardAdmin() {
         <div className="my-3">
           <h1 className="text-2xl font-bold">Dashboard</h1>
         </div>
-        <div className="grid grid-cols-7 gap-6 h-fit">
+        <div className="grid grid-col-1 md:grid-cols-7 gap-6 h-fit">
           <div className="col-span-5 ">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2  md:grid-cols-3 gap-4">
               <Card
                 title={"total amount ordered"}
-                amount={dashboarddatas.total_amount_ordered || 0}
+                amount={dashboarddatas?.total_amount_ordered || 0}
               />
               <Card
                 title={"total pending delivery"}
-                amount={dashboarddatas.total_pending_delivery || 0}
+                amount={dashboarddatas?.total_pending_delivery || 0}
               />
-              <Card
-                title={"total products uploaded"}
-                amount={dashboarddatas.total_products_uploaded || 0}
-              />
+              <div className="hidden md:block">
+                <Card
+                  title={"total products"}
+                  amount={dashboarddatas?.total_products_uploaded || 0}
+                />
+              </div>
             </div>
-            <div className="mt-6 bg-white rounded-lg h-fit shadow grid grid-cols-3 gap-4">
+            <div className="mt-2 md:mt-6 bg-white rounded-lg h-fit shadow grid grid-cols-2 md:grid-cols-3 gap-4">
               <Card
-                title={"total sellers on the platform"}
-                amount={dashboarddatas.total_sellers_on_the_platform || 0}
+                title={"total sellers"}
+                amount={dashboarddatas?.total_sellers_on_the_platform || 0}
               />
               <Card
                 title={"total customers"}
@@ -161,6 +163,12 @@ function DashboardAdmin() {
                     : 0
                 }
               />
+              <div className="md:hidden">
+                <Card
+                  title={"total products"}
+                  amount={dashboarddatas?.total_products_uploaded || 0}
+                />
+              </div>
             </div>
             <div className="h-fit bg-white mt-4 w-full rounded-lg px-6 py-6">
               {
@@ -172,16 +180,14 @@ function DashboardAdmin() {
               }
             </div>
           </div>
-          <div className="col-span-2 bg-white rounded-lg h-full w-full">
+          <div className="col-span-5 md:col-span-2 bg-white rounded-lg h-full w-full">
             <div className="shadow text-lg font-semibold p-2">Notification</div>
-            <div className="px-2">
-              <Notify />
-              <Notify />
-              <Notify />
-              <Notify />
-              <Notify />
-              <Notify />
-              <Notify />
+            <div className="px-2 w-full">
+              {dashboarddatas && dashboarddatas?.notification.length > 0
+                ? dashboarddatas.notification.map((notif) => (
+                    <Notify notification={notif} key={notif.id} />
+                  ))
+                : "no data found"}
             </div>
           </div>
         </div>

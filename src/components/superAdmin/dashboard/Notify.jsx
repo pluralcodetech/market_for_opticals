@@ -1,8 +1,8 @@
 import React from "react";
 
-function Notify() {
+function Notify({ notification }) {
   return (
-    <div className="flex justify-between items-center w-full  h-16 border-b border-gray-200">
+    <div className="flex justify-between items-center w-[100%]  h-16 border-b border-gray-200">
       <div className="bg-[#FADFB6] h-10 w-10 rounded-full flex justify-center items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,8 @@ function Notify() {
         </svg>
       </div>
       <p className="text-sm font-light w-[82%]">
-        James Lee Orderd 1 of your Products, ID NO: 093290
+        {notification.notification_name}, category:
+        {notification.notification_type}
       </p>
     </div>
   );

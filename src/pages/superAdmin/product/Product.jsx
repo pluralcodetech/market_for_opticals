@@ -4,8 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "../../../components/superAdmin/Layout/Layout";
 import Card from "../../../components/superAdmin/product/Card";
-import Addproduct from "./Addproduct";
-import Addsubproduct from "./Addsubproduct";
+
 import Paginator from "../../../components/superAdmin/Paginator";
 
 function AdminProduct() {
@@ -68,7 +67,7 @@ function AdminProduct() {
         }
       )
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setProducts(res.data);
         setLoading(false);
       })
@@ -103,7 +102,7 @@ function AdminProduct() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-1 md:p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
           <h1 className="text-2xl font-bold">Products</h1>
           <ToastContainer
@@ -128,67 +127,26 @@ function AdminProduct() {
             <option value="not approved"> not approved</option>
           </select>
         </div>
-        {isAddproductModalShowing && (
-          <div className="h-full w-full hidden">
-            <Addproduct
-              setisAddproductModalShowing={setisAddproductModalShowing}
-              setisAddSubproductModalShowing={setisAddSubproductModalShowing}
-              setproduct_id={setproduct_id}
-            />
-          </div>
-        )}
-        {isAddSubproductModalShowing && (
-          <div className="h-full w-full hidden">
-            <Addsubproduct
-              setisAddSubproductModalShowing={setisAddSubproductModalShowing}
-              product_id={product_id}
-            />
-          </div>
-        )}
-        <div className="grid grid-cols-4 gap-4">
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card
-            title="sum of stock products"
+            title="total products"
             amount={product_stock_count.sum_of_stock_products}
           />
           <Card
-            title="sum of out of stock products"
+            title="total out of stock"
             amount={product_stock_count.sum_of_outof_stock_products}
           />
           <Card
-            title="sum of approved products"
+            title="approved products"
             amount={product_stock_count.sum_of_approved_products}
           />
           <Card
-            title="sum of total order made"
+            title="total order made"
             amount={product_stock_count.sum_of_totalorder_made}
           />
-
-          <div
-            onClick={(e) =>
-              setisAddproductModalShowing(!isAddproductModalShowing)
-            }
-            className="h-20 w-full bg-white rounded-lg flex flex-col justify-between items-center p-2 shadow hidden"
-          >
-            <h4 className="text-lg font-light">Add Product</h4>
-            <h1 className="text-xl font-bold rounded-full bg-amber-400 h-10 w-10 border shadow flex justify-center items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-            </h1>
-          </div>
         </div>
-        <div className="bg-white rounded-lg h-fit w-full mt-6">
+        <div className="bg-white rounded-lg h-fit w-full mt-6 overflow-y-auto">
           <table className="table-auto	w-full border">
             <thead>
               <tr className="text-sm text-gray-500 p-4">
@@ -197,6 +155,8 @@ function AdminProduct() {
                 <th className="border">Product Name</th>
                 <th className="border">Price</th>
                 <th className="border">Qty sold</th>
+                <th className="border">stock quantity</th>
+                <th className="border">Amount made</th>
                 <th className="border">Status</th>
                 <th className="border">Action</th>
                 <th className="border"></th>
@@ -223,6 +183,12 @@ function AdminProduct() {
                     </td>
                     <td className="border text-center">
                       {product.product_amount_sold}
+                    </td>
+                    <td className="border text-center">
+                      {product.product_stock_quantity}
+                    </td>
+                    <td className="border text-center">
+                      {product.product_amount_made}
                     </td>
                     <td className="border text-center">
                       {product.approved_status}

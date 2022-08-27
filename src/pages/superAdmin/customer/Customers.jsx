@@ -59,7 +59,7 @@ function Customers() {
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
@@ -82,7 +82,7 @@ function Customers() {
       })
       .then((res) => {
         setdashboarddatas(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -94,7 +94,7 @@ function Customers() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-1 md:p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
           <h1 className="text-2xl font-bold">Customers</h1>
           <ToastContainer
@@ -119,7 +119,7 @@ function Customers() {
           </select>
         </div>
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card
             title={"Total Users"}
             amount={dashboarddatas.total_number_of_customer || 0}
@@ -134,7 +134,7 @@ function Customers() {
             amount={dashboarddatas.total_suspended_customer || 0}
           />
         </div>
-        <div className="bg-white rounded-lg h-fit w-full mt-6">
+        <div className="bg-white rounded-lg h-fit w-full mt-6 overflow-y-auto">
           <table className="table-auto	w-full border rounded-lg">
             <thead>
               <tr className="text-sm text-gray-500 p-4">

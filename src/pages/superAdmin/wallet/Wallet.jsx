@@ -4,7 +4,7 @@ import { Avatar, Badge } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { HiCheck } from "react-icons/hi";
-import Layout from "../../../components/superadmin/Layout/Layout";
+import Layout from "../../../components/superAdmin/Layout/Layout";
 import Paginator from "../../../components/superAdmin/Paginator";
 
 function WalletAdmin() {
@@ -83,7 +83,7 @@ function WalletAdmin() {
       })
       .then((res) => {
         setproduct_stock_count(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
@@ -93,7 +93,7 @@ function WalletAdmin() {
 
   return (
     <Layout>
-      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-1 md:p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
           <h1 className="text-2xl font-bold">Wallet</h1>
           <ToastContainer
@@ -117,8 +117,8 @@ function WalletAdmin() {
             <option value="Out of stock">Out of Stock</option>
           </select>
         </div>
-        <div className="bg-white rounded-lg h-fit w-full mt-6 grid grid-cols-7 gap-1 pb-5">
-          <div className="col-span-5">
+        <div className="bg-white rounded-lg h-fit w-full mt-6 grid grid-cols-1 md:grid-cols-7 gap-1 pb-5">
+          <div className="col-span-5 order-last md:order-first overflow-y-auto">
             <table className="table-auto	w-full border  rounded-lg">
               <thead>
                 <tr className="text-sm text-gray-500 p-4">
@@ -185,7 +185,7 @@ function WalletAdmin() {
             />
           </div>
           <div className="w-full col-span-2">
-            <div className="bg-[#E16A16] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
+            <div className="bg-[#E16A16] h-24 w-full md:w-[90%] pt-3 rounded-lg  mt-6  mx-1 md:mx-3 flex flex-col items-center">
               <h4 className="text-gray-50">Total Amount Earned</h4>
               <h1 className="text-3xl font-bold my-3 text-gray-50">
                 ₦
@@ -194,7 +194,7 @@ function WalletAdmin() {
                   : 0}
               </h1>
             </div>
-            <div className="bg-[#005126] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
+            <div className="bg-[#005126] h-24 w-full md:w-[90%] pt-3 rounded-lg  mt-6  mx-1 md:mx-3 flex flex-col items-center">
               <h4 className="text-gray-50">Total Amount Unpaid </h4>
               <h1 className="text-3xl font-bold my-3 text-gray-50">
                 ₦
@@ -203,7 +203,7 @@ function WalletAdmin() {
                   : 0}
               </h1>
             </div>
-            <div className="bg-[#BCFFDB] h-24 w-[90%] pt-3 rounded-lg  mt-6 mx-3 flex flex-col items-center">
+            <div className="bg-[#BCFFDB] h-24 w-full md:w-[90%] pt-3 rounded-lg  mt-6  mx-1 md:mx-3 flex flex-col items-center">
               <h4 className="text-gray-50">Total Amount Paid</h4>
               <h1 className="text-3xl font-bold my-3 text-gray-50">
                 ₦

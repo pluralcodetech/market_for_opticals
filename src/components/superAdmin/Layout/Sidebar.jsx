@@ -32,7 +32,7 @@ function Sidebar() {
   };
 
   return (
-    <div className="flex  items-center h-full w-full flex-col">
+    <div className="flex  items- h-full w-full flex-col">
       <div className="flex justify-center items-center h-20 px-4">
         <img src={logoWhite} alt="logo" className="w-full" />
       </div>
@@ -68,7 +68,7 @@ function Sidebar() {
         ))}
       </ul>
       <button
-        className="bg-white px-5 py-2 rounded-lg"
+        className="bg-white px-5 py-2 rounded-lg w-32 mx-3 mb-3"
         onClick={() => logout()}
       >
         Logout

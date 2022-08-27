@@ -4,7 +4,7 @@ import { Card, Avatar, Spinner, Tabs } from "flowbite-react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Layout from "../../../components/superadmin/Layout/Layout";
+import Layout from "../../../components/superAdmin/Layout/Layout";
 import Profile from "../../../components/superAdmin/customer/Profile";
 import icon from "../../../assets/images/icon.svg";
 import Purchased from "../../../components/superAdmin/customer/Purchased";
