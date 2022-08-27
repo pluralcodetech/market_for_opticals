@@ -67,7 +67,7 @@ function SearchPage() {
             ""
           )
         ) : (
-          "Nothing found"
+          <Spinner color="warning" aria-label="Warning spinner example" />
         )}
 
         {searchresult ? (
@@ -91,7 +91,7 @@ function SearchPage() {
             ""
           )
         ) : (
-          "Nothing found"
+          <Spinner color="warning" aria-label="Warning spinner example" />
         )}
       </div>
     </div>
