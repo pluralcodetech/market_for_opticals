@@ -4,6 +4,7 @@ import { useAtom } from "jotai";
 import axios from "axios";
 import logoWhite from "../../../assets/images/logo-white.svg";
 import sideBarDatas from "./data";
+import { Button } from "flowbite-react";
 
 function Sidebar() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -15,7 +16,7 @@ function Sidebar() {
   const logout = () => {
     if (window.confirm("are you sure you want to logout?")) {
       axios
-        .get(`${api_url}/admin_logout`, {
+        .get(`${api_url}/logout_super_admin`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("super_token")}`,
           },
@@ -32,7 +33,7 @@ function Sidebar() {
   };
 
   return (
-    <div className="flex  items- h-full w-full flex-col">
+    <div className="flex  pb-5 h-full w-full flex-col">
       <div className="flex justify-center items-center h-20 px-4">
         <img src={logoWhite} alt="logo" className="w-full" />
       </div>
@@ -67,12 +68,13 @@ function Sidebar() {
           </li>
         ))}
       </ul>
-      <button
-        className="bg-white px-5 py-2 rounded-lg w-32 mx-3 mb-3"
+      <Button
+        outline={true}
+        gradientDuoTone="redToYellow"
         onClick={() => logout()}
       >
         Logout
-      </button>
+      </Button>
     </div>
   );
 }

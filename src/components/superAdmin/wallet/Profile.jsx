@@ -86,6 +86,10 @@ function Profile({ merchant, date }) {
         <h6>{merchant.company_phone_number}</h6>
       </div>
       <div className="w-full mt-3">
+        <h6 className="text-lg font-semibold">Account Details</h6>
+        <h6 className="text-sm font-light">{merchant.account_details}</h6>
+      </div>
+      <div className="w-full mt-3">
         <h6 className="text-lg font-semibold">Address</h6>
         <h6 className="text-sm font-light">
           {merchant.address},{merchant.state}

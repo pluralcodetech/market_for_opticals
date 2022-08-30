@@ -93,7 +93,7 @@ function Marketplace() {
 
   return (
     <Layout>
-      <div className="p-8 bg-gray-200 h-fit">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
         <div className="flex">
           <h4 className="text-2xl font-bold mb-3">Marketplace</h4>
         </div>

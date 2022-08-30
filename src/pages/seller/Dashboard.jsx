@@ -6,10 +6,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Spinner } from "flowbite-react";
 //import Chart from "../../components/seller/dashboard/Chart";
 
 function Dashboard() {
-  const [dashboarddatas, setdashboarddatas] = useState([]);
+  const [dashboarddatas, setdashboarddatas] = useState("");
   /* const [chartsdata, setchartsdata] = useState({
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
@@ -66,7 +67,7 @@ function Dashboard() {
       })
       .then((res) => {
         setdashboarddatas(res.data);
-        console.log(res.data);
+        console.log(res.data.notifications);
         setLoading(false);
       })
       .catch((err) => {
@@ -119,13 +120,13 @@ function Dashboard() {
 
   return (
     <Layout>
-      <div className="bg-gray-200 h-fit p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
         <div className="my-3">
           <h1 className="text-2xl font-bold">Dashboard</h1>
         </div>
-        <div className="grid grid-cols-7 gap-6 h-fit">
+        <div className="grid grid-cols-1  md:grid-cols-7 gap-6 h-fit">
           <div className="col-span-5 ">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <Card
                 title={"total aproved products"}
                 amount={dashboarddatas.total_aproved_products || 0}
@@ -139,13 +140,13 @@ function Dashboard() {
                 amount={dashboarddatas.total_pending_order || 0}
               />
             </div>
-            <div className="mt-6 bg-white rounded-lg h-20 shadow grid grid-cols-3 gap-4">
+            <div className="mt-6 bg-white rounded-lg h-fit shadow grid grid-cols-3 gap-4">
               <Card
                 title={"total unaproved products"}
                 amount={dashboarddatas.total_unaproved_products || 0}
               />
               <Card
-                title={"total_aproved_products"}
+                title={"total aproved products"}
                 amount={
                   dashboarddatas.total_aproved_products
                     ? dashboarddatas.total_aproved_products
@@ -173,16 +174,20 @@ function Dashboard() {
               )}
             </div>
           </div>
-          <div className="col-span-2 bg-white rounded-lg h-full w-full">
+          <div className="col-span-5 md:col-span-2 bg-white rounded-lg h-full w-full">
             <div className="shadow text-lg font-semibold p-2">Notification</div>
             <div className="px-2">
-              <Notify />
-              <Notify />
-              <Notify />
-              <Notify />
-              <Notify />
-              <Notify />
-              <Notify />
+              {dashboarddatas ? (
+                dashboarddatas.notifications.map((notification) => (
+                  <Notify notification={notification} />
+                ))
+              ) : (
+                <Spinner
+                  color="warning"
+                  aria-label="Extra large spinner example"
+                  size="xl"
+                />
+              )}
             </div>
           </div>
         </div>

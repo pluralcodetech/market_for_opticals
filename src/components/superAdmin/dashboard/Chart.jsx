@@ -1,8 +1,9 @@
 import React from "react";
+
 import { Bar } from "react-chartjs-2";
 
 function Chart({ chartData }) {
-  console.log("passed down", chartData);
+  //console.log("passed down", chartData);
   return (
     <div>
       <Bar

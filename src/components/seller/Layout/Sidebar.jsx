@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAtom } from "jotai";
 import axios from "axios";
 import logoWhite from "../../../assets/images/logo-white.svg";
 import sideBarDatas from "./data";
+import { Button } from "flowbite-react";
 
 function Sidebar() {
   const api_url = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
+  let location = useLocation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [sideBarData, setsideBarData] = useAtom(sideBarDatas);
 
@@ -31,7 +34,7 @@ function Sidebar() {
   };
 
   return (
-    <div className="flex  items-center h-full w-full flex-col">
+    <div className="flex  h-full w-full flex-col pb-5">
       <div className="flex justify-center items-center h-20 px-4">
         <img src={logoWhite} alt="logo" className="w-full" />
       </div>
@@ -40,7 +43,7 @@ function Sidebar() {
           <li
             key={index}
             className={`${
-              item.isActive
+              location.pathname === item.link
                 ? "bg-[#E16A16] text-white flex  items-center my-4 py-2 px-4 border-l-8 border-solid border-white rounded-l-lg"
                 : "bg-transparent text-gray-100 flex  items-center my-4 py-2 px-4"
             }`}
@@ -66,12 +69,13 @@ function Sidebar() {
           </li>
         ))}
       </ul>
-      <button
-        className="bg-white px-5 py-2 rounded-lg"
+      <Button
+        outline={true}
+        gradientDuoTone="redToYellow"
         onClick={() => logout()}
       >
         Logout
-      </button>
+      </Button>
     </div>
   );
 }

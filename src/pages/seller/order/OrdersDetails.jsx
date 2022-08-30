@@ -32,7 +32,7 @@ function OrdersDetails() {
   return (
     <Layout>
       {product && (
-        <div className="bg-gray-200 w-full p-8 h-full">
+        <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-4 w-full">
           <div className="bg-white rounded-lg w-full md:w-7/12 mx-auto h-full">
             <img src={product.image_url} alt="" className="h-[60%]" />
             <div className="p-3 w-full">

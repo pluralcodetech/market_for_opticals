@@ -101,11 +101,18 @@ function WalletHistory() {
                           Product Price: ₦{data.product_price}
                         </p>
                         <p className="text-xs">
-                          Amount Ordered: {data.amount_ordered}
+                          Amount Ordered: {data.product_quantity}
                         </p>{" "}
                         <p className="text-xs">
-                          {data.time} | {data.date}
-                        </p>
+                          Amount made: {data.total_amount_product_made}
+                        </p>{" "}
+                        <p className="text-xs">
+                          Amount made from commission:{" "}
+                          {data.total_amount_made_fromcommission}
+                        </p>{" "}
+                        <p className="text-xs">
+                          Amount to pay seller: {data.amount_to_pay_seller}
+                        </p>{" "}
                       </div>
                     </div>
                   ))

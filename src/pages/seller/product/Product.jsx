@@ -95,7 +95,7 @@ function Product() {
 
   return (
     <Layout>
-      <div className="bg-gray-200 h-fit overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-1 md:p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
           <h1 className="text-2xl font-bold">Products</h1>
           <ToastContainer
@@ -136,13 +136,13 @@ function Product() {
             />
           </div>
         )}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2  md:grid-cols-4 gap-4">
           <Card
             title="sum of stock products"
             amount={product_stock_count.sum_of_stock_products}
           />
           <Card
-            title="sum of out of stock products"
+            title="out of stock products"
             amount={product_stock_count.sum_of_outof_stock_products}
           />
           <div
@@ -170,7 +170,7 @@ function Product() {
             </h1>
           </div>
         </div>
-        <div className="bg-white rounded-lg h-fit w-full mt-6">
+        <div className="bg-white rounded-lg h-fit w-full mt-6 overflow-y-auto">
           <table className="table-auto	w-full border">
             <thead>
               <tr className="text-sm text-gray-500 p-4">

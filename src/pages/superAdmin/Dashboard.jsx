@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-//import Chart from "../../components/superAdmin/dashboard/Chart";
+import Chart from "../../components/superAdmin/dashboard/Chart";
 
 function DashboardAdmin() {
   const [dashboarddatas, setdashboarddatas] = useState("");
@@ -171,13 +171,11 @@ function DashboardAdmin() {
               </div>
             </div>
             <div className="h-fit bg-white mt-4 w-full rounded-lg px-6 py-6">
-              {
-                <div className="text-center">
-                  <div className="spinner-border text-primary" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
+              <div className="text-center">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="sr-only">Loading...</span>
                 </div>
-              }
+              </div>
             </div>
           </div>
           <div className="col-span-5 md:col-span-2 bg-white rounded-lg h-full w-full">

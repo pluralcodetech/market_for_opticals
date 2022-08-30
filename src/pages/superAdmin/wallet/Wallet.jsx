@@ -83,7 +83,7 @@ function WalletAdmin() {
       })
       .then((res) => {
         setproduct_stock_count(res.data);
-        //console.log(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
@@ -127,8 +127,6 @@ function WalletAdmin() {
                   <th className="border">UserName</th>
                   <th className="p-4 border"> Date</th>
                   <th className="border">Status</th>
-                  <th className="p-4 border">Account</th>
-                  <th className="p-4 border">Total Price</th>
                   <th className="border"></th>
                 </tr>
               </thead>
@@ -145,15 +143,11 @@ function WalletAdmin() {
                       <td className="border text-center">
                         {product.company_name}
                       </td>
-                      <td className="border text-center">
-                        <Badge color="success" icon={HiCheck}>
-                          verified
-                        </Badge>
-                      </td>
+                      <td className="border text-center">{product.date}</td>
+
                       <td className="border text-center">
                         {product.payment_status}
                       </td>
-                      <td className="border text-center">{product.date}</td>
 
                       <td className="border text-center rounded-lg">
                         <a

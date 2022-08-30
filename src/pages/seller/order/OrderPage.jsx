@@ -53,7 +53,7 @@ function OrderPage() {
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
@@ -76,7 +76,7 @@ function OrderPage() {
       })
       .then((res) => {
         setdashboarddatas(res.data);
-        console.log(res.data);
+        //console.log(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -88,7 +88,7 @@ function OrderPage() {
 
   return (
     <Layout>
-      <div className="bg-gray-200 h-fit overflow-y-auto p-4 w-full">
+      <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-1 md:p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
           <h1 className="text-2xl font-bold">Products</h1>
           <ToastContainer
@@ -113,7 +113,7 @@ function OrderPage() {
           </select>
         </div>
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card
             title={"total aproved products"}
             amount={dashboarddatas.total_aproved_products || 0}
@@ -135,7 +135,7 @@ function OrderPage() {
           <table className="table-auto	w-full border">
             <thead>
               <tr className="text-sm text-gray-500 p-4">
-                <th className="p-4 border">Order ID</th>
+                <th className="p-4 border">customer ID</th>
                 <th className="border">Customer Name</th>
                 <th className="border"> Ordered on</th>
                 <th className="border"></th>
@@ -146,15 +146,17 @@ function OrderPage() {
                 products.map((product, index) => (
                   <tr key={product.order_id} className="border-b">
                     <td className="p-4 border text-center">
-                      {product.order_id}
+                      {product.customer_id}
                     </td>
 
-                    <td className="border text-center">{product.name}</td>
+                    <td className="border text-center">
+                      {product.customer_name}
+                    </td>
                     <td className="border text-center">{product.date}</td>
 
                     <td className="border text-center">
                       <a
-                        href={`/seller/orders-detail/${product.order_id}`}
+                        href={`/seller/orders-detail/${product.customer_id}`}
                         className="flex justify-center items-center w-full"
                       >
                         <button className="border border-[#E16A16] text-[#E16A16] text-white font-bold py-1 px-4 rounded">
