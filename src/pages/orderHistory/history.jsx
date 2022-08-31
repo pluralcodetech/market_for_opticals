@@ -13,7 +13,7 @@ function History() {
     axios
       .get(`${api_url}/customer_order_history`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("user_token")}`,
         },
       })
       .then((res) => {
@@ -33,9 +33,11 @@ function History() {
           <h4 className="text-lg font-bold">Order History</h4>
         </div>
         {history.length > 0 ? (
-          history.map((save, index) => {
-            return <Product key={save.id} product={save} index={index} />;
-          })
+          history.map((save, index) =>
+            save.map((sav, index) => (
+              <Product key={sav.id} product={sav} index={index} />
+            ))
+          )
         ) : (
           <div className="text-center">
             <h4 className="text-sm font-bold my-72">No history items</h4>

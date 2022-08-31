@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Layout from "../../components/layout";
 import Navbar2 from "../../components/market/navbar/navbar2";
 
 function Profile() {
   const api_url = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
   const [isediting, setisediting] = useState(false);
 
   const [user, setuser] = useState("");
@@ -52,7 +54,7 @@ function Profile() {
       .post(`${api_url}/update_customer_details`, {
         formData,
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("user_token")}`,
         },
       })
       .then((res) => {
@@ -69,7 +71,7 @@ function Profile() {
   const logout = () => {
     if (window.confirm("are you sure you want to logout?")) {
       sessionStorage.clear();
-      window.location.reload();
+      navigate("/");
     }
   };
 
@@ -232,7 +234,6 @@ function Profile() {
               )}
             </form>
           </div>
-          <div className="bg-white  border h-96 rounded"></div>
         </div>
       </div>
     </Layout>

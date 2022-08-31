@@ -49,7 +49,7 @@ function LoginForm({ setshowSignupForm }) {
       .then((res) => {
         setLoading(false);
         notifySuccess(res.data.status);
-        sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("user_token", res.data.token);
         sessionStorage.setItem("user", JSON.stringify(res.data.user));
         //console.log(res.data);
         setTimeout(() => {

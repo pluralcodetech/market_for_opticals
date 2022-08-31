@@ -6,18 +6,23 @@ import Sidebar from "../../components/market/sidebar";
 import axios from "axios";
 import Spinner from "../loader/spinner";
 import Brand from "../../components/market/brand";
+import Paginator from "../../components/paginator";
 
 function Index() {
   const api_url = import.meta.env.VITE_API_URL;
 
   const [showSidebar, setShowSidebar] = useState(false);
 
-  const [products, setproducts] = useState([]);
+  const [products, setproducts] = useState("");
 
   const [selectedCat, setselectedCat] = useState(2);
   const [selectedSubCat, setselectedSubCat] = useState([]);
   const [brands, setBrands] = useState([]);
   const [subcart, setsubcart] = useState([]);
+
+  const [currentPageIndex, setcurrentPageIndex] = useState(
+    products?.current_page || 1
+  );
 
   useEffect(() => {
     axios
@@ -34,7 +39,9 @@ function Index() {
 
   useEffect(() => {
     axios
-      .get(`${api_url}/get_products?parent_cat_id=${selectedCat}`)
+      .get(
+        `${api_url}/get_products?parent_cat_id=${selectedCat}&page${currentPageIndex}`
+      )
       .then((res) => {
         console.log(res);
         setproducts(res.data);
@@ -42,7 +49,7 @@ function Index() {
       .catch((err) => {
         console.log(err);
       });
-  }, [selectedCat]);
+  }, [selectedCat, currentPageIndex]);
 
   useEffect(() => {
     const formData = new FormData();
@@ -59,7 +66,9 @@ function Index() {
         });
     } else {
       axios
-        .get(`${api_url}/get_products?parent_cat_id=${selectedCat}`)
+        .get(
+          `${api_url}/get_products?parent_cat_id=${selectedCat}&page${currentPageIndex}`
+        )
         .then((res) => {
           console.log(res);
           setproducts(res.data);
@@ -68,7 +77,7 @@ function Index() {
           console.log(err);
         });
     }
-  }, [selectedCat, selectedSubCat]);
+  }, [selectedCat, selectedSubCat, currentPageIndex]);
 
   return (
     <Layout
@@ -121,15 +130,20 @@ function Index() {
             </select>
           </div> */}
           <div className="mx-auto mb-6">
-            {products.length > 0 ? (
+            {products ? (
               <div className=" grid grid-cols-2 md:grid-cols-4 gap-4 mt-1 md:mt-3 mx-2">
-                {products.map((product) => (
+                {products.data.map((product) => (
                   <Product key={product.id} product={product} />
                 ))}
               </div>
             ) : (
               <Spinner />
             )}
+            <Paginator
+              data={products}
+              setcurrentPageIndex={setcurrentPageIndex}
+              currentPageIndex={currentPageIndex}
+            />
           </div>
         </div>
       </div>

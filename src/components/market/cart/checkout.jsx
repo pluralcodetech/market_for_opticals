@@ -83,7 +83,7 @@ function Checkout() {
     axios
       .post(`${api_url}/verify_payments`, formData, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("user_token")}`,
         },
       })
       .then((res) => {
@@ -201,7 +201,7 @@ function Checkout() {
         </select>
       </div>
 
-      <div>
+      <div className="zIndex-5">
         <PaystackHookExample />
       </div>
     </form>
