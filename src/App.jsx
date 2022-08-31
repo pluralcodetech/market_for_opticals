@@ -35,6 +35,7 @@ import CustomersDetails from "./pages/superAdmin/customer/CustomersDetails";
 import MerchantDetails from "./pages/superAdmin/merchants/MerchantDetails";
 import WalletHistory from "./pages/superAdmin/wallet/WalletHistory";
 import SearchPage from "./pages/superAdmin/search /SearchPage";
+import SearchPageSeller from "./pages/seller/search /SearchPage";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/orders" element={<History />} />
+
         <Route path="/seller/login" element={<Login />} />
         <Route path="/seller/register" element={<SignupForm />} />
         <Route path="/seller/dashboard" element={<Dashboard />} />
@@ -65,6 +67,11 @@ function App() {
         <Route path="/seller/orders-detail/:id" element={<OrdersDetails />} />
         <Route path="/seller/product-detail/:id" element={<ProductDetails />} />
         <Route path="/seller/edit-product/:id" element={<UpdateProduct />} />
+        <Route
+          path="/seller/search/:category/:query"
+          element={<SearchPageSeller />}
+        />
+
         <Route path="/superadmin/login" element={<LoginAdmin />} />
         <Route path="/superadmin/register" element={<SignupAdmin />} />
         <Route path="/superadmin/dashboard" element={<DashboardAdmin />} />

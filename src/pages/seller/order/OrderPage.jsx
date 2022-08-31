@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "../../../components/seller/Layout/Layout";
 import Card from "../../../components/seller/product/Card";
+import Paginator from "../../../components/seller/Paginator";
 
 function OrderPage() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -30,12 +31,16 @@ function OrderPage() {
       progress: undefined,
     });
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState("");
   const [filter, setfilter] = useState("approved");
   const [loading, setLoading] = useState(false);
-  const [dashboarddatas, setdashboarddatas] = useState([]);
+  const [dashboarddatas, setdashboarddatas] = useState("");
+  const [currentPageIndex, setcurrentPageIndex] = useState(
+    products?.current_page || 1
+  );
 
   useEffect(() => {
+    console.log(currentPageIndex);
     const token = sessionStorage.getItem("token");
     if (!token) {
       navigate("/seller/login");
@@ -45,7 +50,7 @@ function OrderPage() {
     formData.append("filter", filter);
 
     axios
-      .get(`${api_url}/get_adminorderedproduct`, {
+      .get(`${api_url}/get_adminorderedproduct?page${currentPageIndex}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -53,14 +58,14 @@ function OrderPage() {
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
-        //console.log(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         notifyWarning(err.response.data.message);
         console.log(err.response);
         setLoading(false);
       });
-  }, [filter]);
+  }, [filter, currentPageIndex]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -90,7 +95,7 @@ function OrderPage() {
     <Layout>
       <div className="bg-[#FDF0DC] h-screen overflow-y-auto p-1 md:p-4 w-full">
         <div className="my-3 flex justify-between items-center ">
-          <h1 className="text-2xl font-bold">Products</h1>
+          <h1 className="text-2xl font-bold">Orders</h1>
           <ToastContainer
             position="top-right"
             autoClose={5000}
@@ -137,13 +142,14 @@ function OrderPage() {
               <tr className="text-sm text-gray-500 p-4">
                 <th className="p-4 border">customer ID</th>
                 <th className="border">Customer Name</th>
+                <th className="border">Delivery status</th>
                 <th className="border"> Ordered on</th>
                 <th className="border"></th>
               </tr>
             </thead>
             <tbody>
-              {products.length > 0 ? (
-                products.map((product, index) => (
+              {products ? (
+                products.data.map((product, index) => (
                   <tr key={product.order_id} className="border-b">
                     <td className="p-4 border text-center">
                       {product.customer_id}
@@ -151,6 +157,9 @@ function OrderPage() {
 
                     <td className="border text-center">
                       {product.customer_name}
+                    </td>
+                    <td className="border text-center">
+                      {product.delivery_status}
                     </td>
                     <td className="border text-center">{product.date}</td>
 
@@ -175,6 +184,11 @@ function OrderPage() {
               )}
             </tbody>
           </table>
+          <Paginator
+            data={products}
+            setcurrentPageIndex={setcurrentPageIndex}
+            currentPageIndex={currentPageIndex}
+          />
         </div>
       </div>
     </Layout>

@@ -152,7 +152,9 @@ function Wallet() {
                       <td className="border text-center">
                         {product.amount_ordered}
                       </td>
-                      <td className="border text-center">{product.status}</td>
+                      <td className="border text-center">
+                        {product.payment_status}
+                      </td>
 
                       <td className="border text-center">
                         <a

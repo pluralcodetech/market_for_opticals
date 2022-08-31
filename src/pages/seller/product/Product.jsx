@@ -6,6 +6,7 @@ import Layout from "../../../components/seller/Layout/Layout";
 import Card from "../../../components/seller/product/Card";
 import Addproduct from "./Addproduct";
 import Addsubproduct from "./Addsubproduct";
+import Paginator from "../../../components/seller/Paginator";
 
 function Product() {
   const api_url = import.meta.env.VITE_API_URL;
@@ -36,13 +37,16 @@ function Product() {
       progress: undefined,
     });
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState("");
   const [product_id, setproduct_id] = useState("");
   const [filter, setfilter] = useState("approved");
   const [loading, setLoading] = useState(false);
   const [isDeleting, setisDeleting] = useState(false);
 
   const [product_stock_count, setproduct_stock_count] = useState("");
+  const [currentPageIndex, setcurrentPageIndex] = useState(
+    products?.current_page || 1
+  );
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -54,11 +58,15 @@ function Product() {
     formData.append("filter", filter);
 
     axios
-      .post(`${api_url}/admin_product_list`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `${api_url}/admin_product_list?page=${currentPageIndex}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
@@ -69,7 +77,7 @@ function Product() {
         console.log(err.response);
         setLoading(false);
       });
-  }, [filter]);
+  }, [filter, currentPageIndex]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -139,11 +147,11 @@ function Product() {
         <div className="grid grid-cols-2  md:grid-cols-4 gap-4">
           <Card
             title="sum of stock products"
-            amount={product_stock_count.sum_of_stock_products}
+            amount={product_stock_count.sum_of_stock_products || 0}
           />
           <Card
             title="out of stock products"
-            amount={product_stock_count.sum_of_outof_stock_products}
+            amount={product_stock_count.sum_of_outof_stock_products || 0}
           />
           <div
             onClick={(e) =>
@@ -179,6 +187,9 @@ function Product() {
                 <th className="border">Product Name</th>
                 <th className="border">Price</th>
                 <th className="border">Qty sold</th>
+                <th className="border">amount made</th>
+                <th className="border">product stock</th>
+                <th className="border"> stock quantity</th>
                 <th className="border">Status</th>
                 <th className="border">Action</th>
                 <th className="border"></th>
@@ -186,8 +197,8 @@ function Product() {
               </tr>
             </thead>
             <tbody>
-              {products.length > 0 ? (
-                products.map((product, index) => (
+              {products ? (
+                products.data.map((product, index) => (
                   <tr key={product.id} className="border-b">
                     <td className="p-4 border text-center">{product.id}</td>
                     <td className="border">
@@ -205,6 +216,15 @@ function Product() {
                     </td>
                     <td className="border text-center">
                       {product.product_amount_sold}
+                    </td>
+                    <td className="border text-center">
+                      #{product.product_amount_made}
+                    </td>
+                    <td className="border text-center">
+                      {product.product_stock}
+                    </td>
+                    <td className="border text-center">
+                      {product.product_stock_quantity}
                     </td>
                     <td className="border text-center">
                       {product.approved_status}
@@ -275,6 +295,11 @@ function Product() {
               )}
             </tbody>
           </table>
+          <Paginator
+            data={products}
+            setcurrentPageIndex={setcurrentPageIndex}
+            currentPageIndex={currentPageIndex}
+          />
         </div>
       </div>
     </Layout>

@@ -11,18 +11,23 @@ import Cart from "../../../components/seller/market/navbar/cart";
 import Cat from "../../../components/seller/market/navbar/cat";
 import Wishlist from "../../../components/seller/market/navbar/wishlist";
 import Product from "../../../components/seller/market/product/product";
+import Paginator from "../../../components/seller/Paginator";
 
 function Marketplace() {
   const api_url = import.meta.env.VITE_API_URL;
 
   const [showSidebar, setShowSidebar] = useState(false);
 
-  const [products, setproducts] = useState([]);
+  const [products, setproducts] = useState("");
 
   const [selectedCat, setselectedCat] = useState(2);
   const [selectedSubCat, setselectedSubCat] = useState([]);
   const [brands, setBrands] = useState([]);
   const [subcart, setsubcart] = useState([]);
+
+  const [currentPageIndex, setcurrentPageIndex] = useState(
+    products?.current_page || 1
+  );
 
   useEffect(() => {
     axios
@@ -55,7 +60,7 @@ function Marketplace() {
       .catch((err) => {
         console.log(err);
       });
-  }, [selectedCat]);
+  }, [selectedCat, currentPageIndex]);
 
   useEffect(() => {
     const formData = new FormData();
@@ -128,15 +133,20 @@ function Marketplace() {
               </div>
             </div>
             <div className="mx-auto mb-6">
-              {products.length > 0 ? (
+              {products ? (
                 <div className=" grid grid-cols-2 md:grid-cols-4 gap-4 mt-1 md:mt-3 mx-2">
-                  {products.map((product) => (
+                  {products.data.map((product) => (
                     <Product key={product.id} product={product} />
                   ))}
                 </div>
               ) : (
                 <Spinner />
               )}
+              <Paginator
+                data={products}
+                setcurrentPageIndex={setcurrentPageIndex}
+                currentPageIndex={currentPageIndex}
+              />
             </div>
           </div>
         </div>
